@@ -202,7 +202,7 @@ public class Style
 
             public bool QtValue
             {
-                get => _qtValue;
+                get => GetPlayerOptions();
                 set
                 {
                     _qtValue = value;
@@ -233,6 +233,22 @@ public class Style
                 var field = typeof(PlayerOptions).GetField(name);
                 field?.SetValue(PlayerOptions.Instance, _qtValue);
 
+            }
+
+            public bool GetPlayerOptions()
+            {
+                var name = Name;
+                if (Language.Instance.Type2Config[LanguageType.EN].KV.TryGetValue(Name, out var enName))
+                {
+                    name = enName;
+                }
+                // 反射拿到PlayerOptions的字段，然后获取值
+                var field = typeof(PlayerOptions).GetField(name);
+                if (field != null)
+                {
+                    _qtValue = (bool)field.GetValue(PlayerOptions.Instance);
+                }
+                return _qtValue;
             }
 
             ///重置qt状态

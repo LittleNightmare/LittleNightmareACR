@@ -215,13 +215,14 @@ namespace LittleNightmare.Summoner
             QtWindow.AddQt("爆发".Loc(), true);
             QtWindow.AddQt("爆发药".Loc(), true );
             QtWindow.AddQt("AOE".Loc(), true);
-            QtWindow.AddQt("最终爆发".Loc(), true);
+            QtWindow.AddQt("最终爆发".Loc(), false);
             QtWindow.AddQt("灼热之光".Loc(), true);
             QtWindow.AddQt("三神召唤".Loc(), true);
             QtWindow.AddQt("巴哈凤凰".Loc(), true);
             QtWindow.AddQt("宝石耀".Loc(), true);
             QtWindow.AddQt("自动火神冲".Loc(), SMNSettings.Instance.qt自动火神冲);
-            QtWindow.AddQt("预读风神即刻咏唱".Loc(), false);
+            // 毛病太多算了
+            // QtWindow.AddQt("预读风神即刻咏唱".Loc(), false);
         }
 
         /// 获取指定名称qt的bool值

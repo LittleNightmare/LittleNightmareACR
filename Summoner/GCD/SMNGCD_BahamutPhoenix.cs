@@ -7,7 +7,7 @@ namespace LittleNightmare.Summoner.GCD
 {
     public class SMNGCD_BahamutPhoenix : ISlotResolver
     {
-        public Spell GetSpell()
+        public Spell? GetSpell()
         {
             if (Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Bahamut) || Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Phoneix))
             {

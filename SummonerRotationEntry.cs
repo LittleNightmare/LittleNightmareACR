@@ -80,8 +80,8 @@ namespace LittleNightmare
                     new SMNTriggerActionSearingLight(),
                     new SMNTriggerActionSummon(),
                     new SMNTriggerActionUseSummon(),
-                    new SMNTriggerActionSwiftCastMode(),
-                    new SMNTriggerActionPreCastSwiftcast()
+                    new SMNTriggerActionSwiftCastMode()
+                    // new SMNTriggerActionPreCastSwiftcast()
                 );
         }
 
