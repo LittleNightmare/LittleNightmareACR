@@ -48,5 +48,10 @@ namespace LittleNightmare.Summoner
         /// 开场第二个GCD使用能量吸收
         /// </summary>
         public bool FastEnergyDrain = false;
+
+        /// <summary>
+        /// 在移动时，使用火神冲填充GCD，比毁4优先级高
+        /// </summary>
+        public bool SlideUseCrimonCyclone = true;
     }
 }

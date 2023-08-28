@@ -28,15 +28,21 @@ namespace LittleNightmare.Summoner.GCD
             {
                 return -9;
             }
+
+            var onTargetRing = Core.Me.DistanceMelee(Core.Me.GetCurrTarget()) <= 0;
             if (Core.Get<IMemApiMove>().IsMoving())
             {
-                return -2;
+                if (!onTargetRing)
+                {
+                    return -2;
+                }
+                if (SMNSettings.Instance.SlideUseCrimonCyclone) return 0;
             }
             if (Qt.GetQt("自动火神冲".Loc()))
             {
                 return 0;
             }
-            if (Core.Me.Distance(Core.Me.GetCurrTarget()) <= SettingMgr.GetSetting<GeneralSettings>().AttackRange)
+            if (onTargetRing)
             {
                 return 0;
             }

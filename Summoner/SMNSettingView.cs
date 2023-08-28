@@ -28,16 +28,16 @@ namespace LittleNightmare.Summoner
             ImGui.Spacing();
             ImGui.Text("Qt选项介绍:");
             ImGui.SetNextItemWidth(200);
-            ImGui.Text("对于时间轴编者:请通过单独的Qt触发器控制Qt的行为,\n通用的许多与Qt的同名选项目前无法起到作用");
+            ImGui.Text("对于时间轴编者:请尽力通过专门的Qt面板来管理相关动作");
             ImGui.SetNextItemWidth(200);
             ImGui.Text("爆发: 关闭时不会自动召唤亚灵神，使用灼热之光");
             ImGui.SetNextItemWidth(200);
             ImGui.Text("爆发药: 关闭时不会开场吃爆发药");
             ImGui.SetNextItemWidth(200);
-            ImGui.Text("AOE: 关闭时不会启用AOE技能，\n但带AOE效果实际单体也用的技能正常使用");
+            ImGui.Text("AOE: 关闭时不会启用AOE技能，但带AOE效果实际单体也用的技能正常使用");
             ImGui.SetNextItemWidth(200);
-            ImGui.Text("最终爆发: 启用时会尝试卸掉所有豆子和亚灵神的攻击类能力技,\n" +
-                       "但不会打开爆发qt");
+            ImGui.Text("最终爆发: 启用时会尝试卸掉所有豆子和亚灵神的攻击类能力技," +
+                       "但请注意，这不会打开爆发qt");
             ImGui.SetNextItemWidth(200);
             ImGui.Text("灼热之光: 关闭时不会自动灼热之光，不开启爆发qt也不会用");
             ImGui.SetNextItemWidth(200);
@@ -47,9 +47,7 @@ namespace LittleNightmare.Summoner
             ImGui.SetNextItemWidth(200);
             ImGui.Text("宝石耀: 关闭时不会自动使用三神的GCD，不开启爆发qt也不会用");
             ImGui.SetNextItemWidth(200);
-            ImGui.Text("自动火神冲: 关闭时只有在目标距离目标小于3m才会用火神冲，如果开启将会直接使用");
-            ImGui.SetNextItemWidth(200);
-            ImGui.Text("预读风神即刻咏唱: **实验性**尝试提前预读即刻使用螺旋气流，螺旋气流锁定时，停止工作");
+            ImGui.Text("自动火神冲: 关闭时只有在目标圈上会用火神冲，如果开启后，会在不移动时直接使用火神冲");
         }
     }
 }

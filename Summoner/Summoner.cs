@@ -6,6 +6,8 @@ using System.Numerics;
 using Common.Language;
 using Common;
 using Common.Define;
+using Common.GUI;
+using Common.Helper;
 
 namespace LittleNightmare.Summoner
 {
@@ -93,9 +95,29 @@ namespace LittleNightmare.Summoner
                         ImGui.EndCombo();
                     }
 
-                    ImGui.Text("即刻技能GCD数量".Loc() + SMNBattleData.Instance.GCDLeftUntilNextSwiftCasted().ToString());
+                    ImGui.Text("即刻技能GCD数量".Loc() + SMNBattleData.Instance.GCDLeftUntilNextSwiftCasted());
                     ImGui.SameLine();
                     ImGui.Text("可以释放".Loc() + SMNBattleData.Instance.CastSwiftCastCouldCoverTargetSpell());
+                    if (ImGui.CollapsingHeader("SMN起手设置"))
+                    {
+
+                        if (ImGui.Checkbox("开场灼热之光优先".Loc(), ref SMNSettings.Instance.SearingLightFirst))
+                        {
+                            SMNSettings.Instance.Save();
+                        }
+
+                        if (ImGui.Checkbox("开场龙神第二个GCD用能量吸收".Loc(), ref SMNSettings.Instance.FastEnergyDrain))
+                        {
+                            SMNSettings.Instance.Save();
+                        }
+                    }
+
+                    if (ImGui.Checkbox("目标圈内移动时使用火神冲".Loc(), ref SMNSettings.Instance.SlideUseCrimonCyclone))
+                    {
+                        SMNSettings.Instance.Save();
+                    }
+                    ImGuiHelper.SetHoverTooltip("移动时，如果在目标圈上，使用火神冲\n不然尝试其他的技能，比如毁4".Loc());
+                    ImGui.TextDisabled("Qt的描述可以看ACR的设置界面".Loc());
 
                     ImGui.EndChild();
                     ImGui.EndTabItem();
@@ -129,26 +151,11 @@ namespace LittleNightmare.Summoner
                     ImGui.EndChild();
                     ImGui.EndTabItem();
                 }
-                if (ImGui.BeginTabItem("SMN开场设置"))
-                {
-                    ImGui.BeginChild("##tab5", new Vector2(0, 0));
-
-                    if (ImGui.Checkbox("开场灼热之光优先".Loc(), ref SMNSettings.Instance.SearingLightFirst))
-                    {
-                        SMNSettings.Instance.Save();
-                    }
-
-                    if (ImGui.Checkbox("开场龙神第二个GCD用能量吸收".Loc(), ref SMNSettings.Instance.FastEnergyDrain))
-                    {
-                        SMNSettings.Instance.Save();
-                    }
-                    ImGui.EndChild();
-                    ImGui.EndTabItem();
-                }
+                
 
                 if (ImGui.BeginTabItem("风格"))
                 {
-                    ImGui.BeginChild("##tab6", new Vector2(0, 0));
+                    ImGui.BeginChild("##tab5", new Vector2(0, 0));
                     //风格设置
                     ImGui.Text("编辑风格");
                     Style.ChangeStyleView();
@@ -156,9 +163,10 @@ namespace LittleNightmare.Summoner
                     ImGui.EndChild();
                     ImGui.EndTabItem();
                 }
+#if DEBUG
                 if (ImGui.BeginTabItem("Debug"))
                 {
-                    ImGui.BeginChild("##tab7", new Vector2(0, 0));
+                    ImGui.BeginChild("##tab6", new Vector2(0, 0));
                     ImGui.Text($"Attunement层数：{Core.Get<IMemApiSummoner>().ElementalAttunement}");
                     var type = "";
                     switch (Core.Get<IMemApiSummoner>().ActivePetType)
@@ -187,9 +195,12 @@ namespace LittleNightmare.Summoner
                     ImGui.Text($"山崩预备: {Core.Me.HasMyAura(AurasDefine.TitansFavor)}");
                     ImGui.Text($"能力技次数: {AI.Instance.BattleData.AbilityCount}");
                     ImGui.Text($"宝石耀属性: {Core.Get<IMemApiSpell>().GetSpellType(SpellsDefine.Gemshine.GetSpell().Id)}");
+                    ImGui.Text($"距离Melee: {Core.Me.DistanceMelee(Core.Me.GetCurrTarget())}");
+                    ImGui.Text($"距离: {Core.Me.Distance(Core.Me.GetCurrTarget())}");
                     ImGui.EndChild();
                     ImGui.EndTabItem();
                 }
+#endif
                 ImGui.EndTabBar();
             }
             //QT窗口
@@ -197,10 +208,6 @@ namespace LittleNightmare.Summoner
             Style.EndMainStyle();
         }
 
-        internal void qtDraw()
-        {
-            Style.SetQtStyle();
-        }
     }
 
     
