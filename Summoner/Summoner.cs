@@ -60,19 +60,15 @@ namespace LittleNightmare.Summoner
                     {
                         SMNBattleData.Instance.GarudaFirst();
                     }
-
-                    if (SMNSettings.Instance.即刻咏唱模式 == 0)
+                    ImGui.Text("开场爆发中: ".Loc() + SMNBattleData.Instance.In90Opener);
+                    SwiftcastMode = SMNSettings.Instance.即刻咏唱模式 switch
                     {
-                        SwiftcastMode = "即刻复活".Loc();
-                    }
-                    else if (SMNSettings.Instance.即刻咏唱模式 == 1)
-                    {
-                        SwiftcastMode = "风神读条".Loc();
-                    }
-                    else if (SMNSettings.Instance.即刻咏唱模式 == 2)
-                    {
-                        SwiftcastMode = "火神读条".Loc();
-                    }
+                        0 => "即刻复活".Loc(),
+                        1 => "风神读条".Loc(),
+                        2 => "火神读条".Loc(),
+                        3 => "全部".Loc(),
+                        _ => SwiftcastMode
+                    };
 
                     ImGui.SetNextItemWidth(200);
                     if (ImGui.BeginCombo("即刻咏唱模式".Loc(), SwiftcastMode))
@@ -92,6 +88,11 @@ namespace LittleNightmare.Summoner
                             SMNSettings.Instance.即刻咏唱模式 = 2;
                             SMNSettings.Instance.Save();
                         }
+                        if (ImGui.Selectable("全部".Loc()))
+                        {
+                            SMNSettings.Instance.即刻咏唱模式 = 3;
+                            SMNSettings.Instance.Save();
+                        }
                         ImGui.EndCombo();
                     }
 
@@ -100,12 +101,12 @@ namespace LittleNightmare.Summoner
                     ImGui.Text("可以释放".Loc() + SMNBattleData.Instance.CastSwiftCastCouldCoverTargetSpell());
                     if (ImGui.CollapsingHeader("SMN起手设置"))
                     {
-
+                        ImGui.SetNextItemWidth(200);
                         if (ImGui.Checkbox("开场灼热之光优先".Loc(), ref SMNSettings.Instance.SearingLightFirst))
                         {
                             SMNSettings.Instance.Save();
                         }
-
+                        ImGui.SetNextItemWidth(200);
                         if (ImGui.Checkbox("开场龙神第二个GCD用能量吸收".Loc(), ref SMNSettings.Instance.FastEnergyDrain))
                         {
                             SMNSettings.Instance.Save();

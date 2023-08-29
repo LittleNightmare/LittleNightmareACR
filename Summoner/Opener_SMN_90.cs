@@ -61,12 +61,12 @@ namespace LittleNightmare.Summoner
         {
             if (SMNSettings.Instance.SearingLightFirst)
             {
-                slot.Add(new Spell(SpellsDefine.SearingLight, SpellTargetType.Target));
+                slot.Add2NdWindowAbility(new Spell(SpellsDefine.SearingLight, SpellTargetType.DefaultByCode));
                 slot.Add(new Spell(SpellsDefine.SummonBahamut, SpellTargetType.Target));
                 return;
             }
             slot.Add(new Spell(SpellsDefine.SummonBahamut, SpellTargetType.Target));
-            slot.Add(new Spell(SpellsDefine.SearingLight, SpellTargetType.Target));
+            slot.Add2NdWindowAbility(new Spell(SpellsDefine.SearingLight, SpellTargetType.DefaultByCode));
         }
         private static void Step1(Slot slot)
         {
@@ -91,22 +91,22 @@ namespace LittleNightmare.Summoner
         }
         private static void Step3(Slot slot)
         {
-            slot.Add(new Spell(Core.Get<IMemApiSpell>().CheckActionChange(SpellsDefine.Ruin.GetSpell().Id), SpellTargetType.Target));
+            slot.Add(new Spell(SMNSpellHelper.BaseSingle().Id, SpellTargetType.Target));
+
+            slot.Add(new Spell(SpellsDefine.EnkindleBahamut, SpellTargetType.Target));
             slot.Add(!SMNSettings.Instance.FastEnergyDrain
                 ? new Spell(SpellsDefine.EnergyDrain, SpellTargetType.Target)
                 : new Spell(SpellsDefine.Fester, SpellTargetType.Target));
-
-            slot.Add(new Spell(SpellsDefine.EnkindleBahamut, SpellTargetType.Target));
         }
         private static void Step4(Slot slot)
         {
-            slot.Add(new Spell(Core.Get<IMemApiSpell>().CheckActionChange(SpellsDefine.Ruin.GetSpell().Id), SpellTargetType.Target));
+            slot.Add(new Spell(SMNSpellHelper.BaseSingle().Id, SpellTargetType.Target));
             slot.Add(new Spell(SpellsDefine.Deathflare, SpellTargetType.Target));
-            slot.Add(new Spell(SpellsDefine.Fester, SpellTargetType.Target));
+            slot.Add2NdWindowAbility(new Spell(SpellsDefine.Fester, SpellTargetType.Target));
         }
         private static void Step5(Slot slot)
         {
-            slot.Add(new Spell(Core.Get<IMemApiSpell>().CheckActionChange(SpellsDefine.Ruin.GetSpell().Id), SpellTargetType.Target));
+            slot.Add(new Spell(SMNSpellHelper.BaseSingle().Id, SpellTargetType.Target));
             if (!SMNSettings.Instance.FastEnergyDrain)
                 slot.Add(new Spell(SpellsDefine.Fester, SpellTargetType.Target));
         }
@@ -116,7 +116,7 @@ namespace LittleNightmare.Summoner
         {
             if (!Core.Get<IMemApiSummoner>().HasPet)
             {
-                countDownHandler.AddAction(30000, SpellsDefine.SummonCarbuncle, SpellTargetType.Self);
+                countDownHandler.AddAction(30000, SpellsDefine.SummonCarbuncle, SpellTargetType.DefaultByCode);
             }
             countDownHandler.AddAction(1500, SpellsDefine.Ruin, SpellTargetType.Target);
         }

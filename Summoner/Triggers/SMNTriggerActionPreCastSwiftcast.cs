@@ -6,6 +6,7 @@ namespace LittleNightmare.Summoner.Triggers;
 public class SMNTriggerActionPreCastSwiftcast : ITriggerAction
 {
     public string DisplayName => "SMN/LittleNightmare/预读风神即刻咏唱".Loc();
+    public string Remark { get; set; }
 
     public bool 预读风神即刻咏唱 { get; set; } = new();
 

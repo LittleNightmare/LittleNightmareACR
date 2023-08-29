@@ -15,11 +15,11 @@ public class SMNAbility_SwiftCast : ISlotResolver
             return -10;
         }
         var skillTarget = PartyHelper.DeadAllies.FirstOrDefault(r => !r.HasAura(AurasDefine.Raise));
-        if (SMNSettings.Instance.即刻咏唱模式 == 0 && skillTarget.IsValid)
+        if (SMNSettings.Instance.即刻咏唱模式 is 0 or 3 && skillTarget.IsValid)
         {
             return 0;
         }
-        if ((SMNSettings.Instance.即刻咏唱模式 == 1 || SMNBattleData.Instance.In90Opener))
+        if ((SMNSettings.Instance.即刻咏唱模式 is 1 or 3|| SMNBattleData.Instance.In90Opener))
         {
             if (Core.Me.HasMyAura(AurasDefine.GarudasFavor) || SMNBattleData.Instance.CastSwiftCastCouldCoverTargetSpell())
             {
@@ -27,7 +27,7 @@ public class SMNAbility_SwiftCast : ISlotResolver
             }
             
         }
-        if (SMNSettings.Instance.即刻咏唱模式 == 2)
+        if (SMNSettings.Instance.即刻咏唱模式 is 2 or 3)
         {
             if (Core.Get<IMemApiSummoner>().ActivePetType == ActivePetType.Ifrit)
             {

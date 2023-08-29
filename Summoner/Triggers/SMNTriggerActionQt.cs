@@ -12,6 +12,7 @@ namespace LittleNightmare.Summoner.Triggers;
 public class SMNTriggerActionQt : ITriggerAction
 {
     public string DisplayName => "SMN/LittleNightmare/[LittleNightmare]QT设置".Loc();
+    public string Remark { get; set; }
 
     private int 当前combo = 0;
 

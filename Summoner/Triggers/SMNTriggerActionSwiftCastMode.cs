@@ -7,6 +7,7 @@ namespace LittleNightmare.Summoner.Triggers;
 public class SMNTriggerActionSwiftCastMode : ITriggerAction
 {
     public string DisplayName => "SMN/LittleNightmare/修改即刻咏唱模式".Loc();
+    public string Remark { get; set; }
 
     public int 即刻咏唱模式 { get; set; } = new();
     private string? Preview;
@@ -18,18 +19,14 @@ public class SMNTriggerActionSwiftCastMode : ITriggerAction
 
     public bool Draw()
     {
-        if (即刻咏唱模式 == 0)
+        Preview = 即刻咏唱模式 switch
         {
-            Preview = "即刻复活".Loc();
-        }
-        else if (即刻咏唱模式 == 1)
-        {
-            Preview = "风神读条".Loc();
-        }
-        else if (即刻咏唱模式 == 2)
-        {
-            Preview = "火神读条".Loc();
-        }
+            0 => "即刻复活".Loc(),
+            1 => "风神读条".Loc(),
+            2 => "火神读条".Loc(),
+            3 => "全部".Loc(),
+            _ => Preview
+        };
 
         if (ImGui.BeginCombo("", Preview))
         {
@@ -44,6 +41,10 @@ public class SMNTriggerActionSwiftCastMode : ITriggerAction
             if (ImGui.Selectable("火神读条".Loc()))
             {
                 即刻咏唱模式 = 2;
+            }
+            if (ImGui.Selectable("全部".Loc()))
+            {
+                即刻咏唱模式 = 3;
             }
             ImGui.EndCombo();
         }
