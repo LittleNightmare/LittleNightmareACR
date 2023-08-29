@@ -82,7 +82,9 @@ namespace LittleNightmare
                     new SMNTriggerActionUseSummon(),
                     new SMNTriggerActionSwiftCastMode()
                     // new SMNTriggerActionPreCastSwiftcast()
-                );
+                )
+                .AddTriggerCondition(
+                    new SMNTriggerGaugeCheck());
         }
 
         private IOpener opener90 = new OpenerSMN90();
