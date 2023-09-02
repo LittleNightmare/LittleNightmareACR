@@ -9,7 +9,7 @@ using Common.Language;
 namespace LittleNightmare.Summoner
 {
 
-    public class OpenerSMN90 : IOpener
+    public class OpenerSMN90FastEnergyDrain : IOpener
     {
         public int StartCheck()
         {
@@ -60,7 +60,8 @@ namespace LittleNightmare.Summoner
         private static void Step0(Slot slot)
         {
             slot.Add(new Spell(SpellsDefine.SummonBahamut, SpellTargetType.Target));
-            slot.Add2NdWindowAbility(new Spell(SpellsDefine.SearingLight, SpellTargetType.DefaultByCode));
+            slot.Add(new Spell(SpellsDefine.SearingLight, SpellTargetType.Self));
+            slot.Add(new Spell(SpellsDefine.EnergyDrain, SpellTargetType.Target));
         }
         private static void Step1(Slot slot)
         {
@@ -82,7 +83,6 @@ namespace LittleNightmare.Summoner
         private static void Step3(Slot slot)
         {
             slot.Add(new Spell(SMNSpellHelper.BaseSingle().Id, SpellTargetType.Target));
-            slot.Add(new Spell(SpellsDefine.EnergyDrain, SpellTargetType.Target));
             slot.Add(new Spell(SpellsDefine.EnkindleBahamut, SpellTargetType.Target));
         }
         private static void Step4(Slot slot)

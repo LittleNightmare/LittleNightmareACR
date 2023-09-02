@@ -44,10 +44,18 @@ namespace LittleNightmare.Summoner
         /// </summary>
         public bool SearingLightFirst = false;
 
+        public enum OpenerType
+        {
+            TheBalance,
+            FastEnergyDrain,
+        }
+
         /// <summary>
-        /// 开场第二个GCD使用能量吸收
+        /// 起手种类
+        /// TheBalance: 是用TheBalance的最佳通用起手
+        /// FastEnergyDrain: 是召唤巴哈后，直接灼热之光，然后插入能量吸收的起手
         /// </summary>
-        public bool FastEnergyDrain = false;
+        public OpenerType SelectedOpener = OpenerType.TheBalance;
 
         /// <summary>
         /// 在移动时，使用火神冲填充GCD，比毁4优先级高

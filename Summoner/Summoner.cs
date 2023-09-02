@@ -14,6 +14,7 @@ namespace LittleNightmare.Summoner
     public class SummonerOverlay
     {
         public string? SwiftcastMode;
+        public Dictionary<string,string> OpenerDictionary = Enum.GetNames<SMNSettings.OpenerType>().ToDictionary(t => t, t => t.Loc());
 
         internal void Draw()
         {
@@ -99,24 +100,11 @@ namespace LittleNightmare.Summoner
                     ImGui.Text("即刻技能GCD数量".Loc() + SMNBattleData.Instance.GCDLeftUntilNextSwiftCasted());
                     ImGui.SameLine();
                     ImGui.Text("可以释放".Loc() + SMNBattleData.Instance.CastSwiftCastCouldCoverTargetSpell());
-                    if (ImGui.CollapsingHeader("SMN起手设置"))
-                    {
-                        ImGui.SetNextItemWidth(200);
-                        if (ImGui.Checkbox("开场灼热之光优先".Loc(), ref SMNSettings.Instance.SearingLightFirst))
-                        {
-                            SMNSettings.Instance.Save();
-                        }
-                        ImGui.SetNextItemWidth(200);
-                        if (ImGui.Checkbox("开场龙神第二个GCD用能量吸收".Loc(), ref SMNSettings.Instance.FastEnergyDrain))
-                        {
-                            SMNSettings.Instance.Save();
-                        }
-                    }
 
-                    if (ImGui.Checkbox("目标圈内移动时使用火神冲".Loc(), ref SMNSettings.Instance.SlideUseCrimonCyclone))
-                    {
-                        SMNSettings.Instance.Save();
-                    }
+                    
+                    ImGuiHelper.DrawEnum("召唤起手".Loc(), ref SMNSettings.Instance.SelectedOpener, nameMap: OpenerDictionary);
+
+                    ImGui.Checkbox("目标圈内移动时使用火神冲".Loc(), ref SMNSettings.Instance.SlideUseCrimonCyclone);
                     ImGuiHelper.SetHoverTooltip("移动时，如果在目标圈上，使用火神冲\n不然尝试其他的技能，比如毁4".Loc());
                     ImGui.TextDisabled("Qt的描述可以看ACR的设置界面".Loc());
 
@@ -146,7 +134,6 @@ namespace LittleNightmare.Summoner
                     if (ImGui.Checkbox("自动火神冲".Loc(), ref SMNSettings.Instance.qt自动火神冲))
                     {
                         Qt.NewDefault("自动火神冲".Loc(), SMNSettings.Instance.qt自动火神冲);
-                        SMNSettings.Instance.Save();
                     }
 
                     ImGui.EndChild();

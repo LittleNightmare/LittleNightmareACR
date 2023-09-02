@@ -87,12 +87,20 @@ namespace LittleNightmare
                     new SMNTriggerGaugeCheck());
         }
 
-        private IOpener opener90 = new OpenerSMN90();
+        private IOpener theBalanceOpener = new OpenerSMN90();
+        private IOpener FastEnergyDrainOpener = new OpenerSMN90FastEnergyDrain();
 
         IOpener? GetOpener(uint level)
         {
             if (level < 70) return null;
-            return opener90;
+            switch (SMNSettings.Instance.SelectedOpener)
+            {
+                case SMNSettings.OpenerType.TheBalance:
+                    return theBalanceOpener;
+                case SMNSettings.OpenerType.FastEnergyDrain:
+                    return FastEnergyDrainOpener;
+            }
+            return null;
         }
 
         public void DrawOverlay()
