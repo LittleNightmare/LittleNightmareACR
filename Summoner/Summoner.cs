@@ -97,8 +97,8 @@ namespace LittleNightmare.Summoner
                         ImGui.EndCombo();
                     }
 
-                    ImGui.Text("即刻技能GCD数量".Loc() + SMNBattleData.Instance.GCDLeftUntilNextSwiftCasted());
-                    ImGui.SameLine();
+                    // ImGui.Text("即刻技能GCD数量".Loc() + SMNBattleData.Instance.GCDLeftUntilNextSwiftCasted());
+                    // ImGui.SameLine();
                     ImGui.Text("可以释放".Loc() + SMNBattleData.Instance.CastSwiftCastCouldCoverTargetSpell());
 
                     
@@ -106,6 +106,8 @@ namespace LittleNightmare.Summoner
 
                     ImGui.Checkbox("目标圈内移动时使用火神冲".Loc(), ref SMNSettings.Instance.SlideUseCrimonCyclone);
                     ImGuiHelper.SetHoverTooltip("移动时，如果在目标圈上，使用火神冲\n不然尝试其他的技能，比如毁4".Loc());
+                    ImGui.Checkbox("优先毁三填充最后GCD窗口".Loc(), ref SMNSettings.Instance.UseRuinIIIFirst);
+                    ImGuiHelper.SetHoverTooltip("在GCD填充时，如果不移动，能量吸收还没马上好，优先毁3填充，再是毁4".Loc());
                     ImGui.TextDisabled("Qt的描述可以看ACR的设置界面".Loc());
 
                     ImGui.EndChild();
@@ -180,9 +182,9 @@ namespace LittleNightmare.Summoner
                     }
                     ImGui.Text($"召唤兽类别：{type}");
                     ImGui.Text($"召唤兽时间：{Core.Get<IMemApiSummoner>().PetTimer}");
-                    ImGui.Text($"山崩预备: {Core.Me.HasMyAura(AurasDefine.TitansFavor)}");
+                    // ImGui.Text($"山崩预备: {Core.Me.HasMyAura(AurasDefine.TitansFavor)}");
                     ImGui.Text($"能力技次数: {AI.Instance.BattleData.AbilityCount}");
-                    ImGui.Text($"宝石耀属性: {Core.Get<IMemApiSpell>().GetSpellType(SpellsDefine.Gemshine.GetSpell().Id)}");
+                    // ImGui.Text($"宝石耀属性: {Core.Get<IMemApiSpell>().GetSpellType(SpellsDefine.Gemshine.GetSpell().Id)}");
                     ImGui.Text($"距离Melee: {Core.Me.DistanceMelee(Core.Me.GetCurrTarget())}");
                     ImGui.Text($"距离: {Core.Me.Distance(Core.Me.GetCurrTarget())}");
                     ImGui.EndChild();

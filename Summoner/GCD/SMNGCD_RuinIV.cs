@@ -1,6 +1,8 @@
 using CombatRoutine;
 using Common;
 using Common.Define;
+using Common.Language;
+using LittleNightmare.Summoner.Ability;
 
 namespace LittleNightmare.Summoner.GCD
 {
@@ -19,6 +21,14 @@ namespace LittleNightmare.Summoner.GCD
             }
             if (Core.Me.HasMyAura(AurasDefine.FurtherRuin))
             {
+                if (SMNSettings.Instance.UseRuinIIIFirst && !Core.Get<IMemApiMove>().IsMoving() && !SpellsDefine.EnergyDrain.CoolDownInGCDs(1) && !Qt.GetQt("×îÖÕ±¬·¢"))
+                {
+                    if (SMNSpellHelper.BahamutPhoneix().CoolDownInGCDs(1))
+                    {
+                        return 0;
+                    }
+                    return -2;
+                }
                 return 0;
             }
             return -1;

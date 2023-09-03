@@ -29,7 +29,8 @@ public class SMNAbility_Fester : ISlotResolver
         {
             return -10;
         }
-        if (Core.Get<IMemApiSpellCastSucces>().IsRecentlyUsed(GetSpell().Id) && !Qt.GetQt("最终爆发"))
+        if (Core.Get<IMemApiSpellCastSucces>().IsRecentlyUsed(GetSpell().Id) 
+            && (!Qt.GetQt("最终爆发") || !SpellsDefine.EnergyDrain.CoolDownInGCDs(1)))
         {
             return -2;
         }

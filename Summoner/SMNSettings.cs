@@ -61,5 +61,10 @@ namespace LittleNightmare.Summoner
         /// 在移动时，使用火神冲填充GCD，比毁4优先级高
         /// </summary>
         public bool SlideUseCrimonCyclone = true;
+
+        /// <summary>
+        /// 在GCD填充时，如果不移动，能量吸收还没马上好，优先毁3填充，再是毁4
+        /// </summary>
+        public bool UseRuinIIIFirst = false;
     }
 }
