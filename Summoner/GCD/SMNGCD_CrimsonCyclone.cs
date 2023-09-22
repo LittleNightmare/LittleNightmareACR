@@ -32,7 +32,7 @@ namespace LittleNightmare.Summoner.GCD
             var onTargetRing = Core.Me.DistanceMelee(Core.Me.GetCurrTarget()) <= 0;
             if (Core.Get<IMemApiMove>().IsMoving())
             {
-                if (!onTargetRing)
+                if (!onTargetRing && !AI.Instance.LockPos)
                 {
                     return -2;
                 }
@@ -48,7 +48,7 @@ namespace LittleNightmare.Summoner.GCD
             {
                 return 0;
             }
-            if (onTargetRing)
+            if (onTargetRing || AI.Instance.LockPos)
             {
                 return 0;
             }

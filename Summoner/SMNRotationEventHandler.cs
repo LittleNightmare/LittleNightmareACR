@@ -38,10 +38,11 @@ public class SMNRotationEventHandler : IRotationEventHandler
                 SMNBattleData.Instance.CustomSummon.RemoveAt(0);
             }
         }
-
-        if (spell.Id == SMNSpellHelper.BahamutPhoneix().Id)
+        // 可能是网络原因导致的，用完上一个召唤，直接变成了下一个，所以导致不重置，这里直接拿两个技能id
+        if (spell.Id == SpellsDefine.SummonBahamut.GetSpell().Id|| spell.Id == SpellsDefine.SummonPhoenix.GetSpell().Id)
         {
             SMNBattleData.Instance.UpdateSummon();
+            // ChatHelper.Print.Echo("重置召唤物次数");
         }
 
         switch (spell.Id)
@@ -93,7 +94,7 @@ public class SMNRotationEventHandler : IRotationEventHandler
 
     public void OnBattleUpdate(int currTime)
     {
-        // �����after spell������
+        // 这里放after spell可以吗？
         SMNBattleData.Instance.UsedSummon();
     }
 }

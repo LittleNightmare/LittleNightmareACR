@@ -52,6 +52,11 @@ public class SMNAbility_Fester : ISlotResolver
             {
                 if (SMNSpellHelper.EnkindleDemi().RecentlyUsed() || !SMNSpellHelper.EnkindleDemi().IsReady())
                 {
+                    // 稍微延迟一下，等一下团副上齐了再用，应该不会导致延后能量吸收
+                    if (!SpellsDefine.EnergyDrain.CoolDownInGCDs(1))
+                    {
+                        return -2;
+                    }
                     return 0;
                 }
             }

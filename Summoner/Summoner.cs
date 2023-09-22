@@ -189,7 +189,7 @@ namespace LittleNightmare.Summoner
                     // ImGui.Text($"宝石耀属性: {Core.Get<IMemApiSpell>().GetSpellType(SpellsDefine.Gemshine.GetSpell().Id)}");
                     ImGui.Text($"距离Melee: {Core.Me.DistanceMelee(Core.Me.GetCurrTarget())}");
                     ImGui.Text($"距离: {Core.Me.Distance(Core.Me.GetCurrTarget())}");
-                    ImGui.Text($"优先火神GD: {SMNSettings.Instance.RubyGCDFirst && SMNBattleData.Instance.IfritGemshineTimes > 0}");
+                    // ImGui.Text($"优先火神GD: {SMNSettings.Instance.RubyGCDFirst && SMNBattleData.Instance.IfritGemshineTimes > 0}");
                     ImGui.EndChild();
                     ImGui.EndTabItem();
                 }
