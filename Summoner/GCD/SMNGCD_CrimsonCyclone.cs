@@ -38,6 +38,12 @@ namespace LittleNightmare.Summoner.GCD
                 }
                 if (SMNSettings.Instance.SlideUseCrimonCyclone) return 0;
             }
+
+            if (SMNSettings.Instance.RubyGCDFirst && SMNBattleData.Instance.IfritGemshineTimes > 0)
+            {
+                return -2;
+            }
+
             if (Qt.GetQt("自动火神冲".Loc()))
             {
                 return 0;

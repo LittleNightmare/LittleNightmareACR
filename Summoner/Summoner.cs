@@ -99,7 +99,7 @@ namespace LittleNightmare.Summoner
 
                     // ImGui.Text("即刻技能GCD数量".Loc() + SMNBattleData.Instance.GCDLeftUntilNextSwiftCasted());
                     // ImGui.SameLine();
-                    ImGui.Text("可以释放".Loc() + SMNBattleData.Instance.CastSwiftCastCouldCoverTargetSpell());
+                    // ImGui.Text("可以释放".Loc() + SMNBattleData.Instance.CastSwiftCastCouldCoverTargetSpell());
 
                     
                     ImGuiHelper.DrawEnum("召唤起手".Loc(), ref SMNSettings.Instance.SelectedOpener, nameMap: OpenerDictionary);
@@ -108,6 +108,8 @@ namespace LittleNightmare.Summoner
                     ImGuiHelper.SetHoverTooltip("移动时，如果在目标圈上，使用火神冲\n不然尝试其他的技能，比如毁4".Loc());
                     ImGui.Checkbox("优先毁三填充最后GCD窗口".Loc(), ref SMNSettings.Instance.UseRuinIIIFirst);
                     ImGuiHelper.SetHoverTooltip("在GCD填充时，如果不移动，能量吸收还没马上好，优先毁3填充，再是毁4".Loc());
+                    ImGui.Checkbox("优先火神GCD".Loc(), ref SMNSettings.Instance.RubyGCDFirst);
+                    ImGuiHelper.SetHoverTooltip("在不移动时，优先使用火神GCD，而不是火神冲".Loc());
                     ImGui.TextDisabled("Qt的描述可以看ACR的设置界面".Loc());
 
                     ImGui.EndChild();
@@ -187,6 +189,7 @@ namespace LittleNightmare.Summoner
                     // ImGui.Text($"宝石耀属性: {Core.Get<IMemApiSpell>().GetSpellType(SpellsDefine.Gemshine.GetSpell().Id)}");
                     ImGui.Text($"距离Melee: {Core.Me.DistanceMelee(Core.Me.GetCurrTarget())}");
                     ImGui.Text($"距离: {Core.Me.Distance(Core.Me.GetCurrTarget())}");
+                    ImGui.Text($"优先火神GD: {SMNSettings.Instance.RubyGCDFirst && SMNBattleData.Instance.IfritGemshineTimes > 0}");
                     ImGui.EndChild();
                     ImGui.EndTabItem();
                 }

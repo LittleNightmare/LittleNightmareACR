@@ -66,5 +66,10 @@ namespace LittleNightmare.Summoner
         /// 在GCD填充时，如果不移动，能量吸收还没马上好，优先毁3填充，再是毁4
         /// </summary>
         public bool UseRuinIIIFirst = false;
+
+        /// <summary>
+        /// 在不移动时，优先使用火神GCD，而不是火神冲
+        /// </summary>
+        public bool RubyGCDFirst = false;
     }
 }

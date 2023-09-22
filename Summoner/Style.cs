@@ -296,41 +296,41 @@ public class Style
         }
 
 
-        /// <summary>
-        /// 添加新的技能不位移qt
-        /// </summary>
-        /// <param name="name">qt的名称</param>
-        public void AddsQt_NoActionMove(string name)
-        {
-            name = name.Loc();
-            if (!AI.Instance.Hack) return;
-            if (QtDict.ContainsKey(name)) return;
-            var qt = new QtControl(name, AI.Instance.NoActionMove);
-            QtDict.Add(name, qt);
-            if (!QtNameList.Contains(name))
-            {
-                QtNameList.Add(name);
-            }
-        }
-
-        /// <summary>
-        /// 添加新的技能不位移qt
-        /// </summary>
-        /// <param name="name">qt的名称</param>
-        /// <param name="toolTip">鼠标悬停提示</param>
-        public void AddsQt_NoActionMove(string name,string toolTip)
-        {
-            name = name.Loc();
-            if (!AI.Instance.Hack) return;
-            if (QtDict.ContainsKey(name)) return;
-            var qt = new QtControl(name, AI.Instance.NoActionMove);
-            QtDict.Add(name, qt);
-            QtDict[name].ToolTip = toolTip;
-            if (!QtNameList.Contains(name))
-            {
-                QtNameList.Add(name);
-            }
-        }
+        // /// <summary>
+        // /// 添加新的技能不位移qt
+        // /// </summary>
+        // /// <param name="name">qt的名称</param>
+        // public void AddsQt_NoActionMove(string name)
+        // {
+        //     name = name.Loc();
+        //     if (!AI.Instance.Hack) return;
+        //     if (QtDict.ContainsKey(name)) return;
+        //     var qt = new QtControl(name, AI.Instance.NoActionMove);
+        //     QtDict.Add(name, qt);
+        //     if (!QtNameList.Contains(name))
+        //     {
+        //         QtNameList.Add(name);
+        //     }
+        // }
+        //
+        // /// <summary>
+        // /// 添加新的技能不位移qt
+        // /// </summary>
+        // /// <param name="name">qt的名称</param>
+        // /// <param name="toolTip">鼠标悬停提示</param>
+        // public void AddsQt_NoActionMove(string name,string toolTip)
+        // {
+        //     name = name.Loc();
+        //     if (!AI.Instance.Hack) return;
+        //     if (QtDict.ContainsKey(name)) return;
+        //     var qt = new QtControl(name, AI.Instance.NoActionMove);
+        //     QtDict.Add(name, qt);
+        //     QtDict[name].ToolTip = toolTip;
+        //     if (!QtNameList.Contains(name))
+        //     {
+        //         QtNameList.Add(name);
+        //     }
+        // }
 
         /// 获取指定名称qt的bool值
         public bool GetQt(string qtName)

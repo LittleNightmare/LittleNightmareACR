@@ -29,8 +29,12 @@ public class SMNAbility_Fester : ISlotResolver
         {
             return -10;
         }
+        if (Qt.GetQt("最终爆发"))
+        {
+            return 0;
+        }
         if (Core.Get<IMemApiSpellCastSucces>().IsRecentlyUsed(GetSpell().Id) 
-            && (!Qt.GetQt("最终爆发") || !SpellsDefine.EnergyDrain.CoolDownInGCDs(1)))
+            && !SpellsDefine.EnergyDrain.CoolDownInGCDs(1))
         {
             return -2;
         }
@@ -46,21 +50,18 @@ public class SMNAbility_Fester : ISlotResolver
             var pet = Core.Get<IMemApiSummoner>().ActivePetType;
             if (pet is ActivePetType.Bahamut or ActivePetType.Phoneix)
             {
-                if (SMNSpellHelper.EnkindleDemi().RecentlyUsed())
+                if (SMNSpellHelper.EnkindleDemi().RecentlyUsed() || !SMNSpellHelper.EnkindleDemi().IsReady())
                 {
                     return 0;
                 }
             }
-
-            if (SpellsDefine.EnergyDrain.IsReady() || SpellsDefine.EnergySiphon.IsReady())
+            // 在灼热之光持续时间内，如果能量吸收马上冷却完成，这里已经不是巴哈或凤凰
+            if (SpellsDefine.EnergyDrain.CoolDownInGCDs(1))
             {
                 return 0;
             }
         }
-        if (Qt.GetQt("最终爆发"))
-        {
-            return 0;
-        }
+
         return -1;
     }
 
