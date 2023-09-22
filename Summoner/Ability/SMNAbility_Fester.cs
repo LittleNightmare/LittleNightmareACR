@@ -42,29 +42,31 @@ public class SMNAbility_Fester : ISlotResolver
         {
             return 0;
         }
+
         if (Core.Me.HasMyAura(AurasDefine.SearingLight))
         {
-            if (Core.Me.GetBuffTimespanLeft(AurasDefine.SearingLight).Milliseconds <=
-                Core.Get<IMemApiSpell>().GetGCDDuration(false) * 2)
-                return 0;
-            var pet = Core.Get<IMemApiSummoner>().ActivePetType;
-            if (pet is ActivePetType.Bahamut or ActivePetType.Phoneix)
+            // 应该不需要这个
+            // if (!Core.Me.HasMyAuraWithTimeleft(AurasDefine.SearingLight, Core.Get<IMemApiSpell>().GetGCDDuration(false) * 2))
+            // {
+            //     return 0;
+            // }
+
+            // 在灼热之光持续时间内，如果能量吸收马上冷却完成，还是直接用吧
+            if (SpellsDefine.EnergyDrain.CoolDownInGCDs(2))
             {
-                if (SMNSpellHelper.EnkindleDemi().RecentlyUsed() || !SMNSpellHelper.EnkindleDemi().IsReady())
+                return 0;
+            }
+            var isBahamutOrPhoenix = Core.Get<IMemApiSummoner>().TranceTimer <= 0 && Core.Get<IMemApiSummoner>().PetTimer > 0 && Core.Get<IMemApiSummoner>().ActivePetType == ActivePetType.None;
+            if (isBahamutOrPhoenix)
+            {
+                // 等待使用巴哈或凤凰的能力技，有设计等待时间
+                if (!SMNSpellHelper.EnkindleDemi().RecentlyUsed() && SMNSpellHelper.EnkindleDemi().IsReady())
                 {
-                    // 稍微延迟一下，等一下团副上齐了再用，应该不会导致延后能量吸收
-                    if (!SpellsDefine.EnergyDrain.CoolDownInGCDs(1))
-                    {
-                        return -2;
-                    }
-                    return 0;
+                    return -2;
                 }
             }
-            // 在灼热之光持续时间内，如果能量吸收马上冷却完成，这里已经不是巴哈或凤凰
-            if (SpellsDefine.EnergyDrain.CoolDownInGCDs(1))
-            {
-                return 0;
-            }
+
+            return 0;
         }
 
         return -1;
