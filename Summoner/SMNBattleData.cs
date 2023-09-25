@@ -1,4 +1,4 @@
-using CombatRoutine;
+ï»¿using CombatRoutine;
 using Common;
 using Common.Define;
 using Common.Language;
@@ -10,7 +10,7 @@ namespace LittleNightmare.Summoner
         public static SMNBattleData Instance = new();
         public List<Spell> Summon = new();
         public List<Spell> CustomSummon = new();
-        // Ê£Óà´ÎÊý
+        // å‰©ä½™æ¬¡æ•°
         public int TitanGemshineTimes = 4;
         public int IfritGemshineTimes = 2;
         public int GarudaGemshineTimes = 4;
@@ -91,7 +91,7 @@ namespace LittleNightmare.Summoner
         public bool CastSwiftCastCouldCoverTargetSpell()
         {
             var leftGCD = GCDLeftUntilNextSwiftCasted();
-            return leftGCD is >= 0 and < 4 && Qt.GetQt("Ô¤¶Á·çÉñ¼´¿ÌÓ½³ª".Loc()) &&
+            return leftGCD is >= 0 and < 4 && Qt.GetQt("é¢„è¯»é£Žç¥žå³åˆ»å’å”±".Loc()) &&
                    (Core.Get<IMemApiSummoner>().ActivePetType != ActivePetType.Ifrit || Instance.IfritGemshineTimes <= 0);
         }
 

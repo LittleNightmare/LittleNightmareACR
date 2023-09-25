@@ -93,14 +93,12 @@ namespace LittleNightmare
         IOpener? GetOpener(uint level)
         {
             if (level < 70) return null;
-            switch (SMNSettings.Instance.SelectedOpener)
+            return SMNSettings.Instance.SelectedOpener switch
             {
-                case SMNSettings.OpenerType.TheBalance:
-                    return theBalanceOpener;
-                case SMNSettings.OpenerType.FastEnergyDrain:
-                    return FastEnergyDrainOpener;
-            }
-            return null;
+                SMNSettings.OpenerType.TheBalance => theBalanceOpener,
+                SMNSettings.OpenerType.FastEnergyDrain => FastEnergyDrainOpener,
+                _ => null,
+            };
         }
 
         public void DrawOverlay()

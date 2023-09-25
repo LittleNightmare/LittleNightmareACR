@@ -69,6 +69,7 @@ public class SMNTriggerGaugeCheck : ITriggerCond
     {
         if (UseGaugeTimesDirectly)
         {
+            // TODO: 量谱归零时，这个检测会失效
             if (Core.Get<IMemApiSummoner>().ActivePetType == CheckSummon)
             {
                 return Core.Get<IMemApiSummoner>().ElementalAttunement == SummonTimes;

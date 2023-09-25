@@ -104,7 +104,7 @@ namespace LittleNightmare.Summoner
             {
                 countDownHandler.AddAction(30000, SpellsDefine.SummonCarbuncle, SpellTargetType.DefaultByCode);
             }
-            countDownHandler.AddAction(1500, SpellsDefine.Ruin, SpellTargetType.Target);
+            countDownHandler.AddAction(1500, SMNSpellHelper.BaseSingle().Id, SpellTargetType.Target);
         }
     }
 }

@@ -38,11 +38,10 @@ public class SMNRotationEventHandler : IRotationEventHandler
                 SMNBattleData.Instance.CustomSummon.RemoveAt(0);
             }
         }
-        // 可能是网络原因导致的，用完上一个召唤，直接变成了下一个，所以导致不重置，这里直接拿两个技能id
-        if (spell.Id == SpellsDefine.SummonBahamut.GetSpell().Id|| spell.Id == SpellsDefine.SummonPhoenix.GetSpell().Id)
+        // 可能是网络原因导致的，用完上一个召唤，直接变成了下一个，所以导致不重置，这里直接拿两个技能id，但没有解决问题
+        if (spell.Id is SpellsDefine.SummonBahamut or SpellsDefine.SummonPhoenix)
         {
             SMNBattleData.Instance.UpdateSummon();
-            // ChatHelper.Print.Echo("重置召唤物次数");
         }
 
         switch (spell.Id)
@@ -86,7 +85,19 @@ public class SMNRotationEventHandler : IRotationEventHandler
                 AI.Instance.BattleData.LimitAbility = false;
                 break;
         }
-        
+        // 两次矫正，主要出现莫名奇妙不重置次数的问题，这里多加一个保险
+        switch (Core.Get<IMemApiSummoner>().ActivePetType)
+        {
+            case ActivePetType.Titan:
+                SMNBattleData.Instance.TitanGemshineTimes = Core.Get<IMemApiSummoner>().ElementalAttunement - (4 - SMNBattleData.Instance.TitanGemshineTimesCustom);
+                break;
+            case ActivePetType.Ifrit:
+                SMNBattleData.Instance.IfritGemshineTimes = Core.Get<IMemApiSummoner>().ElementalAttunement - (2 - SMNBattleData.Instance.IfritGemshineTimesCustom);
+                break;
+            case ActivePetType.Garuda:
+                SMNBattleData.Instance.GarudaGemshineTimes = Core.Get<IMemApiSummoner>().ElementalAttunement - (4 - SMNBattleData.Instance.GarudaGemshineTimesCustom);
+                break;
+        }
         
         // LogHelper.Info($"SpellID:{spell.Name}Trace:{new StackTrace()}");
         // ChatHelp.Print.Echo($"SpellID:{spell.Name}Trace:{new StackTrace()}");

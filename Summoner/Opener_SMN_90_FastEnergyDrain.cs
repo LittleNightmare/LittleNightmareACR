@@ -59,8 +59,8 @@ namespace LittleNightmare.Summoner
 
         private static void Step0(Slot slot)
         {
-            slot.Add(new Spell(SpellsDefine.SummonBahamut, SpellTargetType.Target));
             slot.Add(new Spell(SpellsDefine.SearingLight, SpellTargetType.Self));
+            slot.Add(new Spell(SpellsDefine.SummonBahamut, SpellTargetType.Target));
             slot.Add(new Spell(SpellsDefine.EnergyDrain, SpellTargetType.Target));
         }
         private static void Step1(Slot slot)
@@ -104,7 +104,7 @@ namespace LittleNightmare.Summoner
             {
                 countDownHandler.AddAction(30000, SpellsDefine.SummonCarbuncle, SpellTargetType.DefaultByCode);
             }
-            countDownHandler.AddAction(1500, SpellsDefine.Ruin, SpellTargetType.Target);
+            countDownHandler.AddAction(1500, SMNSpellHelper.BaseSingle().Id, SpellTargetType.Target);
         }
     }
 }
