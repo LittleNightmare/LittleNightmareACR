@@ -182,8 +182,10 @@ namespace LittleNightmare.Summoner
             ImGui.Text($"距离: {Core.Me.Distance(Core.Me.GetCurrTarget())}");
             // ImGui.Text($"优先火神GD: {SMNSettings.Instance.RubyGCDFirst && SMNBattleData.Instance.IfritGemshineTimes > 0}");
             // ImGui.Text($"灼热之光时间剩余时间(ms): {Core.Me.GetBuffTimespanLeft(AurasDefine.SearingLight).TotalMilliseconds}");
-            ImGui.Text($"召唤了亚灵神: {Core.Get<IMemApiSummoner>().TranceTimer <= 0 && Core.Get<IMemApiSummoner>().PetTimer > 0 && Core.Get<IMemApiSummoner>().ActivePetType == ActivePetType.None}");
+            // ImGui.Text($"召唤了亚灵神: {Core.Get<IMemApiSummoner>().TranceTimer <= 0 && Core.Get<IMemApiSummoner>().PetTimer > 0 && Core.Get<IMemApiSummoner>().ActivePetType == ActivePetType.None}");
             // ImGui.Text($"伊芙利特模式: {SMNSettings.Instance.IfritMode}");
+            // ImGui.Text($"在巴哈姆特状态: {Core.Get<IMemApiSummoner>().InBahamut}");
+            // ImGui.Text($"在巴哈姆特状态old: {Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Bahamut)}");
         }
     }
 }

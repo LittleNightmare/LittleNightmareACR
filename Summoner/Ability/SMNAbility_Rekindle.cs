@@ -18,13 +18,9 @@ public class SMNAbility_Rekindle : ISlotResolver
         {
             return -10;
         }
-        if (!Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Phoneix))
+        if (!Core.Get<IMemApiSummoner>().InPhoenix)
         {
             return -9;
-        }
-        if (Core.Get<IMemApiSummoner>().TranceTimer > 0)
-        {
-            return -8;
         }
         if (Core.Get<IMemApiSummoner>().PetTimer > 0)
         {

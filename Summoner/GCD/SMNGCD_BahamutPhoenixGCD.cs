@@ -12,11 +12,11 @@ namespace LittleNightmare.Summoner.GCD
         {
             if (!Qt.GetQt("AOE".Loc())) return SMNSpellHelper.BaseSingle();
             var aoeCount = 0;
-            if (Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Bahamut))
+            if (Core.Get<IMemApiSummoner>().InBahamut)
             {
                 aoeCount = TargetHelper.GetNearbyEnemyCount(Core.Me.GetCurrTarget(), 25, 5);
             }
-            if (Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Phoneix))
+            if (Core.Get<IMemApiSummoner>().InPhoenix)
             {
                 aoeCount = TargetHelper.GetNearbyEnemyCount(Core.Me.GetCurrTarget(), 25, 8);
             }

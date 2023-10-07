@@ -1,6 +1,7 @@
 ﻿using CombatRoutine;
 using Common;
 using Common.Define;
+using Common.Helper;
 using Common.Language;
 using LittleNightmare.Summoner.Ability;
 
@@ -29,6 +30,12 @@ namespace LittleNightmare.Summoner.GCD
                     }
                     return -2;
                 }
+
+                if (SMNSettings.Instance.SlideUseCrimonCyclone && Core.Me.HasMyAura(AurasDefine.IfritsFavor) && Core.Me.DistanceMelee(Core.Me.GetCurrTarget()) <= 0)
+                {
+                    return -2;
+                }
+
                 return 0;
             }
             return -1;

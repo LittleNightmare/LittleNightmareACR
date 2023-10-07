@@ -1,5 +1,6 @@
 ﻿using CombatRoutine.TriggerModel;
 using Common;
+using Common.GUI;
 using Common.Language;
 using ImGuiNET;
 
@@ -45,6 +46,7 @@ namespace LittleNightmare.Summoner.Triggers
 
                 ImGui.EndCombo();
             }
+            ImGuiHelper.SetHoverTooltip("当前召唤兽为无时，可能包涵巴哈和凤凰");
 
             return true;
         }

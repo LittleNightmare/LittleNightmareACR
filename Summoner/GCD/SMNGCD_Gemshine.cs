@@ -40,8 +40,9 @@ namespace LittleNightmare.Summoner.GCD
                 ActivePetType.Garuda => SMNBattleData.Instance.GarudaGemshineTimes,
                 _ => 0
             };
-            if (Core.Get<IMemApiSummoner>().ActivePetType != ActivePetType.None)
+            if (Core.Get<IMemApiSummoner>().ActivePetType is ActivePetType.Titan or ActivePetType.Ifrit or ActivePetType.Garuda)
             {
+                // 其实这里主要是给自定义用的，如果正常情况，归零时已经为None了
                 if (timesLeft <= 0)
                 {
                     return -2;

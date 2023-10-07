@@ -56,8 +56,7 @@ public class SMNAbility_Fester : ISlotResolver
             {
                 return 0;
             }
-            var isBahamutOrPhoenix = Core.Get<IMemApiSummoner>().TranceTimer <= 0 && Core.Get<IMemApiSummoner>().PetTimer > 0 && Core.Get<IMemApiSummoner>().ActivePetType == ActivePetType.None;
-            if (isBahamutOrPhoenix)
+            if (Core.Get<IMemApiSummoner>().InBahamut || Core.Get<IMemApiSummoner>().InPhoenix)
             {
                 // 等待使用巴哈或凤凰的能力技，有设计等待时间
                 if (!SMNSpellHelper.EnkindleDemi().RecentlyUsed() && SMNSpellHelper.EnkindleDemi().IsReady())

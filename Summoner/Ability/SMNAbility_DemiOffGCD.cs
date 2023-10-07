@@ -10,7 +10,7 @@ public class SMNAbility_DemiOffGCD : ISlotResolver
 
     public Spell GetSpell()
     {
-        if (!SMNSpellHelper.EnkindleDemi().IsReady() && Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Bahamut))
+        if (!SMNSpellHelper.EnkindleDemi().IsReady() && Core.Get<IMemApiSummoner>().InBahamut)
         {
             return SpellsDefine.Deathflare.GetSpell();
         }
@@ -24,11 +24,7 @@ public class SMNAbility_DemiOffGCD : ISlotResolver
             return -10;
         }
 
-        if (Core.Get<IMemApiSummoner>().ActivePetType != ActivePetType.None)
-        {
-            return -10;
-        }
-        if (Core.Get<IMemApiSummoner>().TranceTimer > 0)
+        if (!(Core.Get<IMemApiSummoner>().InBahamut || Core.Get<IMemApiSummoner>().InPhoenix))
         {
             return -9;
         }
