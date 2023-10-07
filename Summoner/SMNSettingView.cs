@@ -12,9 +12,13 @@ namespace LittleNightmare.Summoner
         public void Draw()
         {
             ImGuiHelper.ToggleButton("自动火神冲".Loc(), ref SMNSettings.Instance.qt自动火神冲);
+            ImGuiHelper.ToggleButton("自动爆发药".Loc(), ref SMNSettings.Instance.qt自动爆发药);
             if (ImGui.Button("保存设置"))
             {
                 SMNSettings.Instance.Save();
+                Qt.NewDefault("自动火神冲".Loc(), SMNSettings.Instance.qt自动火神冲);
+                Qt.NewDefault("爆发药".Loc(), SMNSettings.Instance.qt自动爆发药);
+                Qt.Reset();
             }
             ImGui.Text("如何迁移逆光时间轴到小小梦魇:");
             ImGui.SetNextItemWidth(200);

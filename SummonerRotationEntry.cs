@@ -1,5 +1,7 @@
 ﻿using CombatRoutine;
 using CombatRoutine.Opener;
+using CombatRoutine.TriggerModel;
+using CombatRoutine.View.JobView;
 using Common.Define;
 using Common.Language;
 using LittleNightmare.Summoner;
@@ -17,7 +19,8 @@ namespace LittleNightmare
 
         public string OverlayTitle => "LNM Summoner";
 
-        private SummonerOverlay _overlay = new();
+        public static JobViewWindow JobViewWindow;
+
 
         public List<ISlotResolver> SlotResolvers = new()
         {
@@ -80,11 +83,15 @@ namespace LittleNightmare
                     new SMNTriggerActionSearingLight(),
                     new SMNTriggerActionSummon(),
                     new SMNTriggerActionUseSummon(),
-                    new SMNTriggerActionSwiftCastMode()
+                    new SMNTriggerActionSwiftCastMode(),
+                    new SMNTriggerActionIfritMode()
                     // new SMNTriggerActionPreCastSwiftcast()
                 )
                 .AddTriggerCondition(
-                    new SMNTriggerGaugeCheck());
+                    new SMNTriggerGaugeCheck(),
+                    new SMNTriggersActionPetCheck(),
+                    new SMNTriggersActionAttunementCheck(),
+                    new SMNTriggersActionSummonTimeCheck());
         }
 
         private IOpener theBalanceOpener = new OpenerSMN90();
@@ -100,15 +107,43 @@ namespace LittleNightmare
                 _ => null,
             };
         }
-
-        public void DrawOverlay()
+        private void Check(TriggerNodeBase triggerNodeBase)
         {
-            _overlay.Draw();
+
         }
+
+
+        private void Upgrade(TriggerLine obj)
+        {
+            // Check(obj.TriggerRoot);
+        }
+
+        private int CanUseHighPrioritySlotCheck(SlotMode slotMode, Spell spell)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool BuildQt(out JobViewWindow jobViewWindow)
+        {
+            jobViewWindow = new SummonerOverlay(SMNSettings.Instance.JobViewSave, SMNSettings.Instance.Save, OverlayTitle);
+            JobViewWindow = jobViewWindow;
+            return true;
+        }
+
 
         public void OnLanguageChanged(LanguageType languageType)
         {
            
+        }
+
+        public void OnEnterRotation()
+        {
+            
+        }
+
+        public void OnExistRotation()
+        {
+            
         }
     }
 }

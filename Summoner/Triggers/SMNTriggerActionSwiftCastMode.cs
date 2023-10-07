@@ -53,7 +53,7 @@ public class SMNTriggerActionSwiftCastMode : ITriggerAction
 
     public bool Handle()
     {
-        SMNSettings.Instance.即刻咏唱模式 = 即刻咏唱模式;
+        SMNSettings.Instance.SwiftCastMode = 即刻咏唱模式;
         return true;
     }
 }

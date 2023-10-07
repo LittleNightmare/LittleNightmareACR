@@ -25,7 +25,7 @@ public class SMNAbility_EnergyDrainSiphon : ISlotResolver
         {
             return -10;
         }
-        if (Core.Get<IMemApiSummoner>().Aetherflow == 0)
+        if (!Core.Get<IMemApiSummoner>().HasAetherflowStacks)
         {
             return 0;
         }

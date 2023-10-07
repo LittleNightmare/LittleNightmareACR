@@ -1,3 +1,4 @@
+using CombatRoutine.View.JobView;
 using Common.Helper;
 
 namespace LittleNightmare.Summoner
@@ -32,17 +33,17 @@ namespace LittleNightmare.Summoner
             Directory.CreateDirectory(Path.GetDirectoryName(path));
             File.WriteAllText(path, JsonHelper.ToJson(this));
         }
+        public JobViewSave JobViewSave = new();
+        // public Dictionary<string, object> StyleSetting = new();
+        // public bool AutoReset = true;
 
-        public Dictionary<string, object> StyleSetting = new();
-        public bool AutoReset = true;
-
-        public int 即刻咏唱模式 = 1;
+        // public int 即刻咏唱模式 = 1;
         public bool qt自动火神冲 = false;
 
         /// <summary>
         /// 灼热之光优先于亚灵神释放
         /// </summary>
-        public bool SearingLightFirst = false;
+        // public bool SearingLightFirst = false;
 
         public enum OpenerType
         {
@@ -70,6 +71,9 @@ namespace LittleNightmare.Summoner
         /// <summary>
         /// 在不移动时，优先使用火神GCD，而不是火神冲
         /// </summary>
-        public bool RubyGCDFirst = false;
+        // public bool RubyGCDFirst = false;
+        public bool qt自动爆发药 = true;
+        public int SwiftCastMode = 1;
+        public int IfritMode = 0;
     }
 }

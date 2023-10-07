@@ -9,7 +9,7 @@ namespace LittleNightmare.Summoner.GCD
         public SlotMode SlotMode { get; } = SlotMode.Gcd;
         public int Check()
         {
-            if (SMNSettings.Instance.即刻咏唱模式 != 0)
+            if (SMNSettings.Instance.SwiftCastMode != 0)
             {
                 return -10;
             }

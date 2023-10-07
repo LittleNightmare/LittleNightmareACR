@@ -38,7 +38,7 @@ public class SMNAbility_Fester : ISlotResolver
         {
             return -2;
         }
-        if (!Core.Get<IMemApiSpell>().HasLearn(SpellsDefine.SearingLight))
+        if (!SpellsDefine.SearingLight.IsLevelEnough())
         {
             return 0;
         }

@@ -13,7 +13,7 @@ public class SMNRotationEventHandler : IRotationEventHandler
     public void OnResetBattle()
     {
         SMNBattleData.Instance.Reset();
-        if (SMNSettings.Instance.AutoReset)
+        if (SMNSettings.Instance.JobViewSave.AutoReset)
         {
             Qt.Reset();
         }
@@ -107,5 +107,9 @@ public class SMNRotationEventHandler : IRotationEventHandler
     {
         // 这里放after spell可以吗？
         SMNBattleData.Instance.UsedSummon();
+        if (Core.Me.IsDead && SMNBattleData.Instance.CustomSummon.Count != 0)
+        {
+            SMNBattleData.Instance.CustomSummon.Clear();
+        }
     }
 }

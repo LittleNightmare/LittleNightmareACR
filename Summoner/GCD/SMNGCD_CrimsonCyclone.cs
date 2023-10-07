@@ -28,27 +28,41 @@ namespace LittleNightmare.Summoner.GCD
             {
                 return -9;
             }
-
+            // 暂时不支持启用技能不位移，除非还有个扩展目标圈的判断，因为第二段火神冲需要靠近释放
             var onTargetRing = Core.Me.DistanceMelee(Core.Me.GetCurrTarget()) <= 0;
             if (Core.Get<IMemApiMove>().IsMoving())
             {
-                if (!onTargetRing && !AI.Instance.LockPos)
+                if (!onTargetRing)
                 {
                     return -2;
                 }
                 if (SMNSettings.Instance.SlideUseCrimonCyclone) return 0;
             }
 
-            if (SMNSettings.Instance.RubyGCDFirst && SMNBattleData.Instance.IfritGemshineTimes > 0)
+            if (SMNBattleData.Instance.IfritGemshineTimes > 0 && (onTargetRing || Qt.GetQt("自动火神冲".Loc())))
             {
-                return -2;
+                // 先冲锋再读条
+                if (SMNSettings.Instance.IfritMode == 0)
+                {
+                    return 0;
+                }
+                // 先读条再冲锋，此时还有宝石技能,此时不会移动，不考虑自动火神冲
+                if (SMNSettings.Instance.IfritMode == 1)
+                {
+                    return -2;
+                }
+                // "读条-冲锋-读条"
+                if (SMNSettings.Instance.IfritMode == 2 && SMNBattleData.Instance.IfritGemshineTimes < 2)
+                {
+                    return 0;
+                }
             }
 
             if (Qt.GetQt("自动火神冲".Loc()))
             {
                 return 0;
             }
-            if (onTargetRing || AI.Instance.LockPos)
+            if (onTargetRing)
             {
                 return 0;
             }
