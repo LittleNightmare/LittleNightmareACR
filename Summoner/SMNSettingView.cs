@@ -51,7 +51,7 @@ namespace LittleNightmare.Summoner
             ImGui.SetNextItemWidth(200);
             ImGui.Text("宝石耀: 关闭时不会自动使用三神的GCD，不开启爆发qt也不会用");
             ImGui.SetNextItemWidth(200);
-            ImGui.Text("自动火神冲: 关闭时只有在目标圈上会用火神冲，如果开启后，会在不移动时直接使用火神冲");
+            ImGui.Text("自动火神冲: 火神冲会遵循火神模式设置，关闭时只有在目标圈上会用火神冲，如果开启后，会在不移动时，使用火神冲");
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Version>1.5.1.0</Version>
+    <Version>1.5.1.1</Version>
   </PropertyGroup>
   <PropertyGroup>
     <TargetFramework>net7.0-windows</TargetFramework>
@@ -10,6 +10,11 @@
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>..\Output\RotationPlugin\LittleNightmare\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <OutputPath>..\Output\RotationPlugin\LittleNightmare\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
