@@ -35,7 +35,7 @@ public class SMNRotationEventHandler : IRotationEventHandler
         {
             if (spell.Id == SMNSpellHelper.Titan().Id || spell.Id == SMNSpellHelper.Ifrit().Id || spell.Id == SMNSpellHelper.Garuda().Id)
             {
-                SMNBattleData.Instance.CustomSummon.RemoveAt(0);
+                SMNBattleData.Instance.CustomSummon.Remove(spell);
             }
         }
         // 可能是网络原因导致的，用完上一个召唤，直接变成了下一个，所以导致不重置，这里直接拿两个技能id，但没有解决问题

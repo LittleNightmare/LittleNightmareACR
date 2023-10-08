@@ -52,14 +52,17 @@ namespace LittleNightmare.Summoner
             if (!Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Titan))
             {
                 Summon.Remove(SMNSpellHelper.Titan());
+                CustomSummon.Remove(SMNSpellHelper.Titan());
             }
             if (!Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Ifrit))
             {
                 Summon.Remove(SMNSpellHelper.Ifrit());
+                CustomSummon.Remove(SMNSpellHelper.Ifrit());
             }
             if (!Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Garuda))
             {
                 Summon.Remove(SMNSpellHelper.Garuda());
+                CustomSummon.Remove(SMNSpellHelper.Garuda());
             }
         }
 
