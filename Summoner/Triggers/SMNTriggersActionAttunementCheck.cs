@@ -25,7 +25,7 @@ namespace LittleNightmare.Summoner.Triggers
             return true;
         }
 
-        public bool Handle(ITriggerCondParamas condParamas)
+        public bool Handle(ITriggerCondParams condParamas)
         {
             if (Core.Get<IMemApiSummoner>().ActivePetType == ActivePetType.Titan || Core.Get<IMemApiSummoner>().ActivePetType == ActivePetType.Garuda)
             {

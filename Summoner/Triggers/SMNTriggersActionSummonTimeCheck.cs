@@ -17,7 +17,7 @@ namespace LittleNightmare.Summoner.Triggers
             return true;
         }
 
-        public bool Handle(ITriggerCondParamas condParamas)
+        public bool Handle(ITriggerCondParams condParamas)
         {
             return Core.Get<IMemApiSummoner>().PetTimer == 0;
         }

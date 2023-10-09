@@ -65,7 +65,7 @@ public class SMNTriggerGaugeCheck : ITriggerCond
         ImGuiHelper.SetHoverTooltip("如果不勾选，这个检测会受到自定义次数的影响\n勾选后，直接读取量谱，但不能检测次数为0的情况");
         return true;
     }
-    public bool Handle(ITriggerCondParamas condParamas = null)
+    public bool Handle(ITriggerCondParams condParamas = null)
     {
         if (UseGaugeTimesDirectly)
         {
