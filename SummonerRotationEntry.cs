@@ -28,12 +28,12 @@ namespace LittleNightmare
             new SMNGCD_SummonCarbuncle(),
             // 进巴哈不死鸟
             new SMNGCD_BahamutPhoenix(),
+            // 复活
+            new SMNGCD_Resurrection(),
             // 巴哈不死鸟喷喷
             new SMNGCD_BahamutPhoenixGCD(),
             // 火神冲锋二段
             new SMNGCD_CrimsonStrike(),
-            // 复活
-            new SMNGCD_Resurrection(),
             // 火神冲锋一段
             new SMNGCD_CrimsonCyclone(),
             // 风神读条
@@ -51,16 +51,16 @@ namespace LittleNightmare
             new SMNAbility_SwiftCast(),
             // 团辅
             new SMNAbility_SearingLight(),
+            // 能量吸收/
+            new SMNAbility_EnergyDrainSiphon(),
             // 龙神迸发 不死鸟迸发  死星核爆
             new SMNAbility_DemiOffGCD(),
+            // 溃烂爆发
+            new SMNAbility_Fester(),
             // 苏生之炎
             new SMNAbility_Rekindle(),
             // 山崩
             new SMNAbility_MountainBuster(),
-            // 溃烂爆发
-            new SMNAbility_Fester(),
-            // 能量吸收/
-            new SMNAbility_EnergyDrainSiphon(),
             // 醒梦
             new SMNAbility_LucidDreaming(),
         };

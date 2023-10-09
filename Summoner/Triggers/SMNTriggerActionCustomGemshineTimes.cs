@@ -9,21 +9,21 @@ public class SMNTriggerActionCustomGemshineTimes : ITriggerAction
     public string DisplayName => "SMN/LittleNightmare/下一轮三神技能使用次数".Loc();
     public string Remark { get; set; }
 
-    public int TitanGemshineCastTimes = 4;
-    public int IfritGemshineCastTimes = 2;
-    public int GarudaGemshineCastTimes = 4;
+    public int TitanGemshineTimes = 4;
+    public int IfritGemshineTimes = 2;
+    public int GarudaGemshineTimes = 4;
 
     public void Check()
     {
-        if (TitanGemshineCastTimes < 0 || TitanGemshineCastTimes > 4)
+        if (TitanGemshineTimes < 0 || TitanGemshineTimes > 4)
         {
             throw new Exception("TitanGemshineCastTimes must be >= 0 && <= 4");
         }
-        if (IfritGemshineCastTimes < 0 || IfritGemshineCastTimes > 2)
+        if (IfritGemshineTimes < 0 || IfritGemshineTimes > 2)
         {
             throw new Exception("IfritGemshineTimes must be >= 0 && <= 2");
         }
-        if (GarudaGemshineCastTimes < 0 || GarudaGemshineCastTimes > 4)
+        if (GarudaGemshineTimes < 0 || GarudaGemshineTimes > 4)
         {
             throw new Exception("GarudaGemshineTimes must be >= 0 && <= 4");
         }
@@ -31,26 +31,26 @@ public class SMNTriggerActionCustomGemshineTimes : ITriggerAction
 
     public bool Draw()
     {
-        if (ImGui.InputInt("土神".Loc(), ref TitanGemshineCastTimes))
+        if (ImGui.InputInt("土神".Loc(), ref TitanGemshineTimes))
         {
-            TitanGemshineCastTimes = Math.Clamp(TitanGemshineCastTimes, 0, 4);
+            TitanGemshineTimes = Math.Clamp(TitanGemshineTimes, 0, 4);
         };
-        if (ImGui.InputInt("火神".Loc(), ref IfritGemshineCastTimes))
+        if (ImGui.InputInt("火神".Loc(), ref IfritGemshineTimes))
         {
-            IfritGemshineCastTimes = Math.Clamp(IfritGemshineCastTimes, 0, 2);
+            IfritGemshineTimes = Math.Clamp(IfritGemshineTimes, 0, 2);
         };
-        if (ImGui.InputInt("风神".Loc(), ref GarudaGemshineCastTimes))
+        if (ImGui.InputInt("风神".Loc(), ref GarudaGemshineTimes))
         {
-            GarudaGemshineCastTimes = Math.Clamp(GarudaGemshineCastTimes, 0, 4);
+            GarudaGemshineTimes = Math.Clamp(GarudaGemshineTimes, 0, 4);
         };
         return true;
     }
 
     public bool Handle()
     {
-        SMNBattleData.Instance.TitanGemshineTimesCustom = TitanGemshineCastTimes;
-        SMNBattleData.Instance.IfritGemshineTimesCustom = IfritGemshineCastTimes;
-        SMNBattleData.Instance.GarudaGemshineTimesCustom = GarudaGemshineCastTimes;
+        SMNBattleData.Instance.TitanGemshineTimesCustom = TitanGemshineTimes;
+        SMNBattleData.Instance.IfritGemshineTimesCustom = IfritGemshineTimes;
+        SMNBattleData.Instance.GarudaGemshineTimesCustom = GarudaGemshineTimes;
         return true;
     }
 }

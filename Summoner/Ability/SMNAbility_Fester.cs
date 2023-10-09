@@ -33,11 +33,16 @@ public class SMNAbility_Fester : ISlotResolver
         {
             return 0;
         }
-        if (Core.Get<IMemApiSpellCastSucces>().IsRecentlyUsed(GetSpell().Id) 
-            && !SpellsDefine.EnergyDrain.CoolDownInGCDs(1))
+
+        if (SMNSettings.Instance.PreventDoubleFester)
         {
-            return -2;
+            if (Core.Get<IMemApiSpellCastSucces>().IsRecentlyUsed(GetSpell().Id)
+                && !SpellsDefine.EnergyDrain.CoolDownInGCDs(1))
+            {
+                return -2;
+            }
         }
+        
         if (!SpellsDefine.SearingLight.IsLevelEnough())
         {
             return 0;

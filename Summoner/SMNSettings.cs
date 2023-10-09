@@ -75,5 +75,6 @@ namespace LittleNightmare.Summoner
         public bool qt自动爆发药 = true;
         public int SwiftCastMode = 1;
         public int IfritMode = 0;
+        public bool PreventDoubleFester = false;
     }
 }

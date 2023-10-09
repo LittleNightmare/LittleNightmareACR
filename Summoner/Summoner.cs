@@ -186,6 +186,13 @@ namespace LittleNightmare.Summoner
             // ImGui.Text($"伊芙利特模式: {SMNSettings.Instance.IfritMode}");
             // ImGui.Text($"在巴哈姆特状态: {Core.Get<IMemApiSummoner>().InBahamut}");
             // ImGui.Text($"在巴哈姆特状态old: {Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Bahamut)}");
+            // var IsTitan = Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Titan);
+            // var IsIfrit = Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Ifrit);
+            // var IsGaruda = Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Garuda);
+            // ImGui.Text($"土神PetReady: {IsTitan}");
+            // ImGui.Text($"火神PetReady: {IsIfrit}");
+            // ImGui.Text($"风神PetReady: {IsGaruda}");
+           
         }
     }
 }

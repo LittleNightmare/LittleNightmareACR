@@ -13,6 +13,7 @@ namespace LittleNightmare.Summoner
         {
             ImGuiHelper.ToggleButton("自动火神冲".Loc(), ref SMNSettings.Instance.qt自动火神冲);
             ImGuiHelper.ToggleButton("自动爆发药".Loc(), ref SMNSettings.Instance.qt自动爆发药);
+            ImGuiHelper.ToggleButton("阻止双插溃烂爆发".Loc(), ref SMNSettings.Instance.PreventDoubleFester);
             if (ImGui.Button("保存设置"))
             {
                 SMNSettings.Instance.Save();

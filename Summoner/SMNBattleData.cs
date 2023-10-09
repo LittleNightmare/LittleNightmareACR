@@ -22,9 +22,9 @@ namespace LittleNightmare.Summoner
         public void UpdateSummon()
         {
             Summon.Clear();
-            TitanGemshineTimes = 4;
-            IfritGemshineTimes = 2;
-            GarudaGemshineTimes = 4;
+            TitanGemshineTimes = 4 - (4 - TitanGemshineTimesCustom);
+            IfritGemshineTimes = 2 - (2 - IfritGemshineTimesCustom);
+            GarudaGemshineTimes = 4 - (4- GarudaGemshineTimesCustom);
         }
 
         public void OpenerSummon()
@@ -49,20 +49,66 @@ namespace LittleNightmare.Summoner
             {
                 Summon.Add(SMNSpellHelper.Garuda());
             }
+
+            if (Core.Get<IMemApiSummoner>().InBahamut || Core.Get<IMemApiSummoner>().InPhoenix)
+            {
+                TitanGemshineTimes = 4 - (4 - TitanGemshineTimesCustom);
+                IfritGemshineTimes = 2 - (2 - IfritGemshineTimesCustom);
+                GarudaGemshineTimes = 4 - (4 - GarudaGemshineTimesCustom);
+                
+            }
+
             if (!Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Titan))
             {
                 Summon.Remove(SMNSpellHelper.Titan());
                 CustomSummon.Remove(SMNSpellHelper.Titan());
+                if (Core.Get<IMemApiSummoner>().ActivePetType != ActivePetType.Titan)
+                {
+                    TitanGemshineTimes = 0;
+                    if (CustomSummon.Count <= 0)
+                    {
+                        TitanGemshineTimesCustom = 4;
+                    }
+                }
             }
             if (!Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Ifrit))
             {
                 Summon.Remove(SMNSpellHelper.Ifrit());
                 CustomSummon.Remove(SMNSpellHelper.Ifrit());
+                if (Core.Get<IMemApiSummoner>().ActivePetType != ActivePetType.Ifrit)
+                {
+                    IfritGemshineTimes = 0;
+                    if(CustomSummon.Count <= 0)
+                    {
+                        IfritGemshineTimesCustom = 2;
+                    }
+                }
             }
             if (!Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Garuda))
             {
                 Summon.Remove(SMNSpellHelper.Garuda());
                 CustomSummon.Remove(SMNSpellHelper.Garuda());
+                if (Core.Get<IMemApiSummoner>().ActivePetType != ActivePetType.Garuda)
+                {
+                    GarudaGemshineTimes = 0;
+                    if (CustomSummon.Count <= 0)
+                    {
+                        GarudaGemshineTimesCustom = 4;
+                    }
+                }
+            }
+
+            switch (Core.Get<IMemApiSummoner>().ActivePetType)
+            {
+                case ActivePetType.Titan:
+                    TitanGemshineTimes = Core.Get<IMemApiSummoner>().ElementalAttunement - (4 - TitanGemshineTimesCustom);
+                    break;
+                case ActivePetType.Ifrit:
+                    IfritGemshineTimes = Core.Get<IMemApiSummoner>().ElementalAttunement - (2 - IfritGemshineTimesCustom);
+                    break;
+                case ActivePetType.Garuda:
+                    GarudaGemshineTimes = Core.Get<IMemApiSummoner>().ElementalAttunement - (4 - GarudaGemshineTimesCustom);
+                    break;
             }
         }
 

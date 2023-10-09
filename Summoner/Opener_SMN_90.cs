@@ -60,7 +60,7 @@ namespace LittleNightmare.Summoner
         private static void Step0(Slot slot)
         {
             slot.Add(new Spell(SpellsDefine.SummonBahamut, SpellTargetType.Target));
-            slot.Add2NdWindowAbility(new Spell(SpellsDefine.SearingLight, SpellTargetType.DefaultByCode));
+            slot.Add(new SlotAction(SlotAction.WaitType.WaitForSndHalfWindow, 250, SpellsDefine.SearingLight.GetSpell()));
         }
         private static void Step1(Slot slot)
         {
