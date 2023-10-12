@@ -9,17 +9,11 @@ namespace LittleNightmare.Summoner.GCD
     {
         public Spell? GetSpell()
         {
-            if (Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Titan)
-                || Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Ifrit)
-                || Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Garuda))
+            if (SMNBattleData.Instance.CustomSummon.Count > 0 && !SMNBattleData.Instance.In90Opener)
             {
-                if (SMNBattleData.Instance.CustomSummon.Count > 0 && !SMNBattleData.Instance.In90Opener)
-                {
-                    return SMNBattleData.Instance.CustomSummon[0];
-                }
-                return SMNBattleData.Instance.Summon[0];
+                return SMNBattleData.Instance.CustomSummon[0];
             }
-            return null;
+            return SMNBattleData.Instance.Summon[0];
         }
         public SlotMode SlotMode { get; } = SlotMode.Gcd;
         public int Check()
@@ -40,6 +34,10 @@ namespace LittleNightmare.Summoner.GCD
                 || Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Ifrit)
                 || Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Garuda))
             {
+                if (Core.Me.HasAura(AurasDefine.IfritsFavor))
+                {
+                    return -2;
+                }
                 if (Core.Get<IMemApiSummoner>().TranceTimer > 0)
                 {
                     if (Core.Get<IMemApiSummoner>().ActivePetType == ActivePetType.Titan && SMNBattleData.Instance.TitanGemshineTimes == 0)
@@ -56,12 +54,9 @@ namespace LittleNightmare.Summoner.GCD
                     }
                     return -8;
                 }
-                if (Core.Get<IMemApiMove>().IsMoving() && Core.Me.HasAura(AurasDefine.IfritsFavor) && Core.Me.HasAura(AurasDefine.FurtherRuin))
-                {
-                    return -7;
-                }
                 return 0;
             }
+
             return -1;
         }
 

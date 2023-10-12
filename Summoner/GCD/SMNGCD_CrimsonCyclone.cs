@@ -46,7 +46,7 @@ namespace LittleNightmare.Summoner.GCD
                 {
                     return 0;
                 }
-                // 先读条再冲锋，此时还有宝石技能,此时不会移动，不考虑自动火神冲
+                // 先读条再冲锋，此时还有宝石技能,此时不会移动，不考虑自动火神冲; 这里好像会导致读条后不冲锋，
                 if (SMNSettings.Instance.IfritMode == 1)
                 {
                     return -2;
@@ -56,16 +56,16 @@ namespace LittleNightmare.Summoner.GCD
                 {
                     return 0;
                 }
+
+                return -2;
             }
 
-            if (Qt.GetQt("自动火神冲".Loc()))
+            if (onTargetRing || Qt.GetQt("自动火神冲".Loc()))
             {
                 return 0;
             }
-            if (onTargetRing)
-            {
-                return 0;
-            }
+            
+
             return -1;
         }
 

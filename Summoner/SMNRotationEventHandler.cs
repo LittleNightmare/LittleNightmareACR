@@ -39,8 +39,8 @@ public class SMNRotationEventHandler : IRotationEventHandler
         //         // SMNBattleData.Instance.CustomSummon.Remove(spell);
         //     }
         // }
-        // 可能是网络原因导致的，用完上一个召唤，直接变成了下一个，所以导致不重置，这里直接拿两个技能id，但没有解决问题
-        if (spell.Id is SpellsDefine.SummonBahamut or SpellsDefine.SummonPhoenix)
+
+        if (spell.Id == SMNSpellHelper.BahamutPhoneix().Id)
         {
             SMNBattleData.Instance.UpdateSummon();
         }
@@ -111,6 +111,15 @@ public class SMNRotationEventHandler : IRotationEventHandler
         if (Core.Me.IsDead && SMNBattleData.Instance.CustomSummon.Count != 0)
         {
             SMNBattleData.Instance.CustomSummon.Clear();
+        }
+        if (Core.Get<IMemApiSummoner>().InBahamut || Core.Get<IMemApiSummoner>().InPhoenix)
+        {
+            AI.Instance.BattleData.Limit2Ability = true;
+        }
+        else
+        {
+            AI.Instance.BattleData.LimitAbility = false;
+            AI.Instance.BattleData.Limit2Ability = false;
         }
     }
 }

@@ -16,7 +16,7 @@ namespace LittleNightmare.Summoner.Triggers
 
         public bool Draw()
         {
-            ImGui.TextDisabled("我建议用 量谱条件，这个你需要组合 检测在场召唤兽类型 才稳\n另外，这个也不支持检测为0\nBy 动不了源码，阴暗的嘀嘀咕咕的小鬼");
+            ImGui.TextDisabled("我建议用 量谱条件，这个你需要组合 检测在场召唤兽类型 才稳\n另外，这个也不支持检测为4\nBy 动不了源码，阴暗的嘀嘀咕咕的小鬼");
             if (ImGui.InputInt("次数".Loc(), ref Attunement))
             {
                 Attunement = Math.Clamp(Attunement, 0, 4);
