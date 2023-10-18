@@ -9,7 +9,7 @@ namespace LittleNightmare.Summoner.GCD
     {
         public Spell? GetSpell()
         {
-            if (SMNBattleData.Instance.CustomSummon.Count > 0 && !SMNBattleData.Instance.In90Opener)
+            if (SMNBattleData.Instance.CustomSummon.Count > 0)
             {
                 return SMNBattleData.Instance.CustomSummon[0];
             }

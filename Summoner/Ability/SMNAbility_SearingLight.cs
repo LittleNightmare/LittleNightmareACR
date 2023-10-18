@@ -35,6 +35,6 @@ public class SMNAbility_SearingLight : ISlotResolver
 
     public void Build(Slot slot)
     {
-        slot.Add(SpellsDefine.SearingLight.GetSpell());
+        slot.Add(new SlotAction(SlotAction.WaitType.WaitForSndHalfWindow, 0, SpellsDefine.SearingLight.GetSpell()));
     }
 }

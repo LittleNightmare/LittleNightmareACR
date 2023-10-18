@@ -19,7 +19,7 @@ public class SMNAbility_SwiftCast : ISlotResolver
         {
             return 0;
         }
-        if ((SMNSettings.Instance.SwiftCastMode is 1 or 3|| SMNBattleData.Instance.In90Opener))
+        if (SMNSettings.Instance.SwiftCastMode is 1 or 3)
         {
             if (Core.Me.HasMyAura(AurasDefine.GarudasFavor))
             {

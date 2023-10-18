@@ -73,7 +73,6 @@ namespace LittleNightmare.Summoner
             if (Core.Me.ClassLevel >= 86)
             {
                 SMNBattleData.Instance.OpenerSummon();
-                SMNBattleData.Instance.In90Opener = true;
             }
         }
         private static void Step2(Slot slot)

@@ -86,7 +86,7 @@ namespace LittleNightmare.Summoner
             {
                 SMNBattleData.Instance.GarudaFirst();
             }
-            ImGui.Text("开场爆发中: ".Loc() + SMNBattleData.Instance.In90Opener);
+            // ImGui.Text("开场爆发中: ".Loc() + SMNBattleData.Instance.In90Opener);
 
             ImGui.SetNextItemWidth(200f);
             if (ImGui.BeginCombo("即刻咏唱模式".Loc(), swiftcastModes[SMNSettings.Instance.SwiftCastMode]))
@@ -177,6 +177,11 @@ namespace LittleNightmare.Summoner
             ImGui.Text($"召唤兽时间：{Core.Get<IMemApiSummoner>().PetTimer}");
             // ImGui.Text($"山崩预备: {Core.Me.HasMyAura(AurasDefine.TitansFavor)}");
             ImGui.Text($"能力技次数: {AI.Instance.BattleData.AbilityCount}");
+            ImGui.SameLine();
+            if (ImGui.Button("手动归零"))
+            {
+                AI.Instance.BattleData.AbilityCount = 0;
+            }
             // ImGui.Text($"宝石耀属性: {Core.Get<IMemApiSpell>().GetSpellType(SpellsDefine.Gemshine.GetSpell().Id)}");
             ImGui.Text($"距离Melee: {Core.Me.DistanceMelee(Core.Me.GetCurrTarget())}");
             ImGui.Text($"距离: {Core.Me.Distance(Core.Me.GetCurrTarget())}");

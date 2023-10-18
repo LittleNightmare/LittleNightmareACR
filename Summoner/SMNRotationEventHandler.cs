@@ -45,11 +45,11 @@ public class SMNRotationEventHandler : IRotationEventHandler
             SMNBattleData.Instance.UpdateSummon();
         }
 
-        switch (spell.Id)
-        {
-            case SpellsDefine.SummonPhoenix:
-                SMNBattleData.Instance.In90Opener = false;
-                break;
+        // switch (spell.Id)
+        // {
+            // case SpellsDefine.SummonPhoenix:
+            //     SMNBattleData.Instance.In90Opener = false;
+            //     break;
 
             // case SpellsDefine.TopazRuin:
             // case SpellsDefine.TopazRuinIi:
@@ -85,7 +85,7 @@ public class SMNRotationEventHandler : IRotationEventHandler
             // default:
             //     AI.Instance.BattleData.LimitAbility = false;
             //     break;
-        }
+        // }
         // 两次矫正，主要出现莫名奇妙不重置次数的问题，这里多加一个保险
         // switch (Core.Get<IMemApiSummoner>().ActivePetType)
         // {

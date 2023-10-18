@@ -60,7 +60,7 @@ namespace LittleNightmare.Summoner
         private static void Step0(Slot slot)
         {
             slot.Add(new Spell(SpellsDefine.SummonBahamut, SpellTargetType.Target));
-            slot.Add(new SlotAction(SlotAction.WaitType.WaitForSndHalfWindow, 250, SpellsDefine.SearingLight.GetSpell()));
+            slot.Add(new SlotAction(SlotAction.WaitType.WaitForSndHalfWindow, 0, SpellsDefine.SearingLight.GetSpell()));
         }
         private static void Step1(Slot slot)
         {
@@ -72,7 +72,6 @@ namespace LittleNightmare.Summoner
             if (Core.Me.ClassLevel >= 86)
             {
                 SMNBattleData.Instance.OpenerSummon();
-                SMNBattleData.Instance.In90Opener = true;
             }
         }
         private static void Step2(Slot slot)

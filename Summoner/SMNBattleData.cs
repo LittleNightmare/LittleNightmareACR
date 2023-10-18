@@ -17,7 +17,7 @@ namespace LittleNightmare.Summoner
         public int TitanGemshineTimesCustom = 4;
         public int IfritGemshineTimesCustom = 2;
         public int GarudaGemshineTimesCustom = 4;
-        public bool In90Opener = false;
+        // public bool In90Opener = false;
 
         public void UpdateSummon()
         {
