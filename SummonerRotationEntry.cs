@@ -2,6 +2,7 @@
 using CombatRoutine.Opener;
 using CombatRoutine.TriggerModel;
 using CombatRoutine.View.JobView;
+using Common;
 using Common.Define;
 using Common.Language;
 using LittleNightmare.Summoner;
@@ -91,7 +92,8 @@ namespace LittleNightmare
                     new SMNTriggerGaugeCheck(),
                     new SMNTriggersActionPetCheck(),
                     new SMNTriggersActionAttunementCheck(),
-                    new SMNTriggersActionSummonTimeCheck());
+                    new SMNTriggersActionSummonTimeCheck())
+                .AddCanUseHighPrioritySlotCheck(CanUseHighPrioritySlotCheck);
         }
 
         private IOpener theBalanceOpener = new OpenerSMN90();
@@ -120,7 +122,36 @@ namespace LittleNightmare
 
         private int CanUseHighPrioritySlotCheck(SlotMode slotMode, Spell spell)
         {
-            throw new NotImplementedException();
+            if (!spell.IsReadyWithoutUnlock())
+            {
+                return -1;
+            }
+
+            if (spell.IsReady())
+            {
+                switch (slotMode)
+                {
+                    case SlotMode.Gcd:
+                        if (spell.CastTime.TotalSeconds > 0)
+                        {
+                            if (Core.Get<IMemApiMove>().IsMoving() && !Core.Me.HasMyAura(AurasDefine.Swiftcast))
+                            {
+                                return -1;
+                            }
+                        }
+                        return 0;
+                    case SlotMode.OffGcd:
+                        if (spell.Charges < 1)
+                        {
+                            return -1;
+                        }
+                        return 0;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(slotMode), slotMode, null);
+                }
+            }
+
+            return -1;
         }
 
         public bool BuildQt(out JobViewWindow jobViewWindow)
