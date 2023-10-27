@@ -120,15 +120,16 @@ namespace LittleNightmare
             // Check(obj.TriggerRoot);
         }
 
-        private int CanUseHighPrioritySlotCheck(SlotMode slotMode, Spell spell)
+        public int CanUseHighPrioritySlotCheck(SlotMode slotMode, Spell spell)
         {
             if (!spell.IsReadyWithoutUnlock())
             {
                 return -1;
             }
-
+            
             if (spell.IsReady())
             {
+                if(spell.CanCast() < 0) return -1;
                 switch (slotMode)
                 {
                     case SlotMode.Gcd:
@@ -144,6 +145,14 @@ namespace LittleNightmare
                         if (spell.Charges < 1)
                         {
                             return -1;
+                        }
+
+                        if (spell == SpellsDefine.RadiantAegis.GetSpell())
+                        {
+                            if (Core.Get<IMemApiSummoner>().PetTimer != 0 && (Core.Get<IMemApiSummoner>().InBahamut || Core.Get<IMemApiSummoner>().InPhoenix))
+                            {
+                                return -1;
+                            }
                         }
                         return 0;
                     default:
