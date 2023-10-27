@@ -10,6 +10,7 @@ namespace LittleNightmare.Summoner
         public static SMNBattleData Instance = new();
         public List<Spell> Summon = new();
         public List<Spell> CustomSummon = new();
+        public List<Spell> CustomSummonWaitList = new();
         // 剩余次数
         public int TitanGemshineTimes = 4;
         public int IfritGemshineTimes = 2;
@@ -50,12 +51,12 @@ namespace LittleNightmare.Summoner
                 Summon.Add(SMNSpellHelper.Garuda());
             }
 
+
             if (Core.Get<IMemApiSummoner>().InBahamut || Core.Get<IMemApiSummoner>().InPhoenix)
             {
                 TitanGemshineTimes = 4 - (4 - TitanGemshineTimesCustom);
                 IfritGemshineTimes = 2 - (2 - IfritGemshineTimesCustom);
                 GarudaGemshineTimes = 4 - (4 - GarudaGemshineTimesCustom);
-                
             }
 
             if (!Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Titan))
@@ -95,6 +96,20 @@ namespace LittleNightmare.Summoner
                     {
                         GarudaGemshineTimesCustom = 4;
                     }
+                }
+            }
+
+            if (CustomSummonWaitList.Count > 0)
+            {
+                if (Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Titan)
+                    && Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Ifrit)
+                    && Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Garuda))
+                {
+                    foreach (var summon in CustomSummonWaitList)
+                    {
+                        CustomSummon.Add(summon);
+                    }
+                    CustomSummonWaitList.Clear();
                 }
             }
 

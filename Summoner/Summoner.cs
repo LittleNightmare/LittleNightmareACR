@@ -178,13 +178,20 @@ namespace LittleNightmare.Summoner
             // ImGui.Text($"山崩预备: {Core.Me.HasMyAura(AurasDefine.TitansFavor)}");
             ImGui.Text($"能力技次数: {AI.Instance.BattleData.AbilityCount}");
             ImGui.SameLine();
-            if (ImGui.Button("手动归零"))
+            if (ImGui.Button("手动归零##AbilityCount"))
             {
                 AI.Instance.BattleData.AbilityCount = 0;
             }
             // ImGui.Text($"宝石耀属性: {Core.Get<IMemApiSpell>().GetSpellType(SpellsDefine.Gemshine.GetSpell().Id)}");
             ImGui.Text($"距离Melee: {Core.Me.DistanceMelee(Core.Me.GetCurrTarget())}");
             ImGui.Text($"距离: {Core.Me.Distance(Core.Me.GetCurrTarget())}");
+
+            ImGui.Text($"自定义等待队列宝宝数量: {SMNBattleData.Instance.CustomSummonWaitList.Count}");
+            ImGui.SameLine();
+            if (ImGui.Button("手动归零##CustomSummonWaitList"))
+            {
+                SMNBattleData.Instance.CustomSummonWaitList.Clear();
+            }
             // ImGui.Text($"优先火神GD: {SMNSettings.Instance.RubyGCDFirst && SMNBattleData.Instance.IfritGemshineTimes > 0}");
             // ImGui.Text($"灼热之光时间剩余时间(ms): {Core.Me.GetBuffTimespanLeft(AurasDefine.SearingLight).TotalMilliseconds}");
             // ImGui.Text($"灼热之光buff: {Core.Me.HasMyAura(AurasDefine.SearingLight)}");
