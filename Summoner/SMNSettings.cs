@@ -76,5 +76,9 @@ namespace LittleNightmare.Summoner
         public int SwiftCastMode = 1;
         public int IfritMode = 0;
         public bool PreventDoubleFester = false;
+        /// <summary>
+        /// MP阈值，如果低于这个值，使用醒梦
+        /// </summary>
+        public int MPThreshold = 8000;
     }
 }

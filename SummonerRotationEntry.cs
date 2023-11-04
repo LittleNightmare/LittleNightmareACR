@@ -20,6 +20,8 @@ namespace LittleNightmare
 
         public string OverlayTitle => "LNM Summoner";
 
+        public AcrType AcrType => AcrType.Both;
+
         public static JobViewWindow JobViewWindow;
 
 

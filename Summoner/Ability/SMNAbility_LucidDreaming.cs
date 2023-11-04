@@ -13,7 +13,7 @@ public class SMNAbility_LucidDreaming : ISlotResolver
         {
             return -10;
         }
-        if (Core.Me.CurrentMana <= 8000)
+        if (Core.Me.CurrentMana <= SMNSettings.Instance.MPThreshold)
         {
             return 0;
         }
