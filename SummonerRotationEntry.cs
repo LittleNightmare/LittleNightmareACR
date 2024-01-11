@@ -22,6 +22,12 @@ namespace LittleNightmare
 
         public AcrType AcrType => AcrType.Both;
 
+        public int MinLevel => 1;
+
+        public int MaxLevel => 90;
+
+        public string Description => "召唤通用ACR，与逆光的几乎相同，目前处于停更状态，推荐用逆光的，除非你延迟高，可以尝试用用这个\n选项的介绍请查看 设置";
+
         public static JobViewWindow JobViewWindow;
 
 
