@@ -152,51 +152,51 @@ namespace LittleNightmare.Summoner
             }
         }
 
-        public bool CastSwiftCastCouldCoverTargetSpell()
-        {
-            var leftGCD = GCDLeftUntilNextSwiftCasted();
-            return leftGCD is >= 0 and < 4 && Qt.GetQt("预读风神即刻咏唱".Loc()) &&
-                   (Core.Get<IMemApiSummoner>().ActivePetType != ActivePetType.Ifrit || Instance.IfritGemshineTimes <= 0);
-        }
+        //public bool CastSwiftCastCouldCoverTargetSpell()
+        //{
+        //    var leftGCD = GCDLeftUntilNextSwiftCasted();
+        //    return leftGCD is >= 0 and < 4 && Qt.GetQt("预读风神即刻咏唱".Loc()) &&
+        //           (Core.Get<IMemApiSummoner>().ActivePetType != ActivePetType.Ifrit || Instance.IfritGemshineTimes <= 0);
+        //}
 
-        public int GCDLeftUntilNextSwiftCasted()
-        {
-            var targetSpell = SMNSpellHelper.Garuda();
-
-            if (!SpellsDefine.Slipstream.IsUnlock()) return -1;
-
-            var GCDLeft = Core.Get<IMemApiSummoner>().TranceTimer > 0 ? Core.Get<IMemApiSummoner>().ElementalAttunement : 0;
-            var list = Instance.CustomSummon.Count > 0 ? Instance.CustomSummon : Instance.Summon;
-            foreach (var pet in list)
-            {
-
-                if (pet == SMNSpellHelper.Titan())
-                {
-                    GCDLeft += Instance.TitanGemshineTimes + 1;
-                }
-
-                if (pet == SMNSpellHelper.Ifrit())
-                {
-                    GCDLeft += Instance.IfritGemshineTimes + 3;
-                }
-
-                if (pet == SMNSpellHelper.Garuda())
-                {
-                    GCDLeft += 1;
-                }
-
-                if (pet == targetSpell)
-                {
-                    return GCDLeft;
-                }
-
-            }
-            return -1;
-        }
+        // public int GCDLeftUntilNextSwiftCasted()
+        // {
+        //     var targetSpell = SMNSpellHelper.Garuda();
+        //
+        //     if (!SpellsDefine.Slipstream.IsUnlock()) return -1;
+        //
+        //     var GCDLeft = Core.Get<IMemApiSummoner>().TranceTimer > 0 ? Core.Get<IMemApiSummoner>().ElementalAttunement : 0;
+        //     var list = Instance.CustomSummon.Count > 0 ? Instance.CustomSummon : Instance.Summon;
+        //     foreach (var pet in list)
+        //     {
+        //
+        //         if (pet == SMNSpellHelper.Titan())
+        //         {
+        //             GCDLeft += Instance.TitanGemshineTimes + 1;
+        //         }
+        //
+        //         if (pet == SMNSpellHelper.Ifrit())
+        //         {
+        //             GCDLeft += Instance.IfritGemshineTimes + 3;
+        //         }
+        //
+        //         if (pet == SMNSpellHelper.Garuda())
+        //         {
+        //             GCDLeft += 1;
+        //         }
+        //
+        //         if (pet == targetSpell)
+        //         {
+        //             return GCDLeft;
+        //         }
+        //
+        //     }
+        //     return -1;
+        // }
 
         public void Reset()
         {
-            Instance = new();
+            Instance = new SMNBattleData();
         }
 
     }

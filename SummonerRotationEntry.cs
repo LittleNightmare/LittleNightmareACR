@@ -130,45 +130,36 @@ namespace LittleNightmare
 
         public int CanUseHighPrioritySlotCheck(SlotMode slotMode, Spell spell)
         {
-            if (!spell.IsReadyWithoutUnlock())
+            if (!spell.IsReady()) return -1;
+            if(spell.CanCast() < 0) return -1;
+            switch (slotMode)
             {
-                return -1;
-            }
-            
-            if (spell.IsReady())
-            {
-                if(spell.CanCast() < 0) return -1;
-                switch (slotMode)
-                {
-                    case SlotMode.Gcd:
-                        if (spell.CastTime.TotalSeconds > 0)
-                        {
-                            if (Core.Get<IMemApiMove>().IsMoving() && !Core.Me.HasMyAura(AurasDefine.Swiftcast))
-                            {
-                                return -1;
-                            }
-                        }
-                        return 0;
-                    case SlotMode.OffGcd:
-                        if (spell.Charges < 1)
+                case SlotMode.Gcd:
+                    if (spell.CastTime.TotalSeconds > 0)
+                    {
+                        if (Core.Get<IMemApiMove>().IsMoving() && !Core.Me.HasMyAura(AurasDefine.Swiftcast))
                         {
                             return -1;
                         }
+                    }
+                    return 0;
+                case SlotMode.OffGcd:
+                    if (spell.Charges < 1)
+                    {
+                        return -1;
+                    }
 
-                        if (spell == SpellsDefine.RadiantAegis.GetSpell())
+                    if (spell == SpellsDefine.RadiantAegis.GetSpell())
+                    {
+                        if (Core.Get<IMemApiSummoner>().PetTimer != 0 && (Core.Get<IMemApiSummoner>().InBahamut || Core.Get<IMemApiSummoner>().InPhoenix))
                         {
-                            if (Core.Get<IMemApiSummoner>().PetTimer != 0 && (Core.Get<IMemApiSummoner>().InBahamut || Core.Get<IMemApiSummoner>().InPhoenix))
-                            {
-                                return -1;
-                            }
+                            return -1;
                         }
-                        return 0;
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(slotMode), slotMode, null);
-                }
+                    }
+                    return 0;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(slotMode), slotMode, null);
             }
-
-            return -1;
         }
 
         public bool BuildQt(out JobViewWindow jobViewWindow)

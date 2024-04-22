@@ -14,6 +14,8 @@ namespace LittleNightmare.Summoner.Triggers
         public bool Draw()
         {
             ImGui.Text("添加即可".Loc());
+            ImGui.Text("用于检查SummonTimerRemaning数值");
+            ImGui.Text("大于0返回false，等于0返回true");
             return true;
         }
 
