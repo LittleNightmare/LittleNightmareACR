@@ -60,9 +60,9 @@ public class SMNTriggerGaugeCheck : ITriggerCond
         ImGui.Text("剩余次数等于: ".Loc());
         ImGui.SameLine();
         ImGuiHelper.LeftInputInt("次".Loc(), ref SummonTimes, UseGaugeTimesDirectly? 1 + _min : _min, _max);
-        ImGuiHelper.SetHoverTooltip("举例: 三神刚出现的窗口，用最大值，比如土神设置为4\n用完第一次宝石耀的窗口，用3");
+        ImGuiHelper.SetHoverTooltip("举例: 三神刚出现的窗口，用最大值，比如土神设置为4\n用完第一次宝石耀的窗口，用3".Loc());
         ImGui.Checkbox("直接使用量谱次数".Loc(), ref UseGaugeTimesDirectly);
-        ImGuiHelper.SetHoverTooltip("如果不勾选，这个检测会受到自定义次数的影响\n勾选后，直接读取量谱，但不能检测次数为0的情况");
+        ImGuiHelper.SetHoverTooltip("如果不勾选，这个检测会受到自定义次数的影响\n勾选后，直接读取量谱，但不能检测次数为0的情况".Loc());
         return true;
     }
     public bool Handle(ITriggerCondParams condParamas = null)

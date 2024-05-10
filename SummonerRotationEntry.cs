@@ -26,7 +26,9 @@ namespace LittleNightmare
 
         public int MaxLevel => 90;
 
-        public string Description => "召唤通用ACR，与逆光的几乎相同，目前处于停更状态，推荐用逆光的，除非你延迟高，可以尝试用用这个\n选项的介绍请查看 设置";
+        public string Description => "召唤通用ACR，与逆光的大体相同，处于摸鱼状态，推荐用逆光的，毕竟不知道什么时候就摸了\n" +
+                                     "这个ACR与逆光的相比，提供多一点点的自定义设置。这可以增强日常体验，让ACR更符合各位召唤师的习惯\n" +
+                                     "选项的介绍请查看 设置";
 
         public static JobViewWindow JobViewWindow;
 
@@ -138,6 +140,14 @@ namespace LittleNightmare
                     if (spell.CastTime.TotalSeconds > 0)
                     {
                         if (Core.Get<IMemApiMove>().IsMoving() && !Core.Me.HasMyAura(AurasDefine.Swiftcast))
+                        {
+                            return -1;
+                        }
+                    }
+
+                    if (spell == SpellsDefine.Ruin4.GetSpell())
+                    {
+                        if (!Core.Me.HasMyAura(AurasDefine.FurtherRuin))
                         {
                             return -1;
                         }
