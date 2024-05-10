@@ -1,14 +1,27 @@
 using CombatRoutine;
 using Common;
 using Common.Define;
+using Common.Language;
 
 namespace LittleNightmare.Summoner.Ability;
 
 public class SMNAbility_MountainBuster : ISlotResolver
 {
     public SlotMode SlotMode { get; } = SlotMode.OffGcd;
+
+    public Spell GetSpell()
+    {
+        if (!Qt.GetQt("AOE".Loc())) return SpellsDefine.MountainBuster.GetSpell();
+        if (!SMNSettings.Instance.SmartAoETarget) return SpellsDefine.MountainBuster.GetSpell();
+        var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SpellsDefine.MountainBuster);
+        return canTargetObjects.IsValid ? new Spell(SpellsDefine.MountainBuster, canTargetObjects) : SpellsDefine.MountainBuster.GetSpell();
+    }
     public int Check()
     {
+        if (!SpellsDefine.MountainBuster.IsReady())
+        {
+            return -10;
+        }
         if (Core.Me.HasMyAura(AurasDefine.TitansFavor))
         {
             return 0;
@@ -18,6 +31,6 @@ public class SMNAbility_MountainBuster : ISlotResolver
 
     public void Build(Slot slot)
     {
-        slot.Add(SpellsDefine.MountainBuster.GetSpell());
+        slot.Add(GetSpell());
     }
 }

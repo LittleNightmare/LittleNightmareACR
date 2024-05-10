@@ -11,6 +11,12 @@ namespace LittleNightmare.Summoner.GCD
     {
         public Spell GetSpell()
         {
+            if (!Qt.GetQt("AOE".Loc())) return SpellsDefine.Ruin4.GetSpell();
+            if (SMNSettings.Instance.SmartAoETarget)
+            {
+                var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SpellsDefine.Ruin4);
+                return canTargetObjects.IsValid ? new Spell(SpellsDefine.Ruin4, canTargetObjects) : SpellsDefine.Ruin4.GetSpell();
+            }
             return SpellsDefine.Ruin4.GetSpell();
         }
         public SlotMode SlotMode { get; } = SlotMode.Gcd;

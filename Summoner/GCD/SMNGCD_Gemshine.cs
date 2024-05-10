@@ -10,16 +10,18 @@ namespace LittleNightmare.Summoner.GCD
     {
         public Spell GetSpell()
         {
-            if (Qt.GetQt("AOE".Loc()))
+            if (!Qt.GetQt("AOE".Loc())) return SMNSpellHelper.BaseSummonSingle();
+            var target = Core.Me.GetCurrTarget();
+            if (SMNSettings.Instance.SmartAoETarget)
             {
-                var aoeCount = TargetHelper.GetNearbyEnemyCount(Core.Me.GetCurrTarget(), 25, 5);
-                if (aoeCount >= 3)
+                var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SMNSpellHelper.BaseSummonAoE().Id);
+                if (canTargetObjects.IsValid)
                 {
-                    return SMNSpellHelper.BaseSummonAoE();
+                    target = canTargetObjects;
                 }
             }
-
-            return SMNSpellHelper.BaseSummonSingle();
+            var aoeCount = TargetHelper.GetNearbyEnemyCount(target, 25, 5);
+            return aoeCount >= 3 ? new Spell(SMNSpellHelper.BaseSummonAoE().Id, target) : SMNSpellHelper.BaseSummonSingle();
         }
         public SlotMode SlotMode { get; } = SlotMode.Gcd;
         public int Check()

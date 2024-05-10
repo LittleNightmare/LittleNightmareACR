@@ -15,13 +15,16 @@ namespace LittleNightmare.Summoner
             ImGuiHelper.ToggleButton("自动爆发药".Loc(), ref SMNSettings.Instance.qt自动爆发药);
             ImGuiHelper.ToggleButton("阻止双插溃烂爆发".Loc(), ref SMNSettings.Instance.PreventDoubleFester);
             
-            ImGui.Text("醒梦阈值: ");
+            ImGui.Text("醒梦阈值: ".Loc());
             ImGui.SameLine();
             ImGui.SetNextItemWidth(100);
             if (ImGui.InputInt("##MPThreshold", ref SMNSettings.Instance.MPThreshold, 100, 1000))
             {
                 SMNSettings.Instance.MPThreshold = Math.Clamp(SMNSettings.Instance.MPThreshold, 0, 10000);
             }
+
+            ImGuiHelper.ToggleButton("智能AOE目标".Loc(), ref SMNSettings.Instance.SmartAoETarget);
+            ImGuiHelper.SetHoverTooltip("将智能选择最适合释放AoE的目标，而不是根据当前目标决定是否使用AoE\n不支持火神冲".Loc());
 
             
             if (ImGui.Button("保存设置"))
@@ -37,6 +40,9 @@ namespace LittleNightmare.Summoner
             ImGui.SetNextItemWidth(200);
             ImGui.Text("2. 搜索`NiGuangOwO`全部替换成`LittleNightmare`");
             ImGui.SetNextItemWidth(200);
+            ImGui.Text("2.1 搜索`SMNTriggerActionSetQt`全部替换成`SMNTriggerActionQt`");
+            ImGui.SetNextItemWidth(200);
+            ImGui.Text("2.2 `SMNTriggersActionBahaPhoenixCheck`上一个技能是巴哈或凤凰 这个暂时不支持，麻烦先删掉，再导入");
             ImGui.Text("3. 保存");
             ImGui.SetNextItemWidth(200);
             ImGui.Text("注：反向同理，本ACR会尽力兼容逆光的（在拿到源码时）");

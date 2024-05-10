@@ -11,14 +11,26 @@ namespace LittleNightmare.Summoner.GCD
         public Spell GetSpell()
         {
             if (!Qt.GetQt("AOE".Loc())) return SMNSpellHelper.BaseSingle();
+            
+            var target = Core.Me.GetCurrTarget();
+            
+            if (SMNSettings.Instance.SmartAoETarget)
+            {
+                var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SMNSpellHelper.BaseAoE().Id);
+                if (canTargetObjects.IsValid)
+                {
+                   target = canTargetObjects;
+                }
+                    
+            }
             var aoeCount = 0;
             if (Core.Get<IMemApiSummoner>().InBahamut)
             {
-                aoeCount = TargetHelper.GetNearbyEnemyCount(Core.Me.GetCurrTarget(), 25, 5);
+                aoeCount = TargetHelper.GetNearbyEnemyCount(target, 25, 5);
             }
             if (Core.Get<IMemApiSummoner>().InPhoenix)
             {
-                aoeCount = TargetHelper.GetNearbyEnemyCount(Core.Me.GetCurrTarget(), 25, 8);
+                aoeCount = TargetHelper.GetNearbyEnemyCount(target, 25, 8);
             }
             if (aoeCount >= 3)
             {

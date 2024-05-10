@@ -2,6 +2,7 @@ using CombatRoutine;
 using Common;
 using Common.Define;
 using Common.Helper;
+using Common.Language;
 
 namespace LittleNightmare.Summoner.Ability;
 
@@ -11,10 +12,19 @@ public class SMNAbility_Fester : ISlotResolver
 
     public Spell GetSpell()
     {
-        if (!Qt.GetQt("AOE")) return SpellsDefine.Fester.GetSpell();
-        if (TargetHelper.CheckNeedUseAOE(Core.Me.GetCurrTarget(), 25, 5, 3))
+        if (!Qt.GetQt("AOE".Loc())) return SpellsDefine.Fester.GetSpell();
+        var target = Core.Me.GetCurrTarget();
+
+        if (SMNSettings.Instance.SmartAoETarget)
         {
-            return SpellsDefine.Painflare.GetSpell();
+            var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SpellsDefine.Painflare);
+            if (canTargetObjects.IsValid)
+                target = canTargetObjects;
+        }
+        
+        if (TargetHelper.CheckNeedUseAOE(target, 25, 5, 3))
+        {
+            return new Spell(SpellsDefine.Painflare, target);
         }
         return SpellsDefine.Fester.GetSpell();
     }

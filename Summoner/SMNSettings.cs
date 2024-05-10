@@ -80,5 +80,10 @@ namespace LittleNightmare.Summoner
         /// MP阈值，如果低于这个值，使用醒梦
         /// </summary>
         public int MPThreshold = 8000;
+
+        /// <summary>
+        /// 智能AoE目标
+        /// </summary>
+        public bool SmartAoETarget = false;
     }
 }
