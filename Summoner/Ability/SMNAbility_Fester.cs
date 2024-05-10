@@ -13,18 +13,15 @@ public class SMNAbility_Fester : ISlotResolver
     public Spell GetSpell()
     {
         if (!Qt.GetQt("AOE".Loc())) return SpellsDefine.Fester.GetSpell();
-        var target = Core.Me.GetCurrTarget();
 
         if (SMNSettings.Instance.SmartAoETarget)
         {
             var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SpellsDefine.Painflare);
             if (canTargetObjects.IsValid)
-                target = canTargetObjects;
-        }
-        
-        if (TargetHelper.CheckNeedUseAOE(target, 25, 5, 3))
+                return new Spell(SpellsDefine.EnergySiphon.GetSpell().Id, canTargetObjects);
+        }else if (TargetHelper.CheckNeedUseAOE(Core.Me.GetCurrTarget(), 25, 5, 3))
         {
-            return new Spell(SpellsDefine.Painflare, target);
+            return SpellsDefine.Painflare.GetSpell();
         }
         return SpellsDefine.Fester.GetSpell();
     }

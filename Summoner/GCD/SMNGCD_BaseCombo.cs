@@ -12,19 +12,18 @@ namespace LittleNightmare.Summoner.GCD
         {
             if (!Qt.GetQt("AOE".Loc())) return SMNSpellHelper.BaseSingle();
 
-            var target = Core.Me.GetCurrTarget();
             if (SMNSettings.Instance.SmartAoETarget)
             {
                 var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SMNSpellHelper.BaseAoE().Id);
                 if (canTargetObjects.IsValid)
                 {
-                    target = canTargetObjects;
+                    return new Spell(SpellsDefine.EnergySiphon.GetSpell().Id, canTargetObjects);
                 }
             }
             
-            if (TargetHelper.CheckNeedUseAOE(target, 25, 5, 3))
+            if (TargetHelper.CheckNeedUseAOE(Core.Me.GetCurrTarget(), 25, 5, 3))
             {
-                return new Spell(SMNSpellHelper.BaseAoE().Id, target);
+                return SMNSpellHelper.BaseAoE();
             }
 
             return SMNSpellHelper.BaseSingle();

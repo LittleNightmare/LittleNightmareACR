@@ -1,6 +1,7 @@
 using CombatRoutine;
 using Common;
 using Common.Define;
+using Common.Language;
 
 namespace LittleNightmare.Summoner.GCD
 {
@@ -8,7 +9,10 @@ namespace LittleNightmare.Summoner.GCD
     {
         public Spell GetSpell()
         {
-            return SpellsDefine.Slipstream.GetSpell();
+            if (!Qt.GetQt("AOE".Loc())) return SpellsDefine.Slipstream.GetSpell();
+            if (!SMNSettings.Instance.SmartAoETarget) return SpellsDefine.Slipstream.GetSpell();
+            var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SpellsDefine.Slipstream, 2);
+            return canTargetObjects.IsValid ? new Spell(SpellsDefine.Slipstream, canTargetObjects) : SpellsDefine.Slipstream.GetSpell();
         }
         public SlotMode SlotMode { get; } = SlotMode.Gcd;
         public int Check()

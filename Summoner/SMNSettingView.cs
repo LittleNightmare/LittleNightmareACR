@@ -24,7 +24,7 @@ namespace LittleNightmare.Summoner
             }
 
             ImGuiHelper.ToggleButton("智能AOE目标".Loc(), ref SMNSettings.Instance.SmartAoETarget);
-            ImGuiHelper.SetHoverTooltip("将智能选择最适合释放AoE的目标，而不是根据当前目标决定是否使用AoE\n不支持火神冲".Loc());
+            ImGuiHelper.SetHoverTooltip("将智能选择最适合释放AoE的目标，而不是根据当前目标决定是否使用AoE\n火神冲的支持待定".Loc());
 
             
             if (ImGui.Button("保存设置"))

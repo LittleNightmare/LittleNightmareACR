@@ -13,7 +13,7 @@ public class SMNAbility_MountainBuster : ISlotResolver
     {
         if (!Qt.GetQt("AOE".Loc())) return SpellsDefine.MountainBuster.GetSpell();
         if (!SMNSettings.Instance.SmartAoETarget) return SpellsDefine.MountainBuster.GetSpell();
-        var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SpellsDefine.MountainBuster);
+        var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SpellsDefine.MountainBuster, 2);
         return canTargetObjects.IsValid ? new Spell(SpellsDefine.MountainBuster, canTargetObjects) : SpellsDefine.MountainBuster.GetSpell();
     }
     public int Check()

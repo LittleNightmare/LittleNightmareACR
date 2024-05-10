@@ -1,6 +1,7 @@
 using CombatRoutine;
 using Common;
 using Common.Define;
+using Common.Language;
 
 namespace LittleNightmare.Summoner.Ability;
 
@@ -10,12 +11,15 @@ public class SMNAbility_DemiOffGCD : ISlotResolver
 
     public Spell GetSpell()
     {
+        var targetAction = SMNSpellHelper.EnkindleDemi();
         if (!SMNSpellHelper.EnkindleDemi().IsReady() && Core.Get<IMemApiSummoner>().InBahamut)
         {
-            return SpellsDefine.Deathflare.GetSpell();
+            targetAction =  SpellsDefine.Deathflare.GetSpell();
         }
-        return SMNSpellHelper.EnkindleDemi();
-
+        if (!Qt.GetQt("AOE".Loc())) return targetAction;
+        if (!SMNSettings.Instance.SmartAoETarget) return targetAction;
+        var canTargetObjects = TargetHelper.GetMostCanTargetObjects(targetAction.Id, 2);
+        return canTargetObjects.IsValid ? new Spell(targetAction.Id, canTargetObjects) : targetAction;
     }
     public int Check()
     {

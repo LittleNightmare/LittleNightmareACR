@@ -9,11 +9,28 @@ namespace LittleNightmare.Summoner.GCD
     {
         public Spell? GetSpell()
         {
+            var targetAction = SMNBattleData.Instance.Summon[0];
             if (SMNBattleData.Instance.CustomSummon.Count > 0)
             {
-                return SMNBattleData.Instance.CustomSummon[0];
+                targetAction =  SMNBattleData.Instance.CustomSummon[0];
             }
-            return SMNBattleData.Instance.Summon[0];
+            // 50级后，召唤三神有AOE技能，关键技能是 内力迸发
+            if (Core.Me.ClassLevel < 50)
+            {
+                return targetAction;
+            }
+            if (targetAction.Id is 
+                SpellsDefine.SummonIfrit or 
+                SpellsDefine.SummonTitan or 
+                // SpellsDefine.SummonGaruda or
+                SpellsDefine.SummonRuby or
+                SpellsDefine.SummonTopaz or
+                SpellsDefine.SummonEmerald)
+                return targetAction;
+            if (!Qt.GetQt("AOE".Loc())) return targetAction;
+            if (!SMNSettings.Instance.SmartAoETarget) return targetAction;
+            var canTargetObjects = TargetHelper.GetMostCanTargetObjects(targetAction.Id);
+            return canTargetObjects.IsValid ? new Spell(targetAction.Id, canTargetObjects) : targetAction;
         }
         public SlotMode SlotMode { get; } = SlotMode.Gcd;
         public int Check()

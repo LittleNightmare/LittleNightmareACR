@@ -12,30 +12,34 @@ namespace LittleNightmare.Summoner.GCD
         {
             if (!Qt.GetQt("AOE".Loc())) return SMNSpellHelper.BaseSingle();
             
-            var target = Core.Me.GetCurrTarget();
             
             if (SMNSettings.Instance.SmartAoETarget)
             {
                 var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SMNSpellHelper.BaseAoE().Id);
                 if (canTargetObjects.IsValid)
                 {
-                   target = canTargetObjects;
+                   return new Spell(SpellsDefine.EnergySiphon.GetSpell().Id, canTargetObjects);
                 }
                     
             }
-            var aoeCount = 0;
-            if (Core.Get<IMemApiSummoner>().InBahamut)
+            else
             {
-                aoeCount = TargetHelper.GetNearbyEnemyCount(target, 25, 5);
+                var damageRange = 0;
+                if (Core.Get<IMemApiSummoner>().InBahamut)
+                {
+                    damageRange = 5;
+                }
+                if (Core.Get<IMemApiSummoner>().InPhoenix)
+                {
+                    damageRange = 8;
+                }
+                if (TargetHelper.CheckNeedUseAOE(Core.Me.GetCurrTarget(), 25, damageRange, 3))
+                {
+                    return SMNSpellHelper.BaseAoE();
+                }
+                
             }
-            if (Core.Get<IMemApiSummoner>().InPhoenix)
-            {
-                aoeCount = TargetHelper.GetNearbyEnemyCount(target, 25, 8);
-            }
-            if (aoeCount >= 3)
-            {
-                return SMNSpellHelper.BaseAoE();
-            }
+            
             return SMNSpellHelper.BaseSingle();
         }
         public SlotMode SlotMode { get; } = SlotMode.Gcd;
