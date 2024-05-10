@@ -35,7 +35,8 @@ namespace LittleNightmare.Summoner.GCD
         public SlotMode SlotMode { get; } = SlotMode.Gcd;
         public int Check()
         {
-            if (!GetSpell().IsReady()) return -10;
+            // 不能用GetSpell，空列表会报错
+            // if (!GetSpell().IsReady()) return -10;
             if (!Core.Get<IMemApiSummoner>().HasPet)
             {
                 return -10;

@@ -18,7 +18,7 @@ public class SMNAbility_Fester : ISlotResolver
         {
             var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SpellsDefine.Painflare);
             if (canTargetObjects.IsValid)
-                return new Spell(SpellsDefine.EnergySiphon.GetSpell().Id, canTargetObjects);
+                return new Spell(SpellsDefine.Painflare, canTargetObjects);
         }else if (TargetHelper.CheckNeedUseAOE(Core.Me.GetCurrTarget(), 25, 5, 3))
         {
             return SpellsDefine.Painflare.GetSpell();

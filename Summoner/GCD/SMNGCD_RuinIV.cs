@@ -13,7 +13,7 @@ namespace LittleNightmare.Summoner.GCD
         {
             if (!Qt.GetQt("AOE".Loc())) return SpellsDefine.Ruin4.GetSpell();
             if (!SMNSettings.Instance.SmartAoETarget) return SpellsDefine.Ruin4.GetSpell();
-            var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SpellsDefine.Ruin4);
+            var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SpellsDefine.Ruin4, 2);
             return canTargetObjects.IsValid ? new Spell(SpellsDefine.Ruin4, canTargetObjects) : SpellsDefine.Ruin4.GetSpell();
         }
         public SlotMode SlotMode { get; } = SlotMode.Gcd;

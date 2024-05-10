@@ -18,7 +18,7 @@ namespace LittleNightmare.Summoner.GCD
                 var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SMNSpellHelper.BaseAoE().Id);
                 if (canTargetObjects.IsValid)
                 {
-                   return new Spell(SpellsDefine.EnergySiphon.GetSpell().Id, canTargetObjects);
+                   return new Spell(SMNSpellHelper.BaseAoE().Id, canTargetObjects);
                 }
                     
             }
