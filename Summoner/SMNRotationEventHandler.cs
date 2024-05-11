@@ -1,10 +1,12 @@
 using System.Diagnostics;
+using System.Reflection;
 using CombatRoutine;
 using CombatRoutine.Chat;
 using CombatRoutine.Setting;
 using Common;
 using Common.Define;
 using Common.Helper;
+using Common.Language;
 
 namespace LittleNightmare.Summoner;
 
@@ -121,5 +123,13 @@ public class SMNRotationEventHandler : IRotationEventHandler
             AI.Instance.BattleData.LimitAbility = false;
             AI.Instance.BattleData.Limit2Ability = false;
         }
+    }
+
+    public void OnEnterRotation()
+    {
+        var assembly = Assembly.GetExecutingAssembly();
+        var version = assembly.GetName().Version.ToString();
+        LogHelper.Print("LittleNightmare召唤 当前版本: ".Loc() + version);
+        LogHelper.Print("反馈问题如果找不到我，可以访问下列地址去提\nhttps://github.com/LittleNightmare/LittleNightmareACR/issues/new".Loc());
     }
 }

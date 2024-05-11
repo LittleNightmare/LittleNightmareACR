@@ -45,8 +45,6 @@ public class SMNAbility_DemiOffGCD : ISlotResolver
     public void Build(Slot slot)
     {
         var spell = GetSpell();
-        if (spell == null)
-            return;
         slot.Add(spell);
     }
 }

@@ -15,7 +15,7 @@ public class SMNAbility_EnergyDrainSiphon : ISlotResolver
         if (!Qt.GetQt("AOE".Loc())) return SpellsDefine.EnergyDrain.GetSpell();
         if (SMNSettings.Instance.SmartAoETarget)
         {
-            CharacterAgent canTargetObjects = TargetHelper.GetMostCanTargetObjects(SpellsDefine.EnergySiphon, 2);
+            var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SpellsDefine.EnergySiphon, 2);
             if (canTargetObjects.IsValid)
                 return new Spell(SpellsDefine.EnergySiphon.GetSpell().Id, canTargetObjects);
         }else if (TargetHelper.CheckNeedUseAOE(Core.Me.GetCurrTarget(), 25, 5, 2))

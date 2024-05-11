@@ -35,8 +35,6 @@ namespace LittleNightmare.Summoner.GCD
         public void Build(Slot slot)
         {
             var spell = GetSpell();
-            if (spell == null)
-                return;
             slot.Add(spell);
         }
     }

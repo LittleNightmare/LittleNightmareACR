@@ -178,21 +178,5 @@ namespace LittleNightmare
             JobViewWindow = jobViewWindow;
             return true;
         }
-
-
-        public void OnLanguageChanged(LanguageType languageType)
-        {
-           
-        }
-
-        public void OnEnterRotation()
-        {
-            
-        }
-
-        public void OnExistRotation()
-        {
-            
-        }
     }
 }
