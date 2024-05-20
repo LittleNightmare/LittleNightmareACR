@@ -4,6 +4,7 @@ using CombatRoutine.TriggerModel;
 using CombatRoutine.View.JobView;
 using Common;
 using Common.Define;
+using Common.Helper;
 using Common.Language;
 using LittleNightmare.Summoner;
 using LittleNightmare.Summoner.Ability;
@@ -137,6 +138,7 @@ namespace LittleNightmare
             switch (slotMode)
             {
                 case SlotMode.Gcd:
+                    // TODO: 火神冲2段
                     if (spell.CastTime.TotalSeconds > 0)
                     {
                         if (Core.Get<IMemApiMove>().IsMoving() && !Core.Me.HasMyAura(AurasDefine.Swiftcast))
@@ -145,12 +147,10 @@ namespace LittleNightmare
                         }
                     }
 
-                    if (spell == SpellsDefine.Ruin4.GetSpell())
+                    if (spell.Id != SpellsDefine.Ruin4) return 0;
+                    if (!Core.Me.HasMyAura(AurasDefine.FurtherRuin))
                     {
-                        if (!Core.Me.HasMyAura(AurasDefine.FurtherRuin))
-                        {
-                            return -1;
-                        }
+                        return -1;
                     }
                     return 0;
                 case SlotMode.OffGcd:
@@ -159,12 +159,10 @@ namespace LittleNightmare
                         return -1;
                     }
 
-                    if (spell == SpellsDefine.RadiantAegis.GetSpell())
+                    if (spell != SpellsDefine.RadiantAegis.GetSpell()) return 0;
+                    if (Core.Get<IMemApiSummoner>().PetTimer != 0 && (Core.Get<IMemApiSummoner>().InBahamut || Core.Get<IMemApiSummoner>().InPhoenix))
                     {
-                        if (Core.Get<IMemApiSummoner>().PetTimer != 0 && (Core.Get<IMemApiSummoner>().InBahamut || Core.Get<IMemApiSummoner>().InPhoenix))
-                        {
-                            return -1;
-                        }
+                        return -1;
                     }
                     return 0;
                 default:

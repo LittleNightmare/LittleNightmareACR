@@ -1,5 +1,6 @@
 using CombatRoutine.TriggerModel;
 using Common;
+using Common.GUI;
 using Common.Language;
 using ImGuiNET;
 
@@ -10,8 +11,9 @@ public class SMNTriggerActionCustomSummon : ITriggerAction
     public string DisplayName => "SMN/LittleNightmare/蛮神队列添加".Loc();
     public string Remark { get; set; }
 
-    public int NextSummon { get; set; } = new();
+    public int NextSummon { get; set; }
     private string? PrevSummon;
+    public bool ClearPrevoiusSummon;
 
     public void Check()
     {
@@ -69,11 +71,23 @@ public class SMNTriggerActionCustomSummon : ITriggerAction
             }
             ImGui.EndCombo();
         }
+        
+        ImGui.Checkbox("##ClearPrevoiusSummon", ref ClearPrevoiusSummon);
+        ImGui.SameLine();
+        ImGui.Text("添加前清除当前自定义的蛮神队列".Loc());
+        ImGuiHelper.SetHoverTooltip("因为蛮神队列是添加到队尾\n有时需要清空队列，以保证符合预期".Loc());
+        
         return true;
     }
 
     public bool Handle()
     {
+        if (ClearPrevoiusSummon)
+        {
+            SMNBattleData.Instance.CustomSummonWaitList.Clear();
+            SMNBattleData.Instance.CustomSummon.Clear();
+        }
+        
         switch (NextSummon)
         {
             case 0:

@@ -57,6 +57,7 @@ namespace LittleNightmare.Summoner.GCD
                 {
                     return -2;
                 }
+                //TODO: 检查三神召唤后，是否会延后巴哈/凤凰的召唤
                 if (Core.Get<IMemApiSummoner>().TranceTimer > 0)
                 {
                     if (Core.Get<IMemApiSummoner>().ActivePetType == ActivePetType.Titan && SMNBattleData.Instance.TitanGemshineTimes == 0)

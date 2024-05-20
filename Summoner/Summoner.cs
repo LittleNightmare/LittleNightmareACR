@@ -192,6 +192,13 @@ namespace LittleNightmare.Summoner
             {
                 SMNBattleData.Instance.CustomSummonWaitList.Clear();
             }
+
+            ImGui.Text($"自定义宝宝数量: {SMNBattleData.Instance.CustomSummon.Count}");
+            ImGui.SameLine();
+            if (ImGui.Button("手动归零##CustomSummon"))
+            {
+                SMNBattleData.Instance.CustomSummon.Clear();
+            }
             // ImGui.Text($"优先火神GD: {SMNSettings.Instance.RubyGCDFirst && SMNBattleData.Instance.IfritGemshineTimes > 0}");
             // ImGui.Text($"灼热之光时间剩余时间(ms): {Core.Me.GetBuffTimespanLeft(AurasDefine.SearingLight).TotalMilliseconds}");
             // ImGui.Text($"灼热之光buff: {Core.Me.HasMyAura(AurasDefine.SearingLight)}");
