@@ -5,7 +5,7 @@ namespace LittleNightmare.Summoner.Triggers;
 
 public class SMNTriggerActionCustomGemshineTimes : ITriggerAction
 {
-    public string DisplayName => "SMN/LittleNightmare/下一轮三神技能使用次数";
+    public string DisplayName => "SMN/下一轮三神技能使用次数";
     public string Remark { get; set; }
 
     public int TitanGemshineTimes = 4;

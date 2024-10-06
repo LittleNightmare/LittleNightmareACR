@@ -5,7 +5,7 @@ namespace LittleNightmare.Summoner.Triggers;
 
 public class SMNTriggerActionSwiftCastMode : ITriggerAction
 {
-    public string DisplayName => "SMN/LittleNightmare/修改即刻咏唱模式";
+    public string DisplayName => "SMN/修改即刻咏唱模式";
     public string Remark { get; set; }
 
     public int 即刻咏唱模式 { get; set; } = new();

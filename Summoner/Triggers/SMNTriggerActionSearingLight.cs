@@ -4,7 +4,7 @@ namespace LittleNightmare.Summoner.Triggers;
 
 public class SMNTriggerActionSearingLight : ITriggerAction
 {
-    public string DisplayName => "SMN/LittleNightmare/灼热之光开关";
+    public string DisplayName => "SMN/灼热之光开关";
     public string Remark { get; set; }
 
     public bool 灼热之光 { get; set; } = new();

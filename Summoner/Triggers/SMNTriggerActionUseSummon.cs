@@ -4,7 +4,7 @@ namespace LittleNightmare.Summoner.Triggers;
 
 public class SMNTriggerActionUseSummon : ITriggerAction
 {
-    public string DisplayName => "SMN/LittleNightmare/三神召唤开关";
+    public string DisplayName => "SMN/三神召唤开关";
     public string Remark { get; set; }
 
     public bool 三神召唤 { get; set; } = new();

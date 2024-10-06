@@ -11,7 +11,7 @@ public class SMNTriggerGaugeCheck : ITriggerCond
 {
     
 
-    public string DisplayName => "SMN/LittleNightmare/量谱条件";
+    public string DisplayName => "SMN/量谱条件";
     public string Remark { get; set; }
 
     public ActivePetType CheckSummon;

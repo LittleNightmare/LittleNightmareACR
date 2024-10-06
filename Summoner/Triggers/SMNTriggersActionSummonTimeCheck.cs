@@ -7,7 +7,7 @@ namespace LittleNightmare.Summoner.Triggers
 {
     internal class SMNTriggersActionSummonTimeCheck : ITriggerCond
     {
-        public string DisplayName => "SMN/LittleNightmare/召唤兽变身时间检测(宝宝盾必备)";
+        public string DisplayName => "SMN/召唤兽变身时间检测(宝宝盾必备)";
 
         public string Remark { get; set; }
 

@@ -4,7 +4,7 @@ namespace LittleNightmare.Summoner.Triggers;
 
 public class SMNTriggerActionGemshine : ITriggerAction
 {
-    public string DisplayName => "SMN/LittleNightmare/宝石耀开关";
+    public string DisplayName => "SMN/宝石耀开关";
     public string Remark { get; set; }
 
     public bool 宝石耀 { get; set; } = new();

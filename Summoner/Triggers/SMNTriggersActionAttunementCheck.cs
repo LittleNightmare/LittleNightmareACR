@@ -10,7 +10,7 @@ namespace LittleNightmare.Summoner.Triggers
     {
         public int Attunement;
 
-        public string DisplayName => "SMN/LittleNightmare/检测三神中已使用次数";
+        public string DisplayName => "SMN/检测三神中已使用次数";
 
         public string Remark { get; set; }
 

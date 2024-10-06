@@ -5,7 +5,7 @@ namespace LittleNightmare.Summoner.Triggers;
 
 public class SMNTriggerActionSummon : ITriggerAction
 {
-    public string DisplayName => "SMN/LittleNightmare/选择下一个召唤的蛮神";
+    public string DisplayName => "SMN/选择下一个召唤的蛮神";
     public string Remark { get; set; }
 
     public int NextSummon { get; set; } = new();

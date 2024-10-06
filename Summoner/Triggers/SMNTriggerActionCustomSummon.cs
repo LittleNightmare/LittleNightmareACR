@@ -6,7 +6,7 @@ namespace LittleNightmare.Summoner.Triggers;
 
 public class SMNTriggerActionCustomSummon : ITriggerAction
 {
-    public string DisplayName => "SMN/LittleNightmare/蛮神队列添加";
+    public string DisplayName => "SMN/蛮神队列添加";
     public string Remark { get; set; }
 
     public int NextSummon { get; set; }

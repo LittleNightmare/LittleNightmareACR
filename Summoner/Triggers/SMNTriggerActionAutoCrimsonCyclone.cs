@@ -5,7 +5,7 @@ namespace LittleNightmare.Summoner.Triggers;
 
 public class SMNTriggerActionAutoCrimsonCyclone : ITriggerAction
 {
-    public string DisplayName => "SMN/LittleNightmare/自动火神冲开关";
+    public string DisplayName => "SMN/自动火神冲开关";
     public string Remark { get; set; }
 
     public bool AutoCrimsonCyclone { get; set; } = new();

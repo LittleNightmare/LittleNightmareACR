@@ -7,7 +7,7 @@ namespace LittleNightmare.Summoner.Triggers
     {
         private readonly string[] IfritModes = { "先冲锋再读条", "先读条再冲锋", "读条-冲锋-读条" };
 
-        public string DisplayName => "SMN/LittleNightmare/修改火神施法模式";
+        public string DisplayName => "SMN/修改火神施法模式";
 
         public string Remark { get; set; }
 

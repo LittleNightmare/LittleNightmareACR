@@ -4,7 +4,7 @@ namespace LittleNightmare.Summoner.Triggers;
 
 public class SMNTriggerActionBahamutPhoenix : ITriggerAction
 {
-    public string DisplayName => "SMN/LittleNightmare/巴哈凤凰开关";
+    public string DisplayName => "SMN/巴哈凤凰开关";
     public string Remark { get; set; }
 
     public bool useBahamutPhoenix { get; set; } = new();

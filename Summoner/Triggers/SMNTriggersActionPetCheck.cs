@@ -13,7 +13,7 @@ namespace LittleNightmare.Summoner.Triggers
 
         public string preview = "";
 
-        public string DisplayName => "SMN/LittleNightmare/检测在场召唤兽类型";
+        public string DisplayName => "SMN/检测在场召唤兽类型";
 
         public string Remark { get; set; }
 
