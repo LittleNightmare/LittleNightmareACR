@@ -1,12 +1,10 @@
-using System.Diagnostics;
+using AEAssist;
+using AEAssist.CombatRoutine;
+using AEAssist.CombatRoutine.Module;
+using AEAssist.Extension;
+using AEAssist.Helper;
+using AEAssist.JobApi;
 using System.Reflection;
-using CombatRoutine;
-using CombatRoutine.Chat;
-using CombatRoutine.Setting;
-using Common;
-using Common.Define;
-using Common.Helper;
-using Common.Language;
 
 namespace LittleNightmare.Summoner;
 
@@ -17,7 +15,7 @@ public class SMNRotationEventHandler : IRotationEventHandler
         SMNBattleData.Instance.Reset();
         if (SMNSettings.Instance.JobViewSave.AutoReset)
         {
-            Qt.Reset();
+            SummonerRotationEntry.QT.Reset();
         }
     }
 
@@ -42,45 +40,45 @@ public class SMNRotationEventHandler : IRotationEventHandler
         //     }
         // }
 
-        if (spell.Id == SMNSpellHelper.BahamutPhoneix().Id)
+        if (spell.Id == SMNHelper.BahamutPhoneix().Id)
         {
             SMNBattleData.Instance.UpdateSummon();
         }
 
         // switch (spell.Id)
         // {
-            // case SpellsDefine.SummonPhoenix:
+            // case SMNData.Spells.SummonPhoenix:
             //     SMNBattleData.Instance.In90Opener = false;
             //     break;
 
-            // case SpellsDefine.TopazRuin:
-            // case SpellsDefine.TopazRuinIi:
-            // case SpellsDefine.TopazRuinIii:
-            // case SpellsDefine.TopazRite:
-            // case SpellsDefine.TopazOutburst:
-            // case SpellsDefine.TopazDisaster:
-            //     SMNBattleData.Instance.TitanGemshineTimes = Core.Get<IMemApiSummoner>().ElementalAttunement - (4 - SMNBattleData.Instance.TitanGemshineTimesCustom);
+            // case SMNData.Spells.TopazRuin:
+            // case SMNData.Spells.TopazRuinIi:
+            // case SMNData.Spells.TopazRuinIii:
+            // case SMNData.Spells.TopazRite:
+            // case SMNData.Spells.TopazOutburst:
+            // case SMNData.Spells.TopazDisaster:
+            //     SMNBattleData.Instance.TitanGemshineTimes = Core.Resolve<JobApi_Summoner>().ElementalAttunement - (4 - SMNBattleData.Instance.TitanGemshineTimesCustom);
             //     //
             //     // ChatHelper.Print.Echo($"TitanGemshineTimes:{SMNBattleData.Instance.TitanGemshineTimes}");
             //     break;
             //
-            // case SpellsDefine.RubyRuin:
-            // case SpellsDefine.RubyRuinIi:
-            // case SpellsDefine.RubyRuinIii:
-            // case SpellsDefine.RubyRite:
-            // case SpellsDefine.RubyOutburst:
-            // case SpellsDefine.RubyDisaster:
-            //     SMNBattleData.Instance.IfritGemshineTimes = Core.Get<IMemApiSummoner>().ElementalAttunement - (2 - SMNBattleData.Instance.IfritGemshineTimesCustom);
+            // case SMNData.Spells.RubyRuin:
+            // case SMNData.Spells.RubyRuinIi:
+            // case SMNData.Spells.RubyRuinIii:
+            // case SMNData.Spells.RubyRite:
+            // case SMNData.Spells.RubyOutburst:
+            // case SMNData.Spells.RubyDisaster:
+            //     SMNBattleData.Instance.IfritGemshineTimes = Core.Resolve<JobApi_Summoner>().ElementalAttunement - (2 - SMNBattleData.Instance.IfritGemshineTimesCustom);
             //     // ChatHelper.Print.Echo($"IfritGemshineTimes:{SMNBattleData.Instance.IfritGemshineTimes}");
             //     break;
             //
-            // case SpellsDefine.EmeraldRuin:
-            // case SpellsDefine.EmeraldRuinIi:
-            // case SpellsDefine.EmeraldRuinIii:
-            // case SpellsDefine.EmeraldRite:
-            // case SpellsDefine.EmeraldOutburst:
-            // case SpellsDefine.EmeraldDisaster:
-            //     SMNBattleData.Instance.GarudaGemshineTimes = Core.Get<IMemApiSummoner>().ElementalAttunement - (4 - SMNBattleData.Instance.GarudaGemshineTimesCustom);
+            // case SMNData.Spells.EmeraldRuin:
+            // case SMNData.Spells.EmeraldRuinIi:
+            // case SMNData.Spells.EmeraldRuinIii:
+            // case SMNData.Spells.EmeraldRite:
+            // case SMNData.Spells.EmeraldOutburst:
+            // case SMNData.Spells.EmeraldDisaster:
+            //     SMNBattleData.Instance.GarudaGemshineTimes = Core.Resolve<JobApi_Summoner>().ElementalAttunement - (4 - SMNBattleData.Instance.GarudaGemshineTimesCustom);
             //     // ChatHelper.Print.Echo($"GarudaGemshineTimes:{SMNBattleData.Instance.GarudaGemshineTimes}");
             //     break;
             //
@@ -89,16 +87,16 @@ public class SMNRotationEventHandler : IRotationEventHandler
             //     break;
         // }
         // 两次矫正，主要出现莫名奇妙不重置次数的问题，这里多加一个保险
-        // switch (Core.Get<IMemApiSummoner>().ActivePetType)
+        // switch (Core.Resolve<JobApi_Summoner>().ActivePetType)
         // {
         //     case ActivePetType.Titan:
-        //         SMNBattleData.Instance.TitanGemshineTimes = Core.Get<IMemApiSummoner>().ElementalAttunement - (4 - SMNBattleData.Instance.TitanGemshineTimesCustom);
+        //         SMNBattleData.Instance.TitanGemshineTimes = Core.Resolve<JobApi_Summoner>().ElementalAttunement - (4 - SMNBattleData.Instance.TitanGemshineTimesCustom);
         //         break;
         //     case ActivePetType.Ifrit:
-        //         SMNBattleData.Instance.IfritGemshineTimes = Core.Get<IMemApiSummoner>().ElementalAttunement - (2 - SMNBattleData.Instance.IfritGemshineTimesCustom);
+        //         SMNBattleData.Instance.IfritGemshineTimes = Core.Resolve<JobApi_Summoner>().ElementalAttunement - (2 - SMNBattleData.Instance.IfritGemshineTimesCustom);
         //         break;
         //     case ActivePetType.Garuda:
-        //         SMNBattleData.Instance.GarudaGemshineTimes = Core.Get<IMemApiSummoner>().ElementalAttunement - (4 - SMNBattleData.Instance.GarudaGemshineTimesCustom);
+        //         SMNBattleData.Instance.GarudaGemshineTimes = Core.Resolve<JobApi_Summoner>().ElementalAttunement - (4 - SMNBattleData.Instance.GarudaGemshineTimesCustom);
         //         break;
         // }
         
@@ -114,22 +112,37 @@ public class SMNRotationEventHandler : IRotationEventHandler
         {
             SMNBattleData.Instance.CustomSummon.Clear();
         }
-        if (Core.Get<IMemApiSummoner>().InBahamut || Core.Get<IMemApiSummoner>().InPhoenix)
-        {
-            AI.Instance.BattleData.Limit2Ability = true;
-        }
-        else
-        {
-            AI.Instance.BattleData.LimitAbility = false;
-            AI.Instance.BattleData.Limit2Ability = false;
-        }
+        // FIXME: 不知道干啥用的
+        //if (SMNHelper.InBahamut || SMNHelper.InPhoenix || SMNHelper.InSolarBahamut)
+        //{
+        //    AI.Instance.BattleData.a
+        //}
+        //else
+        //{
+        //    AI.Instance.BattleData.LimitAbility = false;
+        //    AI.Instance.BattleData.Limit2Ability = false;
+        //}
     }
 
     public void OnEnterRotation()
     {
         var assembly = Assembly.GetExecutingAssembly();
-        var version = assembly.GetName().Version.ToString();
-        LogHelper.Print("LittleNightmare召唤 当前版本: ".Loc() + version);
-        LogHelper.Print("反馈问题如果找不到我，可以访问下列地址去提\nhttps://github.com/LittleNightmare/LittleNightmareACR/issues/new".Loc());
+        var version = assembly.GetName().Version?.ToString() ?? "Unknown version";
+        LogHelper.Print("LittleNightmare召唤 当前版本: " + version);
+        LogHelper.Print("反馈问题如果找不到我，可以访问下列地址去提\nhttps://github.com/LittleNightmare/LittleNightmareACR/issues/new");
+    }
+
+    public void OnSpellCastSuccess(Slot slot, Spell spell)
+    {
+    }
+
+    public void OnExitRotation()
+    {
+        OnResetBattle();
+    }
+
+    public void OnTerritoryChanged()
+    {
+        OnResetBattle();
     }
 }

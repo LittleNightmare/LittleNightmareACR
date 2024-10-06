@@ -1,9 +1,9 @@
-using CombatRoutine;
-using CombatRoutine.Setting;
-using Common;
-using Common.Define;
-using Common.Helper;
-using Common.Language;
+using AEAssist;
+using AEAssist.CombatRoutine;
+using AEAssist.CombatRoutine.Module;
+using AEAssist.Extension;
+using AEAssist.Helper;
+using AEAssist.MemoryApi;
 
 namespace LittleNightmare.Summoner.GCD
 {
@@ -11,26 +11,28 @@ namespace LittleNightmare.Summoner.GCD
     {
         public Spell GetSpell()
         {
-            return SpellsDefine.CrimsonCyclone.GetSpell();
+            return SMNData.Spells.CrimsonCyclone.GetSpell();
         }
         public SlotMode SlotMode { get; } = SlotMode.Gcd;
         public int Check()
         {
-            if (!GetSpell().IsReady())
+            if (!GetSpell().Id.IsReady())
             {
                 return -10;
             }
-            if (!Core.Me.HasMyAura(AurasDefine.IfritsFavor))
+            if (!Core.Me.HasAura(SMNData.Buffs.IfritsFavor))
             {
                 return -10;
             }
-            if (!SpellsDefine.CrimsonCyclone.IsUnlock())
+            if (!SMNData.Spells.CrimsonCyclone.IsUnlock())
             {
                 return -9;
             }
             // 暂时不支持启用技能不位移，除非还有个扩展目标圈的判断，因为第二段火神冲需要靠近释放
-            var onTargetRing = Core.Me.DistanceMelee(Core.Me.GetCurrTarget()) <= 0;
-            if (Core.Get<IMemApiMove>().IsMoving())
+
+            //var onTargetRing = Core.Me.DistanceMelee(Core.Me.GetCurrTarget()) <= 0;
+            var onTargetRing = Core.Me.Distance(Core.Me.GetCurrTarget(), AEAssist.Define.DistanceMode.IgnoreTargetHitbox) <= 0;
+            if (Core.Resolve<MemApiMove>().IsMoving())
             {
                 if (!onTargetRing)
                 {
@@ -39,7 +41,7 @@ namespace LittleNightmare.Summoner.GCD
                 if (SMNSettings.Instance.SlideUseCrimonCyclone) return 0;
             }
 
-            if (SMNBattleData.Instance.IfritGemshineTimes > 0 && (onTargetRing || Qt.GetQt("自动火神冲".Loc())))
+            if (SMNBattleData.Instance.IfritGemshineTimes > 0 && (onTargetRing || SummonerRotationEntry.QT.GetQt("自动火神冲")))
             {
                 // 先冲锋再读条
                 if (SMNSettings.Instance.IfritMode == 0)
@@ -60,7 +62,7 @@ namespace LittleNightmare.Summoner.GCD
                 return -2;
             }
 
-            if (onTargetRing || Qt.GetQt("自动火神冲".Loc()))
+            if (onTargetRing || SummonerRotationEntry.QT.GetQt("自动火神冲"))
             {
                 return 0;
             }

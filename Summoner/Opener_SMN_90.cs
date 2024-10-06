@@ -1,10 +1,10 @@
-using CombatRoutine;
-using CombatRoutine.Opener;
-using CombatRoutine.Setting;
-using Common;
-using Common.Define;
-using Common.Helper;
-using Common.Language;
+using AEAssist;
+using AEAssist.CombatRoutine;
+using AEAssist.CombatRoutine.Module;
+using AEAssist.CombatRoutine.Module.Opener;
+using AEAssist.Extension;
+using AEAssist.Helper;
+using AEAssist.JobApi;
 
 namespace LittleNightmare.Summoner
 {
@@ -13,23 +13,23 @@ namespace LittleNightmare.Summoner
     {
         public int StartCheck()
         {
-            if (PartyHelper.NumMembers <= 4 && !Core.Me.GetCurrTarget().IsDummy())
+            if (PartyHelper.Party.Count <= 4 && !Core.Me.GetCurrTarget().IsDummy())
             {
                 return -10;
             }
-            if (!Core.Get<IMemApiSummoner>().HasPet)
+            if (!Core.Resolve<JobApi_Summoner>().HasPet)
             {
                 return -9;
             }
-            if (!Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Bahamut))
+            if (!Core.Resolve<JobApi_Summoner>().IsPetReady(ActivePetType.Bahamut))
             {
                 return -8;
             }
-            if (!SpellsDefine.SummonBahamut.IsReady())
+            if (!SMNData.Spells.SummonBahamut.IsReady())
             {
                 return -7;
             }
-            if (!SpellsDefine.SearingLight.IsReady())
+            if (!SMNData.Spells.SearingLight.IsReady())
             {
                 return -6;
             }
@@ -59,51 +59,51 @@ namespace LittleNightmare.Summoner
 
         private static void Step0(Slot slot)
         {
-            slot.Add(new Spell(SpellsDefine.SummonBahamut, SpellTargetType.Target));
-            slot.Add(new SlotAction(SlotAction.WaitType.WaitForSndHalfWindow, 0, SpellsDefine.SearingLight.GetSpell()));
+            slot.Add(new Spell(SMNData.Spells.SummonBahamut, SpellTargetType.Target));
+            slot.Add(new SlotAction(SlotAction.WaitType.WaitForSndHalfWindow, 0, SMNData.Spells.SearingLight.GetSpell()));
         }
         private static void Step1(Slot slot)
         {
-            slot.Add(new Spell(SMNSpellHelper.BaseSingle().Id, SpellTargetType.Target));
-            if (Qt.GetQt("爆发药".Loc()))
+            slot.Add(new Spell(SMNHelper.BaseSingle().Id, SpellTargetType.Target));
+            if (SummonerRotationEntry.QT.GetQt("爆发药"))
             {
                 slot.Add(Spell.CreatePotion());
             }
-            if (Core.Me.ClassLevel >= 86)
+            if (Core.Me.Level >= 86)
             {
                 SMNBattleData.Instance.OpenerSummon();
             }
         }
         private static void Step2(Slot slot)
         {
-            slot.Add(new Spell(SMNSpellHelper.BaseSingle().Id, SpellTargetType.Target));
+            slot.Add(new Spell(SMNHelper.BaseSingle().Id, SpellTargetType.Target));
         }
         private static void Step3(Slot slot)
         {
-            slot.Add(new Spell(SMNSpellHelper.BaseSingle().Id, SpellTargetType.Target));
-            slot.Add(new Spell(SpellsDefine.EnergyDrain, SpellTargetType.Target));
-            slot.Add(new Spell(SpellsDefine.EnkindleBahamut, SpellTargetType.Target));
+            slot.Add(new Spell(SMNHelper.BaseSingle().Id, SpellTargetType.Target));
+            slot.Add(new Spell(SMNData.Spells.EnergyDrain, SpellTargetType.Target));
+            slot.Add(new Spell(SMNData.Spells.EnkindleBahamut, SpellTargetType.Target));
         }
         private static void Step4(Slot slot)
         {
-            slot.Add(new Spell(SMNSpellHelper.BaseSingle().Id, SpellTargetType.Target));
-            slot.Add(new Spell(SpellsDefine.Deathflare, SpellTargetType.Target));
-            slot.Add(new Spell(SpellsDefine.Fester, SpellTargetType.Target));
+            slot.Add(new Spell(SMNHelper.BaseSingle().Id, SpellTargetType.Target));
+            slot.Add(new Spell(SMNData.Spells.Deathflare, SpellTargetType.Target));
+            slot.Add(new Spell(SMNData.Spells.Fester, SpellTargetType.Target));
         }
         private static void Step5(Slot slot)
         {
-            slot.Add(new Spell(SMNSpellHelper.BaseSingle().Id, SpellTargetType.Target));
-            slot.Add(new Spell(SpellsDefine.Fester, SpellTargetType.Target));
+            slot.Add(new Spell(SMNHelper.BaseSingle().Id, SpellTargetType.Target));
+            slot.Add(new Spell(SMNData.Spells.Fester, SpellTargetType.Target));
         }
 
         public uint Level { get; } = 90;
         public void InitCountDown(CountDownHandler countDownHandler)
         {
-            if (!Core.Get<IMemApiSummoner>().HasPet)
+            if (!Core.Resolve<JobApi_Summoner>().HasPet)
             {
-                countDownHandler.AddAction(30000, SpellsDefine.SummonCarbuncle, SpellTargetType.DefaultByCode);
+                countDownHandler.AddAction(30000, SMNData.Spells.SummonCarbuncle);
             }
-            countDownHandler.AddAction(1500, SMNSpellHelper.BaseSingle().Id, SpellTargetType.Target);
+            countDownHandler.AddAction(1500, SMNHelper.BaseSingle().Id, SpellTargetType.Target);
         }
     }
 }

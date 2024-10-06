@@ -1,14 +1,12 @@
-using CombatRoutine.TriggerModel;
-using Common;
-using Common.GUI;
-using Common.Language;
+using AEAssist.CombatRoutine.Trigger;
+using AEAssist.GUI;
 using ImGuiNET;
 
 namespace LittleNightmare.Summoner.Triggers;
 
 public class SMNTriggerActionCustomSummon : ITriggerAction
 {
-    public string DisplayName => "SMN/LittleNightmare/蛮神队列添加".Loc();
+    public string DisplayName => "SMN/LittleNightmare/蛮神队列添加";
     public string Remark { get; set; }
 
     public int NextSummon { get; set; }
@@ -45,27 +43,27 @@ public class SMNTriggerActionCustomSummon : ITriggerAction
         }
         if (ImGui.BeginCombo("", PrevSummon))
         {
-            if (ImGui.Selectable("土-火-风".Loc()))
+            if (ImGui.Selectable("土-火-风"))
             {
                 NextSummon = 0;
             }
-            if (ImGui.Selectable("土-风-火".Loc()))
+            if (ImGui.Selectable("土-风-火"))
             {
                 NextSummon = 1;
             }
-            if (ImGui.Selectable("火-土-风".Loc()))
+            if (ImGui.Selectable("火-土-风"))
             {
                 NextSummon = 2;
             }
-            if (ImGui.Selectable("火-风-土".Loc()))
+            if (ImGui.Selectable("火-风-土"))
             {
                 NextSummon = 3;
             }
-            if (ImGui.Selectable("风-土-火".Loc()))
+            if (ImGui.Selectable("风-土-火"))
             {
                 NextSummon = 4;
             }
-            if (ImGui.Selectable("风-火-土".Loc()))
+            if (ImGui.Selectable("风-火-土"))
             {
                 NextSummon = 5;
             }
@@ -74,8 +72,8 @@ public class SMNTriggerActionCustomSummon : ITriggerAction
         
         ImGui.Checkbox("##ClearPrevoiusSummon", ref ClearPrevoiusSummon);
         ImGui.SameLine();
-        ImGui.Text("添加前清除当前自定义的蛮神队列".Loc());
-        ImGuiHelper.SetHoverTooltip("因为蛮神队列是添加到队尾\n有时需要清空队列，以保证符合预期".Loc());
+        ImGui.Text("添加前清除当前自定义的蛮神队列");
+        ImGuiHelper.SetHoverTooltip("因为蛮神队列是添加到队尾\n有时需要清空队列，以保证符合预期");
         
         return true;
     }
@@ -91,34 +89,34 @@ public class SMNTriggerActionCustomSummon : ITriggerAction
         switch (NextSummon)
         {
             case 0:
-                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNSpellHelper.Titan());
-                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNSpellHelper.Ifrit());
-                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNSpellHelper.Garuda());
+                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNHelper.Titan());
+                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNHelper.Ifrit());
+                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNHelper.Garuda());
                 break;
             case 1:
-                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNSpellHelper.Titan());
-                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNSpellHelper.Garuda());
-                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNSpellHelper.Ifrit());
+                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNHelper.Titan());
+                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNHelper.Garuda());
+                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNHelper.Ifrit());
                 break;
             case 2:
-                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNSpellHelper.Ifrit());
-                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNSpellHelper.Titan());
-                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNSpellHelper.Garuda());
+                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNHelper.Ifrit());
+                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNHelper.Titan());
+                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNHelper.Garuda());
                 break;
             case 3:
-                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNSpellHelper.Ifrit());
-                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNSpellHelper.Garuda());
-                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNSpellHelper.Titan());
+                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNHelper.Ifrit());
+                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNHelper.Garuda());
+                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNHelper.Titan());
                 break;
             case 4:
-                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNSpellHelper.Garuda());
-                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNSpellHelper.Titan());
-                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNSpellHelper.Ifrit());
+                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNHelper.Garuda());
+                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNHelper.Titan());
+                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNHelper.Ifrit());
                 break;
             case 5:
-                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNSpellHelper.Garuda());
-                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNSpellHelper.Ifrit());
-                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNSpellHelper.Titan());
+                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNHelper.Garuda());
+                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNHelper.Ifrit());
+                SMNBattleData.Instance.CustomSummonWaitList.Add(SMNHelper.Titan());
                 break;
         }
         return true;

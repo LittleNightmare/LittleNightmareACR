@@ -1,7 +1,8 @@
-using CombatRoutine;
-using Common;
-using Common.Define;
-using Common.Language;
+using AEAssist;
+using AEAssist.CombatRoutine;
+using AEAssist.CombatRoutine.Module;
+using AEAssist.Extension;
+using AEAssist.Helper;
 
 namespace LittleNightmare.Summoner.Ability;
 
@@ -11,18 +12,18 @@ public class SMNAbility_MountainBuster : ISlotResolver
 
     public Spell GetSpell()
     {
-        if (!Qt.GetQt("AOE".Loc())) return SpellsDefine.MountainBuster.GetSpell();
-        if (!SMNSettings.Instance.SmartAoETarget) return SpellsDefine.MountainBuster.GetSpell();
-        var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SpellsDefine.MountainBuster, 2);
-        return canTargetObjects.IsValid ? new Spell(SpellsDefine.MountainBuster, canTargetObjects) : SpellsDefine.MountainBuster.GetSpell();
+        if (!SummonerRotationEntry.QT.GetQt("AOE")) return SMNData.Spells.MountainBuster.GetSpell();
+        if (!SMNSettings.Instance.SmartAoETarget) return SMNData.Spells.MountainBuster.GetSpell();
+        var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SMNData.Spells.MountainBuster, 2);
+        return canTargetObjects != null && canTargetObjects.IsValid() ? new Spell(SMNData.Spells.MountainBuster, canTargetObjects) : SMNData.Spells.MountainBuster.GetSpell();
     }
     public int Check()
     {
-        if (!SpellsDefine.MountainBuster.IsReady())
+        if (!SMNData.Spells.MountainBuster.IsReady())
         {
             return -10;
         }
-        if (Core.Me.HasMyAura(AurasDefine.TitansFavor))
+        if (Core.Me.HasAura(SMNData.Buffs.TitansFavor))
         {
             return 0;
         }

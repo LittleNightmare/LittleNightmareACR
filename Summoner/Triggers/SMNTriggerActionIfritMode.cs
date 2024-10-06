@@ -1,14 +1,13 @@
-﻿using CombatRoutine.TriggerModel;
-using Common.Language;
+﻿using AEAssist.CombatRoutine.Trigger;
 using ImGuiNET;
 
 namespace LittleNightmare.Summoner.Triggers
 {
     public class SMNTriggerActionIfritMode : ITriggerAction
     {
-        private readonly string[] IfritModes = { "先冲锋再读条".Loc(), "先读条再冲锋".Loc(), "读条-冲锋-读条".Loc() };
+        private readonly string[] IfritModes = { "先冲锋再读条", "先读条再冲锋", "读条-冲锋-读条" };
 
-        public string DisplayName => "SMN/LittleNightmare/修改火神施法模式".Loc();
+        public string DisplayName => "SMN/LittleNightmare/修改火神施法模式";
 
         public string Remark { get; set; }
 
@@ -20,7 +19,7 @@ namespace LittleNightmare.Summoner.Triggers
 
         public bool Draw()
         {
-            if (ImGui.BeginCombo("火神施法模式".Loc(), IfritModes[IfritMode]))
+            if (ImGui.BeginCombo("火神施法模式", IfritModes[IfritMode]))
             {
                 for (int i = 0; i < IfritModes.Length; i++)
                 {

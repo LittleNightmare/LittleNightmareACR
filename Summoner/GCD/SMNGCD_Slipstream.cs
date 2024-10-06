@@ -1,7 +1,9 @@
-using CombatRoutine;
-using Common;
-using Common.Define;
-using Common.Language;
+using AEAssist;
+using AEAssist.CombatRoutine;
+using AEAssist.CombatRoutine.Module;
+using AEAssist.Extension;
+using AEAssist.Helper;
+using AEAssist.MemoryApi;
 
 namespace LittleNightmare.Summoner.GCD
 {
@@ -9,21 +11,22 @@ namespace LittleNightmare.Summoner.GCD
     {
         public Spell GetSpell()
         {
-            if (!Qt.GetQt("AOE".Loc())) return SpellsDefine.Slipstream.GetSpell();
-            if (!SMNSettings.Instance.SmartAoETarget) return SpellsDefine.Slipstream.GetSpell();
-            var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SpellsDefine.Slipstream, 2);
-            return canTargetObjects.IsValid ? new Spell(SpellsDefine.Slipstream, canTargetObjects) : SpellsDefine.Slipstream.GetSpell();
+            if (!SummonerRotationEntry.QT.GetQt("AOE")) return SMNData.Spells.Slipstream.GetSpell();
+            if (!SMNSettings.Instance.SmartAoETarget) return SMNData.Spells.Slipstream.GetSpell();
+            var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SMNData.Spells.Slipstream, 2);
+
+            return canTargetObjects != null && canTargetObjects.IsValid() ? new Spell(SMNData.Spells.Slipstream, canTargetObjects) : SMNData.Spells.Slipstream.GetSpell();
         }
         public SlotMode SlotMode { get; } = SlotMode.Gcd;
         public int Check()
         {
-            if (!GetSpell().IsReady())
+            if (!GetSpell().Id.IsReady())
             {
                 return -10;
             }
-            if (Core.Me.HasMyAura(AurasDefine.GarudasFavor))
+            if (Core.Me.HasAura(SMNData.Buffs.GarudasFavor))
             {
-                if (Core.Get<IMemApiMove>().IsMoving() && !Core.Me.HasMyAura(AurasDefine.Swiftcast))
+                if (Core.Resolve<MemApiMove>().IsMoving() && !Core.Me.HasAura(SMNData.Buffs.Swiftcast))
                 {
                     return -2;
                 }

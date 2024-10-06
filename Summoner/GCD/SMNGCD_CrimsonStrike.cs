@@ -1,6 +1,9 @@
-using CombatRoutine;
-using Common;
-using Common.Define;
+using AEAssist;
+using AEAssist.CombatRoutine;
+using AEAssist.CombatRoutine.Module;
+using AEAssist.Extension;
+using AEAssist.Helper;
+using AEAssist.MemoryApi;
 
 namespace LittleNightmare.Summoner.GCD
 {
@@ -8,16 +11,16 @@ namespace LittleNightmare.Summoner.GCD
     {
         public Spell GetSpell()
         {
-            return SpellsDefine.CrimsonStrike.GetSpell();
+            return SMNData.Spells.CrimsonStrike.GetSpell();
         }
         public SlotMode SlotMode { get; } = SlotMode.Gcd;
         public int Check()
         {
-            if (!GetSpell().IsReady())
+            if (!GetSpell().Id.IsReady())
             {
                 return -10;
             }
-            if (Core.Get<IMemApiSpell>().GetLastComboSpellId() == SpellsDefine.CrimsonCyclone)
+            if (Core.Resolve<MemApiSpell>().GetLastComboSpellId() == SMNData.Spells.CrimsonCyclone)
             {
                 return 0;
             }

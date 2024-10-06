@@ -1,17 +1,12 @@
 ﻿using System.Numerics;
-using System.Text;
-using CombatRoutine;
-using CombatRoutine.TriggerModel;
-using Common.GUI;
-using Common.Helper;
-using Common.Language;
+using AEAssist.CombatRoutine.Trigger;
 using ImGuiNET;
 
 namespace LittleNightmare.Summoner.Triggers;
 
 public class SMNTriggerActionQt : ITriggerAction
 {
-    public string DisplayName => "SMN/LittleNightmare/[LittleNightmare]QT设置".Loc();
+    public string DisplayName => "SMN/LittleNightmare/[LittleNightmare]QT设置";
     public string Remark { get; set; }
 
     private int 当前combo = 0;
@@ -26,7 +21,7 @@ public class SMNTriggerActionQt : ITriggerAction
 
     public bool Draw()
     {
-        var qtArray = Qt.GetQtArray();
+        var qtArray = SummonerRotationEntry.QT.GetQtArray();
         当前combo = Array.IndexOf(qtArray,ValueName);
         if (当前combo == -1)
         {
@@ -62,7 +57,7 @@ public class SMNTriggerActionQt : ITriggerAction
 
     public bool Handle()
     {
-        Qt.SetQt(ValueName, Value);
+        SummonerRotationEntry.QT.SetQt(ValueName, Value);
         return true;
     }
 }

@@ -1,7 +1,8 @@
-﻿using CombatRoutine;
-using Common;
-using Common.Define;
-using Common.Language;
+﻿using AEAssist;
+using AEAssist.CombatRoutine;
+using AEAssist.Helper;
+using AEAssist.JobApi;
+
 
 namespace LittleNightmare.Summoner
 {
@@ -31,39 +32,39 @@ namespace LittleNightmare.Summoner
         public void OpenerSummon()
         {
             Summon.Clear();
-            Summon.Add(SMNSpellHelper.Titan());
-            Summon.Add(SMNSpellHelper.Garuda());
-            Summon.Add(SMNSpellHelper.Ifrit());
+            Summon.Add(SMNHelper.Titan());
+            Summon.Add(SMNHelper.Garuda());
+            Summon.Add(SMNHelper.Ifrit());
         }
 
         public void UsedSummon()
         {
-            if (Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Titan) && !Summon.Contains(SMNSpellHelper.Titan()))
+            if (Core.Resolve<JobApi_Summoner>().IsPetReady(ActivePetType.Titan) && !Summon.Contains(SMNHelper.Titan()))
             {
-                Summon.Add(SMNSpellHelper.Titan());
+                Summon.Add(SMNHelper.Titan());
             }
-            if (Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Ifrit) && !Summon.Contains(SMNSpellHelper.Ifrit()))
+            if (Core.Resolve<JobApi_Summoner>().IsPetReady(ActivePetType.Ifrit) && !Summon.Contains(SMNHelper.Ifrit()))
             {
-                Summon.Add(SMNSpellHelper.Ifrit());
+                Summon.Add(SMNHelper.Ifrit());
             }
-            if (Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Garuda) && !Summon.Contains(SMNSpellHelper.Garuda()))
+            if (Core.Resolve<JobApi_Summoner>().IsPetReady(ActivePetType.Garuda) && !Summon.Contains(SMNHelper.Garuda()))
             {
-                Summon.Add(SMNSpellHelper.Garuda());
+                Summon.Add(SMNHelper.Garuda());
             }
 
 
-            if (Core.Get<IMemApiSummoner>().InBahamut || Core.Get<IMemApiSummoner>().InPhoenix)
+            if (SMNHelper.InBahamut || SMNHelper.InPhoenix)
             {
                 TitanGemshineTimes = 4 - (4 - TitanGemshineTimesCustom);
                 IfritGemshineTimes = 2 - (2 - IfritGemshineTimesCustom);
                 GarudaGemshineTimes = 4 - (4 - GarudaGemshineTimesCustom);
             }
 
-            if (!Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Titan))
+            if (!Core.Resolve<JobApi_Summoner>().IsPetReady(ActivePetType.Titan))
             {
-                Summon.Remove(SMNSpellHelper.Titan());
-                CustomSummon.Remove(SMNSpellHelper.Titan());
-                if (Core.Get<IMemApiSummoner>().ActivePetType != ActivePetType.Titan)
+                Summon.Remove(SMNHelper.Titan());
+                CustomSummon.Remove(SMNHelper.Titan());
+                if (Core.Resolve<JobApi_Summoner>().ActivePetType != ActivePetType.Titan)
                 {
                     TitanGemshineTimes = 0;
                     if (CustomSummon.Count <= 0)
@@ -72,11 +73,11 @@ namespace LittleNightmare.Summoner
                     }
                 }
             }
-            if (!Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Ifrit))
+            if (!Core.Resolve<JobApi_Summoner>().IsPetReady(ActivePetType.Ifrit))
             {
-                Summon.Remove(SMNSpellHelper.Ifrit());
-                CustomSummon.Remove(SMNSpellHelper.Ifrit());
-                if (Core.Get<IMemApiSummoner>().ActivePetType != ActivePetType.Ifrit)
+                Summon.Remove(SMNHelper.Ifrit());
+                CustomSummon.Remove(SMNHelper.Ifrit());
+                if (Core.Resolve<JobApi_Summoner>().ActivePetType != ActivePetType.Ifrit)
                 {
                     IfritGemshineTimes = 0;
                     if(CustomSummon.Count <= 0)
@@ -85,11 +86,11 @@ namespace LittleNightmare.Summoner
                     }
                 }
             }
-            if (!Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Garuda))
+            if (!Core.Resolve<JobApi_Summoner>().IsPetReady(ActivePetType.Garuda))
             {
-                Summon.Remove(SMNSpellHelper.Garuda());
-                CustomSummon.Remove(SMNSpellHelper.Garuda());
-                if (Core.Get<IMemApiSummoner>().ActivePetType != ActivePetType.Garuda)
+                Summon.Remove(SMNHelper.Garuda());
+                CustomSummon.Remove(SMNHelper.Garuda());
+                if (Core.Resolve<JobApi_Summoner>().ActivePetType != ActivePetType.Garuda)
                 {
                     GarudaGemshineTimes = 0;
                     if (CustomSummon.Count <= 0)
@@ -101,9 +102,9 @@ namespace LittleNightmare.Summoner
 
             if (CustomSummonWaitList.Count > 0)
             {
-                if (Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Titan)
-                    && Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Ifrit)
-                    && Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Garuda))
+                if (Core.Resolve<JobApi_Summoner>().IsPetReady(ActivePetType.Titan)
+                    && Core.Resolve<JobApi_Summoner>().IsPetReady(ActivePetType.Ifrit)
+                    && Core.Resolve<JobApi_Summoner>().IsPetReady(ActivePetType.Garuda))
                 {
                     foreach (var summon in CustomSummonWaitList)
                     {
@@ -113,59 +114,59 @@ namespace LittleNightmare.Summoner
                 }
             }
 
-            switch (Core.Get<IMemApiSummoner>().ActivePetType)
+            switch (Core.Resolve<JobApi_Summoner>().ActivePetType)
             {
                 case ActivePetType.Titan:
-                    TitanGemshineTimes = Core.Get<IMemApiSummoner>().ElementalAttunement - (4 - TitanGemshineTimesCustom);
+                    TitanGemshineTimes = Core.Resolve<JobApi_Summoner>().AttunementAdjust - (4 - TitanGemshineTimesCustom);
                     break;
                 case ActivePetType.Ifrit:
-                    IfritGemshineTimes = Core.Get<IMemApiSummoner>().ElementalAttunement - (2 - IfritGemshineTimesCustom);
+                    IfritGemshineTimes = Core.Resolve<JobApi_Summoner>().AttunementAdjust - (2 - IfritGemshineTimesCustom);
                     break;
                 case ActivePetType.Garuda:
-                    GarudaGemshineTimes = Core.Get<IMemApiSummoner>().ElementalAttunement - (4 - GarudaGemshineTimesCustom);
+                    GarudaGemshineTimes = Core.Resolve<JobApi_Summoner>().AttunementAdjust - (4 - GarudaGemshineTimesCustom);
                     break;
             }
         }
 
         public void TitanFirst()
         {
-            if (Summon.Contains(SMNSpellHelper.Titan()))
+            if (Summon.Contains(SMNHelper.Titan()))
             {
-                Summon.Remove(SMNSpellHelper.Titan());
-                Summon.Insert(0, SMNSpellHelper.Titan());
+                Summon.Remove(SMNHelper.Titan());
+                Summon.Insert(0, SMNHelper.Titan());
             }
         }
         public void IfritFirst()
         {
-            if (Summon.Contains(SMNSpellHelper.Ifrit()))
+            if (Summon.Contains(SMNHelper.Ifrit()))
             {
-                Summon.Remove(SMNSpellHelper.Ifrit());
-                Summon.Insert(0, SMNSpellHelper.Ifrit());
+                Summon.Remove(SMNHelper.Ifrit());
+                Summon.Insert(0, SMNHelper.Ifrit());
             }
         }
         public void GarudaFirst()
         {
-            if (Summon.Contains(SMNSpellHelper.Garuda()))
+            if (Summon.Contains(SMNHelper.Garuda()))
             {
-                Summon.Remove(SMNSpellHelper.Garuda());
-                Summon.Insert(0, SMNSpellHelper.Garuda());
+                Summon.Remove(SMNHelper.Garuda());
+                Summon.Insert(0, SMNHelper.Garuda());
             }
         }
 
         //public bool CastSwiftCastCouldCoverTargetSpell()
         //{
         //    var leftGCD = GCDLeftUntilNextSwiftCasted();
-        //    return leftGCD is >= 0 and < 4 && Qt.GetQt("预读风神即刻咏唱".Loc()) &&
-        //           (Core.Get<IMemApiSummoner>().ActivePetType != ActivePetType.Ifrit || Instance.IfritGemshineTimes <= 0);
+        //    return leftGCD is >= 0 and < 4 && SummonerRotationEntry.QT.GetQt("预读风神即刻咏唱") &&
+        //           (Core.Resolve<JobApi_Summoner>().ActivePetType != ActivePetType.Ifrit || Instance.IfritGemshineTimes <= 0);
         //}
 
         // public int GCDLeftUntilNextSwiftCasted()
         // {
         //     var targetSpell = SMNSpellHelper.Garuda();
         //
-        //     if (!SpellsDefine.Slipstream.IsUnlock()) return -1;
+        //     if (!SMNData.Spells.Slipstream.IsUnlock()) return -1;
         //
-        //     var GCDLeft = Core.Get<IMemApiSummoner>().TranceTimer > 0 ? Core.Get<IMemApiSummoner>().ElementalAttunement : 0;
+        //     var GCDLeft = Core.Resolve<JobApi_Summoner>().TranceTimer > 0 ? Core.Resolve<JobApi_Summoner>().ElementalAttunement : 0;
         //     var list = Instance.CustomSummon.Count > 0 ? Instance.CustomSummon : Instance.Summon;
         //     foreach (var pet in list)
         //     {

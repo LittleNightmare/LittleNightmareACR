@@ -1,8 +1,9 @@
-using CombatRoutine;
-using Common;
-using Common.Define;
-using Common.Helper;
-using Common.Language;
+using AEAssist;
+using AEAssist.CombatRoutine;
+using AEAssist.CombatRoutine.Module;
+using AEAssist.Extension;
+using AEAssist.Helper;
+using AEAssist.JobApi;
 
 namespace LittleNightmare.Summoner.Ability;
 
@@ -12,26 +13,30 @@ public class SMNAbility_EnergyDrainSiphon : ISlotResolver
 
     public Spell GetSpell()
     {
-        if (!Qt.GetQt("AOE".Loc())) return SpellsDefine.EnergyDrain.GetSpell();
+        if (!SummonerRotationEntry.QT.GetQt("AOE")) return SMNData.Spells.EnergyDrain.GetSpell();
         if (SMNSettings.Instance.SmartAoETarget)
         {
-            var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SpellsDefine.EnergySiphon, 2);
-            if (canTargetObjects.IsValid)
-                return new Spell(SpellsDefine.EnergySiphon.GetSpell().Id, canTargetObjects);
-        }else if (TargetHelper.CheckNeedUseAOE(Core.Me.GetCurrTarget(), 25, 5, 2))
+            var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SMNData.Spells.EnergySiphon, 2);
+            if (canTargetObjects != null && canTargetObjects.IsValid())
+                return new Spell(SMNData.Spells.EnergySiphon.GetSpell().Id, canTargetObjects);
+        }else
         {
-            return SpellsDefine.EnergySiphon.GetSpell();
+            var currentTarget = Core.Me.GetCurrTarget();
+            if (currentTarget != null && TargetHelper.GetNearbyEnemyCount(currentTarget, 25, 5) >= 3)
+            {
+                return SMNData.Spells.EnergySiphon.GetSpell();
+            }
         }
 
-        return SpellsDefine.EnergyDrain.GetSpell();
+        return SMNData.Spells.EnergyDrain.GetSpell();
     }
     public int Check()
     {
-        if (!GetSpell().IsReady())
+        if (!GetSpell().Id.IsReady())
         {
             return -10;
         }
-        if (!Core.Get<IMemApiSummoner>().HasAetherflowStacks)
+        if (!Core.Resolve<JobApi_Summoner>().HasAetherflowStacks)
         {
             return 0;
         }

@@ -1,12 +1,11 @@
-using CombatRoutine.TriggerModel;
-using Common.Language;
+using AEAssist.CombatRoutine.Trigger;
 using ImGuiNET;
 
 namespace LittleNightmare.Summoner.Triggers;
 
 public class SMNTriggerActionCustomGemshineTimes : ITriggerAction
 {
-    public string DisplayName => "SMN/LittleNightmare/下一轮三神技能使用次数".Loc();
+    public string DisplayName => "SMN/LittleNightmare/下一轮三神技能使用次数";
     public string Remark { get; set; }
 
     public int TitanGemshineTimes = 4;
@@ -31,15 +30,15 @@ public class SMNTriggerActionCustomGemshineTimes : ITriggerAction
 
     public bool Draw()
     {
-        if (ImGui.InputInt("土神".Loc(), ref TitanGemshineTimes))
+        if (ImGui.InputInt("土神", ref TitanGemshineTimes))
         {
             TitanGemshineTimes = Math.Clamp(TitanGemshineTimes, 0, 4);
         };
-        if (ImGui.InputInt("火神".Loc(), ref IfritGemshineTimes))
+        if (ImGui.InputInt("火神", ref IfritGemshineTimes))
         {
             IfritGemshineTimes = Math.Clamp(IfritGemshineTimes, 0, 2);
         };
-        if (ImGui.InputInt("风神".Loc(), ref GarudaGemshineTimes))
+        if (ImGui.InputInt("风神", ref GarudaGemshineTimes))
         {
             GarudaGemshineTimes = Math.Clamp(GarudaGemshineTimes, 0, 4);
         };

@@ -10,35 +10,33 @@
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <OutputPath>..\Output\RotationPlugin\LittleNightmare\</OutputPath>
+    <OutputPath>..\Output\ACR\LittleNightmare\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <OutputPath>..\Output\RotationPlugin\LittleNightmare\</OutputPath>
+    <OutputPath>..\Output\ACR\LittleNightmare\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Reference Include="CombatRoutine">
-      <HintPath>..\AEAssistCNVersion\AEAssist\CombatRoutine.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Common">
-      <HintPath>..\AEAssistCNVersion\AEAssist\Common.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="ImGui.NET">
-      <HintPath>..\ImGui.NET.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-  </ItemGroup>
+  <PropertyGroup>
+	<DalamudLibPath>$(DALAMUD_HOME)</DalamudLibPath>
+  </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Language\**">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Reference Include="AEAssist">
+      <HintPath>..\AEAssistCNVersion\AEAssist\AEAssist.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Dalamud">
+      <HintPath>$(DalamudLibPath)Dalamud.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+	  <Reference Include="ImGui.NET">
+		  <HintPath>$(DalamudLibPath)ImGui.NET.dll</HintPath>
+		  <Private>false</Private>
+	  </Reference>
   </ItemGroup>
 
 </Project>

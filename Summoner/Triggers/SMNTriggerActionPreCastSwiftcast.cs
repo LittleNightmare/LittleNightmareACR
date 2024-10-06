@@ -1,11 +1,10 @@
-using CombatRoutine.TriggerModel;
-using Common.Language;
+using AEAssist.CombatRoutine.Trigger;
 
 namespace LittleNightmare.Summoner.Triggers;
 
 public class SMNTriggerActionPreCastSwiftcast : ITriggerAction
 {
-    public string DisplayName => "SMN/LittleNightmare/预读风神即刻咏唱".Loc();
+    public string DisplayName => "SMN/LittleNightmare/预读风神即刻咏唱";
     public string Remark { get; set; }
 
     public bool 预读风神即刻咏唱 { get; set; } = new();
@@ -22,6 +21,6 @@ public class SMNTriggerActionPreCastSwiftcast : ITriggerAction
 
     public bool Handle()
     {
-        return Qt.SetQt("预读风神即刻咏唱".Loc(), 预读风神即刻咏唱);
+        return SummonerRotationEntry.QT.SetQt("预读风神即刻咏唱", 预读风神即刻咏唱);
     }
 }

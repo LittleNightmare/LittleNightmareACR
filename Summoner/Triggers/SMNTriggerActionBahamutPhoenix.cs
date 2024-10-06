@@ -1,11 +1,10 @@
-using CombatRoutine.TriggerModel;
-using Common.Language;
+using AEAssist.CombatRoutine.Trigger;
 
 namespace LittleNightmare.Summoner.Triggers;
 
 public class SMNTriggerActionBahamutPhoenix : ITriggerAction
 {
-    public string DisplayName => "SMN/LittleNightmare/巴哈凤凰开关".Loc();
+    public string DisplayName => "SMN/LittleNightmare/巴哈凤凰开关";
     public string Remark { get; set; }
 
     public bool useBahamutPhoenix { get; set; } = new();
@@ -22,6 +21,6 @@ public class SMNTriggerActionBahamutPhoenix : ITriggerAction
 
     public bool Handle()
     {
-        return Qt.SetQt("巴哈凤凰".Loc(), useBahamutPhoenix);
+        return SummonerRotationEntry.QT.SetQt("巴哈凤凰", useBahamutPhoenix);
     }
 }

@@ -1,12 +1,11 @@
-using CombatRoutine.TriggerModel;
-using Common;
-using Common.Language;
+
+using AEAssist.CombatRoutine.Trigger;
 
 namespace LittleNightmare.Summoner.Triggers;
 
 public class SMNTriggerActionAutoCrimsonCyclone : ITriggerAction
 {
-    public string DisplayName => "SMN/LittleNightmare/自动火神冲开关".Loc();
+    public string DisplayName => "SMN/LittleNightmare/自动火神冲开关";
     public string Remark { get; set; }
 
     public bool AutoCrimsonCyclone { get; set; } = new();
@@ -23,6 +22,6 @@ public class SMNTriggerActionAutoCrimsonCyclone : ITriggerAction
 
     public bool Handle()
     {
-        return Qt.SetQt("自动火神冲".Loc(), AutoCrimsonCyclone);
+        return SummonerRotationEntry.QT.SetQt("自动火神冲", AutoCrimsonCyclone);
     }
 }

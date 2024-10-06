@@ -1,7 +1,9 @@
-using CombatRoutine;
-using Common;
-using Common.Define;
-using Common.Language;
+using AEAssist;
+using AEAssist.CombatRoutine;
+using AEAssist.CombatRoutine.Module;
+using AEAssist.Extension;
+using AEAssist.Helper;
+using AEAssist.JobApi;
 
 namespace LittleNightmare.Summoner.Ability;
 
@@ -10,23 +12,23 @@ public class SMNAbility_SearingLight : ISlotResolver
     public SlotMode SlotMode { get; } = SlotMode.OffGcd;
     public int Check()
     {
-        if (!SpellsDefine.SearingLight.IsReady())
+        if (!SMNData.Spells.SearingLight.IsReady())
         {
             return -10;
         }
-        if (!Core.Me.InCombat)
+        if (!Core.Me.InCombat())
         {
             return -9;
         }
-        if (!Core.Get<IMemApiSummoner>().HasPet)
+        if (!Core.Resolve<JobApi_Summoner>().HasPet)
         {
             return -8;
         }
-        if (!Qt.GetQt("爆发".Loc()))
+        if (!SummonerRotationEntry.QT.GetQt("爆发"))
         {
             return -7;
         }
-        if (!Qt.GetQt("灼热之光".Loc()))
+        if (!SummonerRotationEntry.QT.GetQt("灼热之光"))
         {
             return -7;
         }
@@ -35,6 +37,6 @@ public class SMNAbility_SearingLight : ISlotResolver
 
     public void Build(Slot slot)
     {
-        slot.Add(new SlotAction(SlotAction.WaitType.WaitForSndHalfWindow, 0, SpellsDefine.SearingLight.GetSpell()));
+        slot.Add(new SlotAction(SlotAction.WaitType.WaitForSndHalfWindow, 0, SMNData.Spells.SearingLight.GetSpell()));
     }
 }

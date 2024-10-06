@@ -1,12 +1,11 @@
-using CombatRoutine.TriggerModel;
-using Common.Language;
+using AEAssist.CombatRoutine.Trigger;
 using ImGuiNET;
 
 namespace LittleNightmare.Summoner.Triggers;
 
 public class SMNTriggerActionSummon : ITriggerAction
 {
-    public string DisplayName => "SMN/LittleNightmare/选择下一个召唤的蛮神".Loc();
+    public string DisplayName => "SMN/LittleNightmare/选择下一个召唤的蛮神";
     public string Remark { get; set; }
 
     public int NextSummon { get; set; } = new();
@@ -21,28 +20,28 @@ public class SMNTriggerActionSummon : ITriggerAction
     {
         if (NextSummon == 0)
         {
-            PrevSummon = "土神".Loc();
+            PrevSummon = "土神";
         }
         else if (NextSummon == 1)
         {
-            PrevSummon = "风神".Loc();
+            PrevSummon = "风神";
         }
         else if (NextSummon == 2)
         {
-            PrevSummon = "火神".Loc();
+            PrevSummon = "火神";
         }
 
         if (ImGui.BeginCombo("", PrevSummon))
         {
-            if (ImGui.Selectable("土神".Loc()))
+            if (ImGui.Selectable("土神"))
             {
                 NextSummon = 0;
             }
-            if (ImGui.Selectable("风神".Loc()))
+            if (ImGui.Selectable("风神"))
             {
                 NextSummon = 1;
             }
-            if (ImGui.Selectable("火神".Loc()))
+            if (ImGui.Selectable("火神"))
             {
                 NextSummon = 2;
             }

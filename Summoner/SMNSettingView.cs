@@ -1,21 +1,23 @@
-using CombatRoutine.View;
-using Common.GUI;
-using Common.Language;
+using AEAssist;
+using AEAssist.CombatRoutine.View;
+using AEAssist.GUI;
 using ImGuiNET;
 
 namespace LittleNightmare.Summoner
 {
-    public class SMNSettingView : ISettingUI
+    public class SMNSettingView
     {
-        public string Name => "召唤";
+        public static SMNSettingView Instance = new();
+
+        //public SMNSettings SMNSettings => SMNSettings.Instance;
 
         public void Draw()
         {
-            ImGuiHelper.ToggleButton("自动火神冲".Loc(), ref SMNSettings.Instance.qt自动火神冲);
-            ImGuiHelper.ToggleButton("自动爆发药".Loc(), ref SMNSettings.Instance.qt自动爆发药);
-            ImGuiHelper.ToggleButton("阻止双插溃烂爆发".Loc(), ref SMNSettings.Instance.PreventDoubleFester);
+            ImGuiHelper.ToggleButton("自动火神冲", ref SMNSettings.Instance.qt自动火神冲);
+            ImGuiHelper.ToggleButton("自动爆发药", ref SMNSettings.Instance.qt自动爆发药);
+            ImGuiHelper.ToggleButton("阻止双插溃烂爆发", ref SMNSettings.Instance.PreventDoubleFester);
             
-            ImGui.Text("醒梦阈值: ".Loc());
+            ImGui.Text("醒梦阈值: ");
             ImGui.SameLine();
             ImGui.SetNextItemWidth(100);
             if (ImGui.InputInt("##MPThreshold", ref SMNSettings.Instance.MPThreshold, 100, 1000))
@@ -23,16 +25,16 @@ namespace LittleNightmare.Summoner
                 SMNSettings.Instance.MPThreshold = Math.Clamp(SMNSettings.Instance.MPThreshold, 0, 10000);
             }
 
-            ImGuiHelper.ToggleButton("智能AOE目标".Loc(), ref SMNSettings.Instance.SmartAoETarget);
-            ImGuiHelper.SetHoverTooltip("将智能选择最适合释放AoE的目标，而不是根据当前目标决定是否使用AoE\n火神冲的支持待定".Loc());
+            ImGuiHelper.ToggleButton("智能AOE目标", ref SMNSettings.Instance.SmartAoETarget);
+            ImGuiHelper.SetHoverTooltip("将智能选择最适合释放AoE的目标，而不是根据当前目标决定是否使用AoE\n火神冲的支持待定");
 
             
             if (ImGui.Button("保存设置"))
             {
                 SMNSettings.Instance.Save();
-                Qt.NewDefault("自动火神冲".Loc(), SMNSettings.Instance.qt自动火神冲);
-                Qt.NewDefault("爆发药".Loc(), SMNSettings.Instance.qt自动爆发药);
-                Qt.Reset();
+                SummonerRotationEntry.QT.NewDefault("自动火神冲", SMNSettings.Instance.qt自动火神冲);
+                SummonerRotationEntry.QT.NewDefault("爆发药", SMNSettings.Instance.qt自动爆发药);
+                SummonerRotationEntry.QT.Reset();
             }
             ImGui.Text("如何迁移逆光时间轴到小小梦魇:");
             ImGui.SetNextItemWidth(200);

@@ -1,7 +1,9 @@
-using System.Diagnostics;
-using CombatRoutine;
-using Common;
-using Common.Define;
+using AEAssist;
+using AEAssist.CombatRoutine;
+using AEAssist.CombatRoutine.Module;
+using AEAssist.Extension;
+using AEAssist.Helper;
+using AEAssist.JobApi;
 
 namespace LittleNightmare.Summoner.Ability;
 
@@ -14,14 +16,14 @@ public class SMNAbility_SwiftCast : ISlotResolver
         {
             return -10;
         }
-        var skillTarget = PartyHelper.DeadAllies.FirstOrDefault(r => !r.HasAura(AurasDefine.Raise));
-        if (SMNSettings.Instance.SwiftCastMode is 0 or 3 && skillTarget.IsValid)
+        var skillTarget = PartyHelper.DeadAllies.FirstOrDefault(r => !r.HasAura(SMNData.Buffs.Raise));
+        if (SMNSettings.Instance.SwiftCastMode is 0 or 3 && skillTarget.IsValid())
         {
             return 0;
         }
         if (SMNSettings.Instance.SwiftCastMode is 1 or 3)
         {
-            if (Core.Me.HasMyAura(AurasDefine.GarudasFavor))
+            if (Core.Me.HasAura(SMNData.Buffs.GarudasFavor))
             {
                 return 0;
             }
@@ -29,7 +31,7 @@ public class SMNAbility_SwiftCast : ISlotResolver
         }
         if (SMNSettings.Instance.SwiftCastMode is 2 or 3)
         {
-            if (Core.Get<IMemApiSummoner>().ActivePetType == ActivePetType.Ifrit)
+            if (Core.Resolve<JobApi_Summoner>().ActivePetType == ActivePetType.Ifrit)
             {
                 return 0;
             }

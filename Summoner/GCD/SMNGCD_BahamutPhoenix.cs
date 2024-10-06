@@ -1,7 +1,9 @@
-using CombatRoutine;
-using Common;
-using Common.Define;
-using Common.Language;
+using AEAssist;
+using AEAssist.CombatRoutine;
+using AEAssist.CombatRoutine.Module;
+using AEAssist.Extension;
+using AEAssist.Helper;
+using AEAssist.JobApi;
 
 namespace LittleNightmare.Summoner.GCD
 {
@@ -9,32 +11,38 @@ namespace LittleNightmare.Summoner.GCD
     {
         public Spell? GetSpell()
         {
-            if (Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Bahamut) || Core.Get<IMemApiSummoner>().IsPetReady(ActivePetType.Phoneix))
+            if (Core.Resolve<JobApi_Summoner>().IsPetReady(ActivePetType.Bahamut) 
+                || Core.Resolve<JobApi_Summoner>().IsPetReady(ActivePetType.Phoneix) 
+                || Core.Resolve<JobApi_Summoner>().IsPetReady(ActivePetType.SolarBahamut))
             {
-                return SMNSpellHelper.BahamutPhoneix();
+                return SMNHelper.BahamutPhoneix();
             }
             return null;
         }
         public SlotMode SlotMode { get; } = SlotMode.Gcd;
         public int Check()
         {
-            if (!GetSpell().IsReady())
+            if (GetSpell() == null)
             {
                 return -10;
             }
-            if (!Core.Me.InCombat)
+            if (!GetSpell().Id.IsReady())
+            {
+                return -10;
+            }
+            if (!Core.Me.InCombat())
             {
                 return -9;
             }
-            if (Core.Get<IMemApiSummoner>().PetTimer > 0)
+            if (Core.Resolve<JobApi_Summoner>().HasPet)
             {
                 return -8;
             }
-            if (!Qt.GetQt("爆发".Loc()))
+            if (!SummonerRotationEntry.QT.GetQt("爆发"))
             {
                 return -2;
             }
-            if (!Qt.GetQt("巴哈凤凰".Loc()))
+            if (!SummonerRotationEntry.QT.GetQt("巴哈凤凰"))
             {
                 return -2;
             }

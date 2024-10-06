@@ -1,8 +1,10 @@
-using CombatRoutine;
-using Common;
-using Common.Define;
-using Common.Helper;
-using Common.Language;
+using AEAssist;
+using AEAssist.CombatRoutine;
+using AEAssist.CombatRoutine.Module;
+using AEAssist.Extension;
+using AEAssist.Helper;
+using AEAssist.JobApi;
+using AEAssist.MemoryApi;
 
 namespace LittleNightmare.Summoner.GCD
 {
@@ -10,48 +12,52 @@ namespace LittleNightmare.Summoner.GCD
     {
         public Spell GetSpell()
         {
-            if (!Qt.GetQt("AOE".Loc())) return SMNSpellHelper.BaseSummonSingle();
+            if (!SummonerRotationEntry.QT.GetQt("AOE")) return SMNHelper.BaseSummonSingle();
             if (SMNSettings.Instance.SmartAoETarget)
             {
-                var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SMNSpellHelper.BaseSummonAoE().Id);
-                if (canTargetObjects.IsValid)
+                var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SMNHelper.BaseSummonAoE().Id);
+                if (canTargetObjects != null && canTargetObjects.IsValid())
                 {
-                    return new Spell(SMNSpellHelper.BaseSummonAoE().Id, canTargetObjects);
+                    return new Spell(SMNHelper.BaseSummonAoE().Id, canTargetObjects);
                 }
-            } else if (TargetHelper.CheckNeedUseAOE(Core.Me.GetCurrTarget(), 25, 5, 3))
+            } else
             {
-                return SMNSpellHelper.BaseSummonAoE();
+                var currentTarget = Core.Me.GetCurrTarget();
+                if (currentTarget != null && TargetHelper.GetNearbyEnemyCount(currentTarget, 25, 5) >= 3)
+                {
+                    return SMNHelper.BaseSummonAoE();
+                }
             }
 
-            return SMNSpellHelper.BaseSummonSingle();
+            return SMNHelper.BaseSummonSingle();
         }
         public SlotMode SlotMode { get; } = SlotMode.Gcd;
         public int Check()
         {
-            if (!Qt.GetQt("宝石耀".Loc()))
+            if (!SummonerRotationEntry.QT.GetQt("宝石耀"))
             {
                 return -10;
             }
             // 宝石耀和宝石辉应该状态是相同的，就不单独判断了
-            if (!GetSpell().IsReady()) return -10;
-            if (Core.Get<IMemApiSummoner>().ElementalAttunement <= 0) return -1;
+            if (!GetSpell().Id.IsReady()) return -10;
+            if (Core.Resolve<JobApi_Summoner>().AetherflowStacks <= 0) return -1;
             
             // var isEnableCustom = SMNBattleData.Instance.CustomSummon.Count > 0;
-            var timesLeft = Core.Get<IMemApiSummoner>().ActivePetType switch
+            var timesLeft = Core.Resolve<JobApi_Summoner>().ActivePetType switch
             {
                 ActivePetType.Titan => SMNBattleData.Instance.TitanGemshineTimes,
                 ActivePetType.Ifrit => SMNBattleData.Instance.IfritGemshineTimes,
                 ActivePetType.Garuda => SMNBattleData.Instance.GarudaGemshineTimes,
                 _ => 0
             };
-            if (Core.Get<IMemApiSummoner>().ActivePetType is ActivePetType.Titan or ActivePetType.Ifrit or ActivePetType.Garuda)
+            if (Core.Resolve<JobApi_Summoner>().ActivePetType is ActivePetType.Titan or ActivePetType.Ifrit or ActivePetType.Garuda)
             {
                 // 其实这里主要是给自定义用的，如果正常情况，归零时已经为None了
                 if (timesLeft <= 0)
                 {
                     return -2;
                 }
-                if (Core.Get<IMemApiMove>().IsMoving() && !Core.Me.HasMyAura(AurasDefine.Swiftcast) && Core.Get<IMemApiSummoner>().ActivePetType == ActivePetType.Ifrit)
+                if (Core.Resolve<MemApiMove>().IsMoving() && !Core.Me.HasAura(SMNData.Buffs.Swiftcast) && Core.Resolve<JobApi_Summoner>().ActivePetType == ActivePetType.Ifrit)
                 {
                     return -2;
                 }

@@ -1,8 +1,9 @@
-using CombatRoutine;
-using Common;
-using Common.Define;
-using Common.Helper;
-using Common.Language;
+using AEAssist;
+using AEAssist.CombatRoutine;
+using AEAssist.CombatRoutine.Module;
+using AEAssist.Extension;
+using AEAssist.Helper;
+using AEAssist.MemoryApi;
 
 namespace LittleNightmare.Summoner.GCD
 {
@@ -10,27 +11,27 @@ namespace LittleNightmare.Summoner.GCD
     {
         public Spell GetSpell()
         {
-            if (!Qt.GetQt("AOE".Loc())) return SMNSpellHelper.BaseSingle();
+            if (!SummonerRotationEntry.QT.GetQt("AOE")) return SMNHelper.BaseSingle();
 
             if (SMNSettings.Instance.SmartAoETarget)
             {
-                var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SMNSpellHelper.BaseAoE().Id);
-                if (canTargetObjects.IsValid)
+                var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SMNHelper.BaseAoE().Id);
+                if (canTargetObjects != null && canTargetObjects.IsValid())
                 {
-                    return new Spell(SMNSpellHelper.BaseAoE().Id, canTargetObjects);
+                    return new Spell(SMNHelper.BaseAoE().Id, canTargetObjects);
                 }
-            }else if (TargetHelper.CheckNeedUseAOE(Core.Me.GetCurrTarget(), 25, 5, 3))
+            }else if (Core.Me.GetCurrTarget() != null && TargetHelper.GetNearbyEnemyCount(Core.Me.GetCurrTarget(), 25, 5) > 3)
             {
-                return SMNSpellHelper.BaseAoE();
+                return SMNHelper.BaseAoE();
             }
 
-            return SMNSpellHelper.BaseSingle();
+            return SMNHelper.BaseSingle();
         }
         public SlotMode SlotMode { get; } = SlotMode.Gcd;
         public int Check()
         {
-            if (!GetSpell().IsReady()) return -10;
-            if (Core.Get<IMemApiMove>().IsMoving())
+            if (!GetSpell().Id.IsReady()) return -10;
+            if (Core.Resolve<MemApiMove>().IsMoving())
             {
                 return -1;
             }

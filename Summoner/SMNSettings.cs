@@ -1,5 +1,7 @@
-using CombatRoutine.View.JobView;
-using Common.Helper;
+using AEAssist.Helper;
+using AEAssist.IO;
+using AEAssist.CombatRoutine.View.JobView;
+
 
 namespace LittleNightmare.Summoner
 {

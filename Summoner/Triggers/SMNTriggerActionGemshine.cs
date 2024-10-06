@@ -1,11 +1,10 @@
-using CombatRoutine.TriggerModel;
-using Common.Language;
+using AEAssist.CombatRoutine.Trigger;
 
 namespace LittleNightmare.Summoner.Triggers;
 
 public class SMNTriggerActionGemshine : ITriggerAction
 {
-    public string DisplayName => "SMN/LittleNightmare/宝石耀开关".Loc();
+    public string DisplayName => "SMN/LittleNightmare/宝石耀开关";
     public string Remark { get; set; }
 
     public bool 宝石耀 { get; set; } = new();
@@ -22,6 +21,6 @@ public class SMNTriggerActionGemshine : ITriggerAction
 
     public bool Handle()
     {
-        return Qt.SetQt("宝石耀".Loc(), 宝石耀);
+        return SummonerRotationEntry.QT.SetQt("宝石耀", 宝石耀);
     }
 }

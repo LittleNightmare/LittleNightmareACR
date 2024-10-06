@@ -1,8 +1,11 @@
-using CombatRoutine;
-using Common;
-using Common.Define;
-using Common.Helper;
-using Common.Language;
+using AEAssist;
+using AEAssist.CombatRoutine;
+using AEAssist.CombatRoutine.Module;
+using AEAssist.Extension;
+using AEAssist.Function;
+using AEAssist.Helper;
+using AEAssist.JobApi;
+using System;
 
 namespace LittleNightmare.Summoner.GCD
 {
@@ -10,50 +13,50 @@ namespace LittleNightmare.Summoner.GCD
     {
         public Spell GetSpell()
         {
-            if (!Qt.GetQt("AOE".Loc())) return SMNSpellHelper.BaseSingle();
-            
-            
+            if (!SummonerRotationEntry.QT.GetQt("AOE")) return SMNHelper.BaseSingle();
+
+            var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SMNHelper.BaseAoE().Id);
             if (SMNSettings.Instance.SmartAoETarget)
             {
-                var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SMNSpellHelper.BaseAoE().Id);
-                if (canTargetObjects.IsValid)
+                if (canTargetObjects != null && canTargetObjects.IsValid())
                 {
-                   return new Spell(SMNSpellHelper.BaseAoE().Id, canTargetObjects);
+                   return new Spell(SMNHelper.BaseAoE().Id, canTargetObjects);
                 }
                     
             }
             else
             {
                 var damageRange = 0;
-                if (Core.Get<IMemApiSummoner>().InBahamut)
+                if (SMNHelper.InBahamut)
                 {
                     damageRange = 5;
                 }
-                if (Core.Get<IMemApiSummoner>().InPhoenix)
+                if (SMNHelper.InPhoenix || SMNHelper.InSolarBahamut)
                 {
                     damageRange = 8;
                 }
-                if (TargetHelper.CheckNeedUseAOE(Core.Me.GetCurrTarget(), 25, damageRange, 3))
+                var currentTarget = Core.Me.GetCurrTarget();
+                if (currentTarget != null && TargetHelper.GetNearbyEnemyCount(currentTarget, 25, damageRange) >= 3)
                 {
-                    return SMNSpellHelper.BaseAoE();
+                    return SMNHelper.BaseAoE();
                 }
                 
             }
             
-            return SMNSpellHelper.BaseSingle();
+            return SMNHelper.BaseSingle();
         }
         public SlotMode SlotMode { get; } = SlotMode.Gcd;
         public int Check()
         {
-            if (!GetSpell().IsReady())
+            if (!GetSpell().Id.IsReady())
             {
                 return -10;
             }
-            if(Core.Get<IMemApiSummoner>().TranceTimer > 0)
+            if (Core.Resolve<JobApi_Summoner>().AttunmentTimerRemaining > 0)
             {
                 return -10;
             }
-            if (Core.Get<IMemApiSummoner>().PetTimer > 0)
+            if (Core.Resolve<JobApi_Summoner>().SummonTimerRemaining > 0)
             {
                 return 0;
             }

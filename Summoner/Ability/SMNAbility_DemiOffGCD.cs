@@ -1,7 +1,10 @@
-using CombatRoutine;
-using Common;
-using Common.Define;
-using Common.Language;
+using AEAssist;
+using AEAssist.CombatRoutine;
+using AEAssist.CombatRoutine.Module;
+using AEAssist.Extension;
+using AEAssist.Helper;
+using AEAssist.JobApi;
+using AEAssist.MemoryApi;
 
 namespace LittleNightmare.Summoner.Ability;
 
@@ -11,30 +14,30 @@ public class SMNAbility_DemiOffGCD : ISlotResolver
 
     public Spell GetSpell()
     {
-        var targetAction = SMNSpellHelper.EnkindleDemi();
-        if (!SMNSpellHelper.EnkindleDemi().IsReady() && Core.Get<IMemApiSummoner>().InBahamut)
+        var targetAction = SMNHelper.EnkindleDemi();
+        if (!SMNHelper.EnkindleDemi().Id.IsReady() && SMNHelper.InBahamut)
         {
-            targetAction =  SpellsDefine.Deathflare.GetSpell();
+            targetAction =  SMNData.Spells.Deathflare.GetSpell();
         }
-        if (!Qt.GetQt("AOE".Loc())) return targetAction;
+        if (!SummonerRotationEntry.QT.GetQt("AOE")) return targetAction;
         if (!SMNSettings.Instance.SmartAoETarget) return targetAction;
         var canTargetObjects = TargetHelper.GetMostCanTargetObjects(targetAction.Id, 2);
-        return canTargetObjects.IsValid ? new Spell(targetAction.Id, canTargetObjects) : targetAction;
+        return canTargetObjects != null && canTargetObjects.IsValid() ? new Spell(targetAction.Id, canTargetObjects) : targetAction;
     }
     public int Check()
     {
-        if (!GetSpell().IsReady())
+        if (!GetSpell().Id.IsReady())
         {
             return -10;
         }
 
-        if (!(Core.Get<IMemApiSummoner>().InBahamut || Core.Get<IMemApiSummoner>().InPhoenix))
+        if (!(SMNHelper.InBahamut || SMNHelper.InPhoenix))
         {
             return -9;
         }
-        if (Core.Get<IMemApiSummoner>().PetTimer > 0)
+        if (Core.Resolve<JobApi_Summoner>().SummonTimerRemaining > 0)
         {
-            if (Core.Get<IMemApiSummoner>().PetTimer <= Core.Get<IMemApiSpell>().GetGCDDuration(false) * 4 || Qt.GetQt("最终爆发"))
+            if (Core.Resolve<JobApi_Summoner>().SummonTimerRemaining <= Core.Resolve<MemApiSpell>().GetGCDDuration(false) * 4 || SummonerRotationEntry.QT.GetQt("最终爆发"))
             {
                 return 0;
             }

@@ -1,11 +1,10 @@
-using CombatRoutine.TriggerModel;
-using Common.Language;
+using AEAssist.CombatRoutine.Trigger;
 
 namespace LittleNightmare.Summoner.Triggers;
 
 public class SMNTriggerActionSearingLight : ITriggerAction
 {
-    public string DisplayName => "SMN/LittleNightmare/灼热之光开关".Loc();
+    public string DisplayName => "SMN/LittleNightmare/灼热之光开关";
     public string Remark { get; set; }
 
     public bool 灼热之光 { get; set; } = new();
@@ -22,6 +21,6 @@ public class SMNTriggerActionSearingLight : ITriggerAction
 
     public bool Handle()
     {
-        return Qt.SetQt("灼热之光".Loc(), 灼热之光);
+        return SummonerRotationEntry.QT.SetQt("灼热之光", 灼热之光);
     }
 }

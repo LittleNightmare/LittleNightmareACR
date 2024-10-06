@@ -1,36 +1,40 @@
-using CombatRoutine;
-using Common;
-using Common.Define;
+using AEAssist;
+using AEAssist.CombatRoutine;
+using AEAssist.CombatRoutine.Module;
+using AEAssist.Extension;
+using AEAssist.Helper;
+using AEAssist.JobApi;
+using AEAssist.MemoryApi;
 
 namespace LittleNightmare.Summoner.GCD
 {
     public class SMNGCD_SummonCarbuncle : ISlotResolver
     {
+
         public Spell GetSpell()
         {
-            return SpellsDefine.SummonCarbuncle.GetSpell();
+            return SMNData.Spells.SummonCarbuncle.GetSpell();
         }
-        public SlotMode SlotMode { get; } = SlotMode.Gcd;
         public int Check()
         {
-            if (Core.Get<IMemApiSummoner>().HasPet)
+            if (Core.Resolve<JobApi_Summoner>().HasPet)
             {
                 return -10;
             }
 
-            if (!GetSpell().IsReady())
+            if (!GetSpell().Id.IsReady())
             {
                 return -10;
             }
-            if (Core.Get<IMemApiSummoner>().TranceTimer > 0)
+            if (Core.Resolve<JobApi_Summoner>().AttunmentTimerRemaining > 0)
             {
                 return -2;
             }
-            if (Core.Get<IMemApiSummoner>().PetTimer > 0)
+            if (Core.Resolve<JobApi_Summoner>().SummonTimerRemaining > 0)
             {
                 return -2;
             }
-            if (Core.Get<IMemApiMove>().IsMoving())
+            if (Core.Resolve<MemApiMove>().IsMoving())
             {
                 return -1;
             }

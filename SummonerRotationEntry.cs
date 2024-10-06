@@ -1,11 +1,12 @@
-﻿using CombatRoutine;
-using CombatRoutine.Opener;
-using CombatRoutine.TriggerModel;
-using CombatRoutine.View.JobView;
-using Common;
-using Common.Define;
-using Common.Helper;
-using Common.Language;
+﻿using AEAssist;
+using AEAssist.CombatRoutine;
+using AEAssist.CombatRoutine.Module;
+using AEAssist.CombatRoutine.Module.Opener;
+using AEAssist.CombatRoutine.View.JobView;
+using AEAssist.Extension;
+using AEAssist.Helper;
+using AEAssist.JobApi;
+using AEAssist.MemoryApi;
 using LittleNightmare.Summoner;
 using LittleNightmare.Summoner.Ability;
 using LittleNightmare.Summoner.GCD;
@@ -15,76 +16,86 @@ namespace LittleNightmare
 {
     public class SummonerRotationEntry : IRotationEntry
     {
-        public string AuthorName => "LittleNightmare";
 
-        public Jobs TargetJob => Jobs.Summoner;
+        public Jobs TargetJob = Jobs.Summoner;
 
-        public string OverlayTitle => "LNM Summoner";
+        public string OverlayTitle = "LNM Summoner";
 
-        public AcrType AcrType => AcrType.Both;
+        public AcrType AcrType = AcrType.Both;
 
-        public int MinLevel => 1;
+        public int MinLevel = 1;
 
-        public int MaxLevel => 90;
+        public int MaxLevel = 90;
 
-        public string Description => "召唤通用ACR，与逆光的大体相同，处于摸鱼状态，推荐用逆光的，毕竟不知道什么时候就摸了\n" +
+        public string Description = "召唤通用ACR，与逆光的大体相同，处于摸鱼状态，推荐用逆光的，毕竟不知道什么时候就摸了\n" +
                                      "这个ACR与逆光的相比，提供多一点点的自定义设置。这可以增强日常体验，让ACR更符合各位召唤师的习惯\n" +
                                      "选项的介绍请查看 设置";
 
-        public static JobViewWindow JobViewWindow;
+        public string AuthorName { get; set; } = "LittleNightmare";
+
+        public static JobViewWindow QT { get; private set; }
 
 
-        public List<ISlotResolver> SlotResolvers = new()
-        {
-            // 宝石兽召唤
-            new SMNGCD_SummonCarbuncle(),
-            // 进巴哈不死鸟
-            new SMNGCD_BahamutPhoenix(),
-            // 复活
-            new SMNGCD_Resurrection(),
-            // 巴哈不死鸟喷喷
-            new SMNGCD_BahamutPhoenixGCD(),
-            // 火神冲锋二段
-            new SMNGCD_CrimsonStrike(),
-            // 火神冲锋一段
-            new SMNGCD_CrimsonCyclone(),
-            // 风神读条
-            new SMNGCD_Slipstream(),
-            // 宝石辉宝石耀
-            new SMNGCD_Gemshine(),
-            // 三神召唤
-            new SMNGCD_Summon(),
-            // 毁4
-            new SMNGCD_RuinIV(),
-            // 毁123
-            new SMNGCD_BaseCombo(),
+        private readonly List<SlotResolverData> SlotResolvers = new()
+            {
+                // 宝石兽召唤
+                new SlotResolverData(new SMNGCD_SummonCarbuncle(), SlotMode.Gcd),
+                // 进巴哈不死鸟
+                new SlotResolverData(new SMNGCD_BahamutPhoenix(), SlotMode.Gcd),
+                // 复活
+                new SlotResolverData(new SMNGCD_Resurrection(), SlotMode.Gcd),
+                // 巴哈不死鸟喷喷
+                new SlotResolverData(new SMNGCD_BahamutPhoenixGCD(), SlotMode.Gcd),
+                // 火神冲锋二段
+                new SlotResolverData(new SMNGCD_CrimsonStrike(), SlotMode.Gcd),
+                // 火神冲锋一段
+                new SlotResolverData(new SMNGCD_CrimsonCyclone(), SlotMode.Gcd),
+                // 风神读条
+                new SlotResolverData(new SMNGCD_Slipstream(), SlotMode.Gcd),
+                // 宝石辉宝石耀
+                new SlotResolverData(new SMNGCD_Gemshine(), SlotMode.Gcd),
+                // 三神召唤
+                new SlotResolverData(new SMNGCD_Summon(), SlotMode.Gcd),
+                // 毁4
+                new SlotResolverData(new SMNGCD_RuinIV(), SlotMode.Gcd),
+                // 毁123
+                new SlotResolverData(new SMNGCD_BaseCombo(), SlotMode.Gcd),
 
-            // 即刻咏唱
-            new SMNAbility_SwiftCast(),
-            // 团辅
-            new SMNAbility_SearingLight(),
-            // 能量吸收/
-            new SMNAbility_EnergyDrainSiphon(),
-            // 龙神迸发 不死鸟迸发  死星核爆
-            new SMNAbility_DemiOffGCD(),
-            // 溃烂爆发
-            new SMNAbility_Fester(),
-            // 苏生之炎
-            new SMNAbility_Rekindle(),
-            // 山崩
-            new SMNAbility_MountainBuster(),
-            // 醒梦
-            new SMNAbility_LucidDreaming(),
-        };
+                // 即刻咏唱
+                new SlotResolverData(new SMNAbility_SwiftCast(), SlotMode.OffGcd),
+                // 团辅
+                new SlotResolverData(new SMNAbility_SearingLight(), SlotMode.OffGcd),
+                // 能量吸收/
+                new SlotResolverData(new SMNAbility_EnergyDrainSiphon(), SlotMode.OffGcd),
+                // 龙神迸发 不死鸟迸发  死星核爆
+                new SlotResolverData(new SMNAbility_DemiOffGCD(), SlotMode.OffGcd),
+                // 溃烂爆发
+                new SlotResolverData(new SMNAbility_Fester(), SlotMode.OffGcd),
+                // 苏生之炎
+                new SlotResolverData(new SMNAbility_Rekindle(), SlotMode.OffGcd),
+                // 山崩
+                new SlotResolverData(new SMNAbility_MountainBuster(), SlotMode.OffGcd),
+                // 醒梦
+                new SlotResolverData(new SMNAbility_LucidDreaming(), SlotMode.OffGcd),
+            };
 
         public Rotation Build(string settingFolder)
         {
             SMNSettings.Build(settingFolder);
-            return new Rotation(this, () => SlotResolvers)
+            BuildQt();
+            var rotation = new Rotation(SlotResolvers)
+            {
+                TargetJob = TargetJob,
+                AcrType = AcrType,
+                MinLevel = MinLevel,
+                MaxLevel = MaxLevel,
+                Description = Description,
+            };
+            return rotation
                 .AddOpener(GetOpener)
                 .SetRotationEventHandler(new SMNRotationEventHandler())
-                .AddSettingUIs(new SMNSettingView())
-                .AddSlotSequences()
+                //.AddSettingUIs(new SMNSettingView())
+                //.AddSlotSequences()
                 .AddTriggerAction(
                     new SMNTriggerActionQt(),
                     new SMNTriggerActionAutoCrimsonCyclone(),
@@ -97,7 +108,7 @@ namespace LittleNightmare
                     new SMNTriggerActionUseSummon(),
                     new SMNTriggerActionSwiftCastMode(),
                     new SMNTriggerActionIfritMode()
-                    // new SMNTriggerActionPreCastSwiftcast()
+                // new SMNTriggerActionPreCastSwiftcast()
                 )
                 .AddTriggerCondition(
                     new SMNTriggerGaugeCheck(),
@@ -120,61 +131,71 @@ namespace LittleNightmare
                 _ => null,
             };
         }
-        private void Check(TriggerNodeBase triggerNodeBase)
+
+
+
+        public int CanUseHighPrioritySlotCheck(SlotMode slotMode, Slot slot)
         {
-
-        }
-
-
-        private void Upgrade(TriggerLine obj)
-        {
-            // Check(obj.TriggerRoot);
-        }
-
-        public int CanUseHighPrioritySlotCheck(SlotMode slotMode, Spell spell)
-        {
-            if (!spell.IsReady()) return -1;
-            if(spell.CanCast() < 0) return -1;
-            switch (slotMode)
+            foreach (var item in slot.Actions)
             {
-                case SlotMode.Gcd:
-                    // TODO: 火神冲2段
-                    if (spell.CastTime.TotalSeconds > 0)
-                    {
-                        if (Core.Get<IMemApiMove>().IsMoving() && !Core.Me.HasMyAura(AurasDefine.Swiftcast))
+                var spell = item.Spell;
+                if (!spell.Id.IsReady()) return -1;
+                if (spell.CanCast() < 0) return -1;
+                switch (slotMode)
+                {
+                    case SlotMode.Gcd:
+                        // TODO: 火神冲2段
+                        if (spell.CastTime.TotalSeconds > 0)
+                        {
+                            if (Core.Resolve<MemApiMove>().IsMoving() && !Core.Me.HasAura(SMNData.Buffs.Swiftcast))
+                            {
+                                return -1;
+                            }
+                        }
+
+                        if (spell.Id != SMNData.Spells.Ruin4) return 0;
+                        if (!Core.Me.HasAura(SMNData.Buffs.FurtherRuin))
                         {
                             return -1;
                         }
-                    }
+                        break;
+                    case SlotMode.OffGcd:
+                        if (spell.Charges < 1)
+                        {
+                            return -1;
+                        }
 
-                    if (spell.Id != SpellsDefine.Ruin4) return 0;
-                    if (!Core.Me.HasMyAura(AurasDefine.FurtherRuin))
-                    {
-                        return -1;
-                    }
-                    return 0;
-                case SlotMode.OffGcd:
-                    if (spell.Charges < 1)
-                    {
-                        return -1;
-                    }
-
-                    if (spell != SpellsDefine.RadiantAegis.GetSpell()) return 0;
-                    if (Core.Get<IMemApiSummoner>().PetTimer != 0 && (Core.Get<IMemApiSummoner>().InBahamut || Core.Get<IMemApiSummoner>().InPhoenix))
-                    {
-                        return -1;
-                    }
-                    return 0;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(slotMode), slotMode, null);
+                        if (spell != SMNData.Spells.RadiantAegis.GetSpell()) return 0;
+                        if (Core.Resolve<JobApi_Summoner>().SummonTimerRemaining != 0 && (SMNHelper.InBahamut || SMNHelper.InPhoenix || SMNHelper.InSolarBahamut))
+                        {
+                            return -1;
+                        }
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(slotMode), slotMode, null);
+                }
             }
+            return 0;
         }
 
-        public bool BuildQt(out JobViewWindow jobViewWindow)
+        public void BuildQt()
         {
-            jobViewWindow = new SummonerOverlay(SMNSettings.Instance.JobViewSave, SMNSettings.Instance.Save, OverlayTitle);
-            JobViewWindow = jobViewWindow;
-            return true;
+            QT = new SummonerOverlay(SMNSettings.Instance.JobViewSave, SMNSettings.Instance.Save, OverlayTitle);
+        }
+
+        public IRotationUI GetRotationUI()
+        {
+            return QT;
+        }
+
+        public void OnDrawSetting()
+        {
+            SMNSettingView.Instance.Draw();
+        }
+
+        public void Dispose()
+        {
+            
         }
     }
 }

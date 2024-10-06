@@ -1,6 +1,8 @@
-using CombatRoutine;
-using Common;
-using Common.Define;
+using AEAssist;
+using AEAssist.CombatRoutine;
+using AEAssist.CombatRoutine.Module;
+using AEAssist.Extension;
+using AEAssist.Helper;
 
 namespace LittleNightmare.Summoner.Ability;
 
@@ -13,7 +15,7 @@ public class SMNAbility_LucidDreaming : ISlotResolver
         {
             return -10;
         }
-        if (Core.Me.CurrentMana <= SMNSettings.Instance.MPThreshold)
+        if (Core.Me.CurrentMp <= SMNSettings.Instance.MPThreshold)
         {
             return 0;
         }

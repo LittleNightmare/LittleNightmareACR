@@ -1,6 +1,8 @@
-using CombatRoutine;
-using Common;
-using Common.Define;
+using AEAssist;
+using AEAssist.CombatRoutine;
+using AEAssist.CombatRoutine.Module;
+using AEAssist.Extension;
+using AEAssist.Helper;
 
 namespace LittleNightmare.Summoner.GCD
 {
@@ -13,17 +15,17 @@ namespace LittleNightmare.Summoner.GCD
             {
                 return -10;
             }
-            if (!SpellsDefine.Resurrection.IsReady()) return -2;
-            if (!Core.Me.HasMyAura(AurasDefine.Swiftcast))
+            if (!SMNData.Spells.Resurrection.IsReady()) return -2;
+            if (!Core.Me.HasAura(SMNData.Buffs.Swiftcast))
             {
                 return -9;
             }
-            if (Core.Me.CurrentMana < 2400)
+            if (Core.Me.CurrentMp < 2400)
             {
                 return -8;
             }
-            var skillTarget = PartyHelper.DeadAllies.FirstOrDefault(r=>!r.HasAura(AurasDefine.Raise));
-            if (skillTarget.IsValid)
+            var skillTarget = PartyHelper.DeadAllies.FirstOrDefault(r=>!r.HasAura(SMNData.Buffs.Raise));
+            if (skillTarget.IsValid())
             {
                 return 0;
             }
@@ -32,8 +34,8 @@ namespace LittleNightmare.Summoner.GCD
 
         public void Build(Slot slot)
         {
-            var skillTarget = PartyHelper.DeadAllies.FirstOrDefault(r=>!r.HasAura(AurasDefine.Raise));
-            slot.Add(new Spell(SpellsDefine.Resurrection,skillTarget));           
+            var skillTarget = PartyHelper.DeadAllies.FirstOrDefault(r=>!r.HasAura(SMNData.Buffs.Raise));
+            slot.Add(new Spell(SMNData.Spells.Resurrection,skillTarget));           
         }
     }
 }
