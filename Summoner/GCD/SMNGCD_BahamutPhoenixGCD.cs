@@ -15,9 +15,9 @@ namespace LittleNightmare.Summoner.GCD
         {
             if (!SummonerRotationEntry.QT.GetQt("AOE")) return SMNHelper.BaseSingle();
 
-            var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SMNHelper.BaseAoE().Id);
             if (SMNSettings.Instance.SmartAoETarget)
             {
+                var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SMNHelper.BaseAoE().Id);
                 if (canTargetObjects != null && canTargetObjects.IsValid())
                 {
                    return new Spell(SMNHelper.BaseAoE().Id, canTargetObjects);
@@ -54,7 +54,7 @@ namespace LittleNightmare.Summoner.GCD
             }
             if (Core.Resolve<JobApi_Summoner>().AttunmentTimerRemaining > 0)
             {
-                return -10;
+                return -9;
             }
             if (Core.Resolve<JobApi_Summoner>().SummonTimerRemaining > 0)
             {

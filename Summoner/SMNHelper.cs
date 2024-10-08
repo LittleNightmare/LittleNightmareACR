@@ -10,7 +10,7 @@ namespace LittleNightmare.Summoner
     {
         public static Spell Titan()
         {
-            return Core.Resolve<MemApiSpell>().CheckActionChange(SMNData.Spells.SummonTopaz.GetSpell().Id).GetSpell();
+            return Core.Resolve<MemApiSpell>().CheckActionChange(SMNData.Spells.SummonTopaz).GetSpell();
         }
 
         public static Spell Ifrit()
@@ -25,31 +25,41 @@ namespace LittleNightmare.Summoner
 
         public static Spell BahamutPhoneix()
         {
-            return Core.Resolve<MemApiSpell>().CheckActionChange(SMNData.Spells.Aethercharge.GetSpell().Id).GetSpell();
+            return Core.Resolve<MemApiSpell>().CheckActionChange(SMNData.Spells.Aethercharge).GetSpell();
         }
 
         public static Spell EnkindleDemi()
         {
-            return Core.Resolve<MemApiSpell>().CheckActionChange(SMNData.Spells.EnkindleBahamut.GetSpell().Id).GetSpell();
+            return Core.Resolve<MemApiSpell>().CheckActionChange(SMNData.Spells.EnkindleBahamut).GetSpell();
         }
         public static Spell BaseSingle()
         {
-            return Core.Resolve<MemApiSpell>().CheckActionChange(SMNData.Spells.Ruin.GetSpell().Id).GetSpell();
+            return Core.Resolve<MemApiSpell>().CheckActionChange(SMNData.Spells.Ruin).GetSpell();
         }
 
         public static Spell BaseAoE()
         {
-            return Core.Resolve<MemApiSpell>().CheckActionChange(SMNData.Spells.Outburst.GetSpell().Id).GetSpell();
+            return Core.Resolve<MemApiSpell>().CheckActionChange(SMNData.Spells.Outburst).GetSpell();
         }
 
         public static Spell BaseSummonSingle()
         {
-            return Core.Resolve<MemApiSpell>().CheckActionChange(SMNData.Spells.Gemshine.GetSpell().Id).GetSpell();
+            return Core.Resolve<MemApiSpell>().CheckActionChange(SMNData.Spells.Gemshine).GetSpell();
         }
 
         public static Spell BaseSummonAoE()
         {
-            return Core.Resolve<MemApiSpell>().CheckActionChange(SMNData.Spells.PreciousBrilliance.GetSpell().Id).GetSpell();
+            return Core.Resolve<MemApiSpell>().CheckActionChange(SMNData.Spells.PreciousBrilliance).GetSpell();
+        }
+
+        public static Spell Aether()
+        {
+            return Core.Resolve<MemApiSpell>().CheckActionChange(SMNData.Spells.Fester).GetSpell();
+        }
+
+        public static Spell AetherAOE()
+        {
+            return Core.Resolve<MemApiSpell>().CheckActionChange(SMNData.Spells.Painflare).GetSpell();
         }
 
         public static bool InBahamut => Core.Resolve<JobApi_Summoner>().ActivePetType == ActivePetType.Bahamut;

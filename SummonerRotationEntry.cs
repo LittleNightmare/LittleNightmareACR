@@ -25,10 +25,10 @@ namespace LittleNightmare
 
         public int MinLevel = 1;
 
-        public int MaxLevel = 90;
+        public int MaxLevel = 100;
 
-        public string Description = "召唤通用ACR，与逆光的大体相同，处于摸鱼状态，推荐用逆光的，毕竟不知道什么时候就摸了\n" +
-                                     "这个ACR与逆光的相比，提供多一点点的自定义设置。这可以增强日常体验，让ACR更符合各位召唤师的习惯\n" +
+        public string Description = "召唤通用ACR，与逆光的大体相同，处于测试状态，有问题请及时告诉我\n" +
+                                     //"这个ACR与逆光的相比，提供多一点点的自定义设置。这可以增强日常体验，让ACR更符合各位召唤师的习惯\n" +
                                      "选项的介绍请查看 设置";
 
         public string AuthorName { get; set; } = "LittleNightmare";
@@ -71,6 +71,8 @@ namespace LittleNightmare
                 new SlotResolverData(new SMNAbility_DemiOffGCD(), SlotMode.OffGcd),
                 // 溃烂爆发
                 new SlotResolverData(new SMNAbility_Fester(), SlotMode.OffGcd),
+                // 灼热之闪
+                new SlotResolverData(new SMNAbility_SearingFlash(), SlotMode.OffGcd),
                 // 苏生之炎
                 new SlotResolverData(new SMNAbility_Rekindle(), SlotMode.OffGcd),
                 // 山崩
@@ -118,8 +120,9 @@ namespace LittleNightmare
                 .AddCanUseHighPrioritySlotCheck(CanUseHighPrioritySlotCheck);
         }
 
-        private IOpener theBalanceOpener = new OpenerSMN90();
-        private IOpener FastEnergyDrainOpener = new OpenerSMN90FastEnergyDrain();
+        private IOpener theBalanceOpener90 = new OpenerSMN90();
+        private IOpener theBalanceOpener = new OpenerSMN100();
+        //private IOpener FastEnergyDrainOpener = new OpenerSMN90FastEnergyDrain();
 
         IOpener? GetOpener(uint level)
         {
@@ -127,7 +130,8 @@ namespace LittleNightmare
             return SMNSettings.Instance.SelectedOpener switch
             {
                 SMNSettings.OpenerType.TheBalance => theBalanceOpener,
-                SMNSettings.OpenerType.FastEnergyDrain => FastEnergyDrainOpener,
+                //SMNSettings.OpenerType.FastEnergyDrain => FastEnergyDrainOpener,
+                SMNSettings.OpenerType.TheBalance90 => theBalanceOpener90,
                 _ => null,
             };
         }
@@ -181,6 +185,11 @@ namespace LittleNightmare
         public void BuildQt()
         {
             QT = new SummonerOverlay(SMNSettings.Instance.JobViewSave, SMNSettings.Instance.Save, OverlayTitle);
+            //QT.SetUpdateAction(OnUIUpdate);
+        }
+
+        public void OnUIUpdate()
+        {
         }
 
         public IRotationUI GetRotationUI()
@@ -195,7 +204,7 @@ namespace LittleNightmare
 
         public void Dispose()
         {
-            
+
         }
     }
 }

@@ -2,6 +2,7 @@ using AEAssist;
 using AEAssist.CombatRoutine.View;
 using AEAssist.GUI;
 using ImGuiNET;
+using static LittleNightmare.Summoner.SMNSettings;
 
 namespace LittleNightmare.Summoner
 {
@@ -19,7 +20,7 @@ namespace LittleNightmare.Summoner
             
             ImGui.Text("醒梦阈值: ");
             ImGui.SameLine();
-            ImGui.SetNextItemWidth(100);
+            ImGui.SetNextItemWidth(150);
             if (ImGui.InputInt("##MPThreshold", ref SMNSettings.Instance.MPThreshold, 100, 1000))
             {
                 SMNSettings.Instance.MPThreshold = Math.Clamp(SMNSettings.Instance.MPThreshold, 0, 10000);
@@ -28,7 +29,11 @@ namespace LittleNightmare.Summoner
             ImGuiHelper.ToggleButton("智能AOE目标", ref SMNSettings.Instance.SmartAoETarget);
             ImGuiHelper.SetHoverTooltip("将智能选择最适合释放AoE的目标，而不是根据当前目标决定是否使用AoE\n火神冲的支持待定");
 
-            
+            ImGuiHelper.DrawEnum<OpenerType>("起手选择: ", ref SMNSettings.Instance.SelectedOpener);
+            ImGuiHelper.SetHoverTooltip("TheBalance: 是用TheBalance的通用起手\nTheBalance90: 是用TheBalance的90级起手");
+
+
+
             if (ImGui.Button("保存设置"))
             {
                 SMNSettings.Instance.Save();
@@ -36,6 +41,7 @@ namespace LittleNightmare.Summoner
                 SummonerRotationEntry.QT.NewDefault("爆发药", SMNSettings.Instance.qt自动爆发药);
                 SummonerRotationEntry.QT.Reset();
             }
+            /*
             ImGui.Text("如何迁移逆光时间轴到小小梦魇:");
             ImGui.SetNextItemWidth(200);
             ImGui.Text("1. 直接打开json文件");
@@ -48,6 +54,7 @@ namespace LittleNightmare.Summoner
             ImGui.Text("3. 保存");
             ImGui.SetNextItemWidth(200);
             ImGui.Text("注：反向同理，本ACR会尽力兼容逆光的（在拿到源码时）");
+            */
             ImGui.Spacing();
             ImGui.Text("Qt选项介绍:");
             ImGui.SetNextItemWidth(200);

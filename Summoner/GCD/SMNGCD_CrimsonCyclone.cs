@@ -18,7 +18,7 @@ namespace LittleNightmare.Summoner.GCD
         {
             if (!GetSpell().Id.IsReady())
             {
-                return -10;
+                return -11;
             }
             if (!Core.Me.HasAura(SMNData.Buffs.IfritsFavor))
             {
@@ -36,7 +36,7 @@ namespace LittleNightmare.Summoner.GCD
             {
                 if (!onTargetRing)
                 {
-                    return -2;
+                    return -4;
                 }
                 if (SMNSettings.Instance.SlideUseCrimonCyclone) return 0;
             }
@@ -51,7 +51,7 @@ namespace LittleNightmare.Summoner.GCD
                 // 先读条再冲锋，此时还有宝石技能,此时不会移动，不考虑自动火神冲; 这里好像会导致读条后不冲锋，
                 if (SMNSettings.Instance.IfritMode == 1)
                 {
-                    return -2;
+                    return -3;
                 }
                 // "读条-冲锋-读条"
                 if (SMNSettings.Instance.IfritMode == 2 && SMNBattleData.Instance.IfritGemshineTimes < 2)

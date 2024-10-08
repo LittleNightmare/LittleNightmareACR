@@ -14,28 +14,32 @@ public class SMNAbility_Fester : ISlotResolver
 
     public Spell GetSpell()
     {
-        if (!SummonerRotationEntry.QT.GetQt("AOE")) return SMNData.Spells.Fester.GetSpell();
+        if (!SummonerRotationEntry.QT.GetQt("AOE")) return SMNHelper.Aether();
 
         if (SMNSettings.Instance.SmartAoETarget)
         {
-            var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SMNData.Spells.Painflare);
+            var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SMNHelper.AetherAOE().Id);
             if (canTargetObjects != null && canTargetObjects.IsValid())
-                return new Spell(SMNData.Spells.Painflare, canTargetObjects);
+                return new Spell(SMNHelper.AetherAOE().Id, canTargetObjects);
         }else
         {
             var currentTarget = Core.Me.GetCurrTarget();
             if (currentTarget != null && TargetHelper.GetNearbyEnemyCount(currentTarget, 25, 5) >= 3)
-                return SMNData.Spells.Painflare.GetSpell();
+                return SMNHelper.AetherAOE();
         }
-        return SMNData.Spells.Fester.GetSpell();
+        return SMNHelper.Aether();
     }
     public int Check()
     {
         if (Core.Resolve<JobApi_Summoner>().AetherflowStacks == 0)
         {
-            return -10;
+            return -9;
         }
         var spell = GetSpell();
+        if (!spell.Id.IsUnlock())
+        {
+            return -11;
+        }
         if (!spell.Id.IsReady())
         {
             return -10;

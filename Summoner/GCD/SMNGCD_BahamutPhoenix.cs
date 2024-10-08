@@ -24,7 +24,7 @@ namespace LittleNightmare.Summoner.GCD
         {
             if (GetSpell() == null)
             {
-                return -10;
+                return -11;
             }
             if (!GetSpell().Id.IsReady())
             {
@@ -34,13 +34,13 @@ namespace LittleNightmare.Summoner.GCD
             {
                 return -9;
             }
-            if (Core.Resolve<JobApi_Summoner>().HasPet)
+            if (!Core.Resolve<JobApi_Summoner>().HasPet)
             {
                 return -8;
             }
             if (!SummonerRotationEntry.QT.GetQt("爆发"))
             {
-                return -2;
+                return -3;
             }
             if (!SummonerRotationEntry.QT.GetQt("巴哈凤凰"))
             {

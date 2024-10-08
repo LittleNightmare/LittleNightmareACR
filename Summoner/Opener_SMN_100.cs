@@ -9,7 +9,7 @@ using AEAssist.JobApi;
 namespace LittleNightmare.Summoner
 {
 
-    public class OpenerSMN90 : IOpener
+    public class OpenerSMN100 : IOpener
     {
         public int StartCheck()
         {
@@ -21,11 +21,11 @@ namespace LittleNightmare.Summoner
             {
                 return -9;
             }
-            if (!Core.Resolve<JobApi_Summoner>().IsPetReady(ActivePetType.Bahamut))
+            if (!Core.Resolve<JobApi_Summoner>().IsPetReady(ActivePetType.SolarBahamut))
             {
                 return -8;
             }
-            if (!SMNData.Spells.SummonBahamut.IsReady())
+            if (!SMNData.Spells.SummonSolarBahamut.IsReady())
             {
                 return -7;
             }
@@ -53,14 +53,14 @@ namespace LittleNightmare.Summoner
             Step3,
             Step4,
             Step5,
+            Step6,
         };
 
         public Action CompeltedAction { get; set; }
 
         private static void Step0(Slot slot)
         {
-            slot.Add(new Spell(SMNData.Spells.SummonBahamut, SpellTargetType.Target));
-
+            slot.Add(new Spell(SMNData.Spells.SummonSolarBahamut, SpellTargetType.Target));
             if (SummonerRotationEntry.QT.GetQt("爆发药"))
             {
                 slot.Add(new SlotAction(SlotAction.WaitType.WaitForSndHalfWindow, 0, Spell.CreatePotion()));
@@ -74,7 +74,6 @@ namespace LittleNightmare.Summoner
             {
                 SMNBattleData.Instance.OpenerSummon();
             }
-
             slot.Add(new SlotAction(SlotAction.WaitType.WaitForSndHalfWindow, 0, SMNData.Spells.SearingLight.GetSpell()));
         }
         private static void Step2(Slot slot)
@@ -91,17 +90,22 @@ namespace LittleNightmare.Summoner
         {
 
             slot.Add(new Spell(SMNHelper.BaseSingle().Id, SpellTargetType.Target));
-            slot.Add(new Spell(SMNData.Spells.EnkindleBahamut, SpellTargetType.Target));
-            slot.Add(new Spell(SMNData.Spells.Fester, SpellTargetType.Target));
+            slot.Add(new Spell(SMNData.Spells.EnkindleSolarBahamut, SpellTargetType.Target));
+            slot.Add(new Spell(SMNData.Spells.Necrotize, SpellTargetType.Target));
         }
         private static void Step5(Slot slot)
         {
             slot.Add(new Spell(SMNHelper.BaseSingle().Id, SpellTargetType.Target));
-            slot.Add(new Spell(SMNData.Spells.Deathflare, SpellTargetType.Target));
-            slot.Add(new Spell(SMNData.Spells.Fester, SpellTargetType.Target));
+            slot.Add(new Spell(SMNData.Spells.Sunflare, SpellTargetType.Target));
+            slot.Add(new Spell(SMNData.Spells.Necrotize, SpellTargetType.Target));
+        }
+        private static void Step6(Slot slot)
+        {
+            slot.Add(new Spell(SMNHelper.BaseSingle().Id, SpellTargetType.Target));
+            slot.Add(new Spell(SMNData.Spells.SearingFlash, SpellTargetType.Target));
         }
 
-        public uint Level { get; } = 90;
+        public uint Level { get; } = 100;
         public void InitCountDown(CountDownHandler countDownHandler)
         {
             if (!Core.Resolve<JobApi_Summoner>().HasPet)

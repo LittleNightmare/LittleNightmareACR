@@ -28,7 +28,7 @@ namespace LittleNightmare.Summoner.GCD
             }
             if (Core.Resolve<JobApi_Summoner>().AttunmentTimerRemaining > 0)
             {
-                return -2;
+                return -3;
             }
             if (Core.Resolve<JobApi_Summoner>().SummonTimerRemaining > 0)
             {

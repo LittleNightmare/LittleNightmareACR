@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Version>1.8.2.0</Version>
+    <Version>2.0.0.0</Version>
   </PropertyGroup>
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
@@ -38,5 +38,9 @@
 		  <Private>false</Private>
 	  </Reference>
   </ItemGroup>
+	<Target Name="PackageACR" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' == 'Release'">
+		<Message Text="开始压缩输出目录..." Importance="high" />
+		<Exec Command="powershell -noprofile -command &quot;Write-Host '正在压缩...'; $outputPath = '$(OutputPath)'; $zipFilePath = Join-Path (Split-Path $outputPath) ('LittleNightmare.zip'); if (Test-Path $zipFilePath) { Remove-Item $zipFilePath -Force }; Compress-Archive -Path (Join-Path $outputPath '*') -DestinationPath $zipFilePath -Force; Write-Host '压缩完成.';&quot;" />		<Message Text="完成压缩输出目录..." Importance="high" />
+	</Target>
 
 </Project>

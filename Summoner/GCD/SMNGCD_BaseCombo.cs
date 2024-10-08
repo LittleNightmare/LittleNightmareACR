@@ -20,7 +20,7 @@ namespace LittleNightmare.Summoner.GCD
                 {
                     return new Spell(SMNHelper.BaseAoE().Id, canTargetObjects);
                 }
-            }else if (Core.Me.GetCurrTarget() != null && TargetHelper.GetNearbyEnemyCount(Core.Me.GetCurrTarget(), 25, 5) > 3)
+            }else if (Core.Me.GetCurrTarget() != null && TargetHelper.GetNearbyEnemyCount(Core.Me.GetCurrTarget(), 25, 5) >= 3)
             {
                 return SMNHelper.BaseAoE();
             }

@@ -31,8 +31,8 @@ namespace LittleNightmare.Summoner.GCD
                 return targetAction;
             if (!SummonerRotationEntry.QT.GetQt("AOE")) return targetAction;
             if (!SMNSettings.Instance.SmartAoETarget) return targetAction;
-            var canTargetObjects = TargetHelper.GetMostCanTargetObjects(targetAction.Id);
-            return canTargetObjects.IsValid() ? new Spell(targetAction.Id, canTargetObjects) : targetAction;
+            var canTargetObjects = TargetHelper.GetMostCanTargetObjects(targetAction.Id, 2);
+            return canTargetObjects != null ? new Spell(targetAction.Id, canTargetObjects) : targetAction;
         }
         public SlotMode SlotMode { get; } = SlotMode.Gcd;
         public int Check()
@@ -76,7 +76,7 @@ namespace LittleNightmare.Summoner.GCD
                     {
                         return 0;
                     }
-                    return -8;
+                    return -7;
                 }
                 return 0;
             }

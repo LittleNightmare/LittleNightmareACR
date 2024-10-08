@@ -40,7 +40,7 @@ namespace LittleNightmare.Summoner.GCD
             }
             // 宝石耀和宝石辉应该状态是相同的，就不单独判断了
             if (!GetSpell().Id.IsReady()) return -10;
-            if (Core.Resolve<JobApi_Summoner>().AetherflowStacks <= 0) return -1;
+            if (Core.Resolve<JobApi_Summoner>().AttunementAdjust <= 0) return -8;
             
             // var isEnableCustom = SMNBattleData.Instance.CustomSummon.Count > 0;
             var timesLeft = Core.Resolve<JobApi_Summoner>().ActivePetType switch
@@ -55,7 +55,7 @@ namespace LittleNightmare.Summoner.GCD
                 // 其实这里主要是给自定义用的，如果正常情况，归零时已经为None了
                 if (timesLeft <= 0)
                 {
-                    return -2;
+                    return -3;
                 }
                 if (Core.Resolve<MemApiMove>().IsMoving() && !Core.Me.HasAura(SMNData.Buffs.Swiftcast) && Core.Resolve<JobApi_Summoner>().ActivePetType == ActivePetType.Ifrit)
                 {

@@ -30,13 +30,15 @@ public class SMNAbility_SearingLight : ISlotResolver
         }
         if (!SummonerRotationEntry.QT.GetQt("灼热之光"))
         {
-            return -7;
+            return -6;
         }
         return 0;
     }
 
     public void Build(Slot slot)
     {
-        slot.Add(new SlotAction(SlotAction.WaitType.WaitForSndHalfWindow, 0, SMNData.Spells.SearingLight.GetSpell()));
+        //slot.Add(new SlotAction(SlotAction.WaitType.WaitForSndHalfWindow, 0, SMNData.Spells.SearingLight.GetSpell()));
+        //slot.Add2NdWindowAbility(SMNData.Spells.SearingLight.GetSpell());
+        slot.Add(SMNData.Spells.SearingLight.GetSpell());
     }
 }

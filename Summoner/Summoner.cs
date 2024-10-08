@@ -2,6 +2,7 @@ using AEAssist;
 using AEAssist.CombatRoutine;
 using AEAssist.CombatRoutine.Module;
 using AEAssist.CombatRoutine.View.JobView;
+using AEAssist.CombatRoutine.View.JobView.HotkeyResolver;
 using AEAssist.Extension;
 using AEAssist.GUI;
 using AEAssist.JobApi;
@@ -38,6 +39,12 @@ namespace LittleNightmare.Summoner
             AddQt("宝石耀", true);
             AddQt("自动火神冲", SMNSettings.Instance.qt自动火神冲);
 
+            AddHotkey("LB", new HotKeyResolver_LB());
+            AddHotkey("沉稳咏唱", new HotKeyResolver_NormalSpell(SpellsDefine.Surecast, SpellTargetType.Self));
+            AddHotkey("昏乱", new HotKeyResolver_NormalSpell(SpellsDefine.Addle, SpellTargetType.Target));
+            AddHotkey("疾跑", new HotKeyResolver_疾跑());
+            AddHotkey("守护之光", new HotKeyResolver_NormalSpell(SMNData.Spells.RadiantAegis, SpellTargetType.Self));
+            AddHotkey("日光普照", new HotKeyResolver_NormalSpell(SMNData.Spells.LuxSolaris, SpellTargetType.Self));
         }
 
         public static void DrawQtGeneral(JobViewWindow jobViewWindow)
@@ -91,7 +98,7 @@ namespace LittleNightmare.Summoner
 
                 ImGui.EndCombo();
             }
-            ImGuiHelper.SetHoverTooltip("起手会强制启用即刻风神");
+            //ImGuiHelper.SetHoverTooltip("起手会强制启用即刻风神");
             ImGui.SetNextItemWidth(200f);
             if (ImGui.BeginCombo("火神施法模式", IfritModes[SMNSettings.Instance.IfritMode]))
             {
@@ -153,6 +160,7 @@ namespace LittleNightmare.Summoner
             }
             ImGui.Text($"召唤兽类别：{type}");
             ImGui.Text($"召唤兽时间：{Core.Resolve<JobApi_Summoner>().SummonTimerRemaining}");
+            ImGui.Text($"三神时间：{Core.Resolve<JobApi_Summoner>().AttunmentTimerRemaining}");
             // ImGui.Text($"山崩预备: {Core.Me.HasMyAura(AurasDefine.TitansFavor)}");
             //ImGui.Text($"能力技次数: {AI.Instance.BattleData.GetReceiveAbilityObjects().Count}");
             //ImGui.SameLine();
@@ -161,7 +169,7 @@ namespace LittleNightmare.Summoner
             //AI.Instance.BattleData.AbilityCount = 0;
             //}
             // ImGui.Text($"宝石耀属性: {Core.Resolve<MemApiSpell>().GetSpellType(SMNData.Spells.Gemshine.GetSpell().Id)}");
-            
+
             ImGui.Text($"距离Melee: {Core.Me.Distance(Core.Me.GetCurrTarget(), AEAssist.Define.DistanceMode.IgnoreTargetHitbox)}");
             ImGui.Text($"距离: {Core.Me.Distance(Core.Me.GetCurrTarget())}");
 

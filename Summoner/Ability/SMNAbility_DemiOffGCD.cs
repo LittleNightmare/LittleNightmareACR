@@ -19,6 +19,10 @@ public class SMNAbility_DemiOffGCD : ISlotResolver
         {
             targetAction =  SMNData.Spells.Deathflare.GetSpell();
         }
+        if (!SMNHelper.EnkindleDemi().Id.IsReady() && SMNHelper.InSolarBahamut)
+        {
+            targetAction = SMNData.Spells.Sunflare.GetSpell();
+        }
         if (!SummonerRotationEntry.QT.GetQt("AOE")) return targetAction;
         if (!SMNSettings.Instance.SmartAoETarget) return targetAction;
         var canTargetObjects = TargetHelper.GetMostCanTargetObjects(targetAction.Id, 2);
@@ -31,13 +35,13 @@ public class SMNAbility_DemiOffGCD : ISlotResolver
             return -10;
         }
 
-        if (!(SMNHelper.InBahamut || SMNHelper.InPhoenix))
+        if (!(SMNHelper.InBahamut || SMNHelper.InPhoenix || SMNHelper.InSolarBahamut))
         {
             return -9;
         }
         if (Core.Resolve<JobApi_Summoner>().SummonTimerRemaining > 0)
         {
-            if (Core.Resolve<JobApi_Summoner>().SummonTimerRemaining <= Core.Resolve<MemApiSpell>().GetGCDDuration(false) * 4 || SummonerRotationEntry.QT.GetQt("最终爆发"))
+            if (Core.Resolve<JobApi_Summoner>().SummonTimerRemaining <= Core.Resolve<MemApiSpell>().GetGCDDuration(false) * 2 || SummonerRotationEntry.QT.GetQt("最终爆发"))
             {
                 return 0;
             }

@@ -50,12 +50,14 @@ namespace LittleNightmare.Summoner
         public enum OpenerType
         {
             TheBalance,
-            FastEnergyDrain,
+            //FastEnergyDrain,
+            TheBalance90,
         }
 
         /// <summary>
         /// 起手种类
-        /// TheBalance: 是用TheBalance的最佳通用起手
+        /// TheBalance: 是用TheBalance的通用起手
+        /// TheBalance90: 是用TheBalance的90级起手
         /// FastEnergyDrain: 是召唤巴哈后，直接灼热之光，然后插入能量吸收的起手
         /// </summary>
         public OpenerType SelectedOpener = OpenerType.TheBalance;

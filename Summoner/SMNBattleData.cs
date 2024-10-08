@@ -53,7 +53,7 @@ namespace LittleNightmare.Summoner
             }
 
 
-            if (SMNHelper.InBahamut || SMNHelper.InPhoenix)
+            if (SMNHelper.InBahamut || SMNHelper.InPhoenix || SMNHelper.InSolarBahamut)
             {
                 TitanGemshineTimes = 4 - (4 - TitanGemshineTimesCustom);
                 IfritGemshineTimes = 2 - (2 - IfritGemshineTimesCustom);
