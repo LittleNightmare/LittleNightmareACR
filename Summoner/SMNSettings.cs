@@ -80,6 +80,11 @@ namespace LittleNightmare.Summoner
         // public bool RubyGCDFirst = false;
         public bool qt自动爆发药 = true;
 
+        /// <summary>
+        /// 使用濒死检查，以保留资源
+        /// </summary>
+        public bool TTKControl = false;
+
         public int SwiftCastMode = 1;
         public int IfritMode = 0;
         public bool PreventDoubleFester = false;

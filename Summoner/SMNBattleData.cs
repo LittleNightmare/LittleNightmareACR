@@ -23,6 +23,10 @@ namespace LittleNightmare.Summoner
         public int GarudaGemshineTimesCustom = 4;
         // public bool In90Opener = false;
 
+        public bool FinalBoss = false;
+
+        public bool TTKTriggered = false;
+
         public void UpdateSummon()
         {
             Summon.Clear();

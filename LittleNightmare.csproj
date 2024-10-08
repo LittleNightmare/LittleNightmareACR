@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Version>2.0.0.0</Version>
+    <Version>2.1.0.0</Version>
   </PropertyGroup>
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
@@ -37,6 +37,10 @@
 		  <HintPath>$(DalamudLibPath)ImGui.NET.dll</HintPath>
 		  <Private>false</Private>
 	  </Reference>
+    <Reference Include="FFXIVClientStructs">
+      <HintPath>$(DalamudLibPath)FFXIVClientStructs.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
   </ItemGroup>
 	<Target Name="PackageACR" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' == 'Release'">
 		<Message Text="开始压缩输出目录..." Importance="high" />

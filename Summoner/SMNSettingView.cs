@@ -1,6 +1,9 @@
 using AEAssist;
+using AEAssist.CombatRoutine;
+using AEAssist.CombatRoutine.Module;
 using AEAssist.CombatRoutine.View;
 using AEAssist.GUI;
+using AEAssist.Helper;
 using ImGuiNET;
 using static LittleNightmare.Summoner.SMNSettings;
 
@@ -28,6 +31,18 @@ namespace LittleNightmare.Summoner
 
             ImGuiHelper.ToggleButton("智能AOE目标", ref SMNSettings.Instance.SmartAoETarget);
             ImGuiHelper.SetHoverTooltip("将智能选择最适合释放AoE的目标，而不是根据当前目标决定是否使用AoE\n火神冲的支持待定");
+
+            if (SettingMgr.GetSetting<GeneralSettings>().OpenTTK)
+            {
+                ImGuiHelper.ToggleButton("濒死检测", ref SMNSettings.Instance.TTKControl);
+            }
+            else
+            {
+                SMNSettings.Instance.TTKControl = false;
+                ImGui.Text("濒死检测: AE未开启TTK");
+            }
+            ImGuiHelper.SetHoverTooltip("濒死检测会在你的目标濒死时，自动关闭爆发qt，以免浪费相关技能\n推荐日随使用，高难本请自行判断是否启用\n如果AE里没有开启TTK，会自动禁用");
+            ImGui.Text($"当前AE的TTK状态：{SettingMgr.GetSetting<GeneralSettings>().OpenTTK: '开启' ? '关闭'}");
 
             ImGuiHelper.DrawEnum<OpenerType>("起手选择: ", ref SMNSettings.Instance.SelectedOpener);
             ImGuiHelper.SetHoverTooltip("TheBalance: 是用TheBalance的通用起手\nTheBalance90: 是用TheBalance的90级起手");

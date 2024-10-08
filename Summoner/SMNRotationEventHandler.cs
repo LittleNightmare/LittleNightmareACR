@@ -6,6 +6,7 @@ using AEAssist.Helper;
 using AEAssist.JobApi;
 using System.Reflection;
 
+
 namespace LittleNightmare.Summoner;
 
 public class SMNRotationEventHandler : IRotationEventHandler
@@ -43,6 +44,32 @@ public class SMNRotationEventHandler : IRotationEventHandler
         if (spell.Id == SMNHelper.BahamutPhoneix().Id)
         {
             SMNBattleData.Instance.UpdateSummon();
+        }
+
+        if (SMNSettings.Instance.TTKControl)
+        {
+            var target = Core.Me.GetCurrTarget();
+            if (target != null && !SMNBattleData.Instance.TTKTriggered)
+            {
+                if (!SMNBattleData.Instance.FinalBoss)
+                {
+                    if (TTKHelper.IsTargetTTK(target))
+                    {
+                        LogHelper.Debug("目标濒死，关闭爆发");
+                        SummonerRotationEntry.QT.SetQt("爆发", false);
+                        SMNBattleData.Instance.TTKTriggered = true;
+                    }
+                }
+                else
+                {
+                    if (TTKHelper.CheckFinalBurst(target))
+                    {
+                        LogHelper.Debug("目标濒死，开启最终爆发");
+                        SummonerRotationEntry.QT.SetQt("最终爆发", true);
+                        SMNBattleData.Instance.TTKTriggered = true;
+                    }
+                }
+            }
         }
 
         // switch (spell.Id)
@@ -111,6 +138,12 @@ public class SMNRotationEventHandler : IRotationEventHandler
         if (Core.Me.IsDead && SMNBattleData.Instance.CustomSummon.Count != 0)
         {
             SMNBattleData.Instance.CustomSummon.Clear();
+        }
+
+        var target = Core.Me.GetCurrTarget();
+        if (target != null && LNMHelper.IsLastTask() && TargetHelper.IsBoss(target))
+        {
+            SMNBattleData.Instance.FinalBoss = true;
         }
         // FIXME: 不知道干啥用的
         //if (SMNHelper.InBahamut || SMNHelper.InPhoenix || SMNHelper.InSolarBahamut)
