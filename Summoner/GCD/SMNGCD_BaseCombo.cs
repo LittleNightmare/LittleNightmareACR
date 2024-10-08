@@ -20,14 +20,18 @@ namespace LittleNightmare.Summoner.GCD
                 {
                     return new Spell(SMNHelper.BaseAoE().Id, canTargetObjects);
                 }
-            }else if (Core.Me.GetCurrTarget() != null && TargetHelper.GetNearbyEnemyCount(Core.Me.GetCurrTarget(), 25, 5) >= 3)
+            }
+            else if (Core.Me.GetCurrTarget() != null &&
+                     TargetHelper.GetNearbyEnemyCount(Core.Me.GetCurrTarget(), 25, 5) >= 3)
             {
                 return SMNHelper.BaseAoE();
             }
 
             return SMNHelper.BaseSingle();
         }
+
         public SlotMode SlotMode { get; } = SlotMode.Gcd;
+
         public int Check()
         {
             if (!GetSpell().Id.IsReady()) return -10;
@@ -35,6 +39,7 @@ namespace LittleNightmare.Summoner.GCD
             {
                 return -1;
             }
+
             return 0;
         }
 

@@ -47,6 +47,7 @@ namespace LittleNightmare.Summoner.Triggers
 
                 ImGui.EndCombo();
             }
+
             ImGuiHelper.SetHoverTooltip("当前召唤兽为无时，可能包涵巴哈和凤凰");
 
             return true;

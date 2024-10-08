@@ -13,7 +13,6 @@ public class SMNTriggerActionSwiftCastMode : ITriggerAction
 
     public void Check()
     {
-
     }
 
     public bool Draw()
@@ -33,20 +32,25 @@ public class SMNTriggerActionSwiftCastMode : ITriggerAction
             {
                 即刻咏唱模式 = 0;
             }
+
             if (ImGui.Selectable("风神读条"))
             {
                 即刻咏唱模式 = 1;
             }
+
             if (ImGui.Selectable("火神读条"))
             {
                 即刻咏唱模式 = 2;
             }
+
             if (ImGui.Selectable("全部"))
             {
                 即刻咏唱模式 = 3;
             }
+
             ImGui.EndCombo();
         }
+
         return true;
     }
 

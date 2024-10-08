@@ -13,17 +13,21 @@ namespace LittleNightmare.Summoner.GCD
         {
             return SMNData.Spells.CrimsonStrike.GetSpell();
         }
+
         public SlotMode SlotMode { get; } = SlotMode.Gcd;
+
         public int Check()
         {
             if (!GetSpell().Id.IsReady())
             {
                 return -10;
             }
+
             if (Core.Resolve<MemApiSpell>().GetLastComboSpellId() == SMNData.Spells.CrimsonCyclone)
             {
                 return 0;
             }
+
             return -1;
         }
 

@@ -11,7 +11,6 @@ public class SMNTriggerActionSearingLight : ITriggerAction
 
     public void Check()
     {
-
     }
 
     public bool Draw()

@@ -16,7 +16,6 @@ namespace LittleNightmare
 {
     public class SummonerRotationEntry : IRotationEntry
     {
-
         public Jobs TargetJob = Jobs.Summoner;
 
         public string OverlayTitle = "LNM Summoner";
@@ -28,8 +27,8 @@ namespace LittleNightmare
         public int MaxLevel = 100;
 
         public string Description = "召唤通用ACR，与逆光的大体相同，处于测试状态，有问题请及时告诉我\n" +
-                                     //"这个ACR与逆光的相比，提供多一点点的自定义设置。这可以增强日常体验，让ACR更符合各位召唤师的习惯\n" +
-                                     "选项的介绍请查看 设置";
+                                    //"这个ACR与逆光的相比，提供多一点点的自定义设置。这可以增强日常体验，让ACR更符合各位召唤师的习惯\n" +
+                                    "选项的介绍请查看 设置";
 
         public string AuthorName { get; set; } = "LittleNightmare";
 
@@ -37,49 +36,49 @@ namespace LittleNightmare
 
 
         private readonly List<SlotResolverData> SlotResolvers = new()
-            {
-                // 宝石兽召唤
-                new SlotResolverData(new SMNGCD_SummonCarbuncle(), SlotMode.Gcd),
-                // 进巴哈不死鸟
-                new SlotResolverData(new SMNGCD_BahamutPhoenix(), SlotMode.Gcd),
-                // 复活
-                new SlotResolverData(new SMNGCD_Resurrection(), SlotMode.Gcd),
-                // 巴哈不死鸟喷喷
-                new SlotResolverData(new SMNGCD_BahamutPhoenixGCD(), SlotMode.Gcd),
-                // 火神冲锋二段
-                new SlotResolverData(new SMNGCD_CrimsonStrike(), SlotMode.Gcd),
-                // 火神冲锋一段
-                new SlotResolverData(new SMNGCD_CrimsonCyclone(), SlotMode.Gcd),
-                // 风神读条
-                new SlotResolverData(new SMNGCD_Slipstream(), SlotMode.Gcd),
-                // 宝石辉宝石耀
-                new SlotResolverData(new SMNGCD_Gemshine(), SlotMode.Gcd),
-                // 三神召唤
-                new SlotResolverData(new SMNGCD_Summon(), SlotMode.Gcd),
-                // 毁4
-                new SlotResolverData(new SMNGCD_RuinIV(), SlotMode.Gcd),
-                // 毁123
-                new SlotResolverData(new SMNGCD_BaseCombo(), SlotMode.Gcd),
+        {
+            // 宝石兽召唤
+            new SlotResolverData(new SMNGCD_SummonCarbuncle(), SlotMode.Gcd),
+            // 进巴哈不死鸟
+            new SlotResolverData(new SMNGCD_BahamutPhoenix(), SlotMode.Gcd),
+            // 复活
+            new SlotResolverData(new SMNGCD_Resurrection(), SlotMode.Gcd),
+            // 巴哈不死鸟喷喷
+            new SlotResolverData(new SMNGCD_BahamutPhoenixGCD(), SlotMode.Gcd),
+            // 火神冲锋二段
+            new SlotResolverData(new SMNGCD_CrimsonStrike(), SlotMode.Gcd),
+            // 火神冲锋一段
+            new SlotResolverData(new SMNGCD_CrimsonCyclone(), SlotMode.Gcd),
+            // 风神读条
+            new SlotResolverData(new SMNGCD_Slipstream(), SlotMode.Gcd),
+            // 宝石辉宝石耀
+            new SlotResolverData(new SMNGCD_Gemshine(), SlotMode.Gcd),
+            // 三神召唤
+            new SlotResolverData(new SMNGCD_Summon(), SlotMode.Gcd),
+            // 毁4
+            new SlotResolverData(new SMNGCD_RuinIV(), SlotMode.Gcd),
+            // 毁123
+            new SlotResolverData(new SMNGCD_BaseCombo(), SlotMode.Gcd),
 
-                // 即刻咏唱
-                new SlotResolverData(new SMNAbility_SwiftCast(), SlotMode.OffGcd),
-                // 团辅
-                new SlotResolverData(new SMNAbility_SearingLight(), SlotMode.OffGcd),
-                // 能量吸收/
-                new SlotResolverData(new SMNAbility_EnergyDrainSiphon(), SlotMode.OffGcd),
-                // 龙神迸发 不死鸟迸发  死星核爆
-                new SlotResolverData(new SMNAbility_DemiOffGCD(), SlotMode.OffGcd),
-                // 溃烂爆发
-                new SlotResolverData(new SMNAbility_Fester(), SlotMode.OffGcd),
-                // 灼热之闪
-                new SlotResolverData(new SMNAbility_SearingFlash(), SlotMode.OffGcd),
-                // 苏生之炎
-                new SlotResolverData(new SMNAbility_Rekindle(), SlotMode.OffGcd),
-                // 山崩
-                new SlotResolverData(new SMNAbility_MountainBuster(), SlotMode.OffGcd),
-                // 醒梦
-                new SlotResolverData(new SMNAbility_LucidDreaming(), SlotMode.OffGcd),
-            };
+            // 即刻咏唱
+            new SlotResolverData(new SMNAbility_SwiftCast(), SlotMode.OffGcd),
+            // 团辅
+            new SlotResolverData(new SMNAbility_SearingLight(), SlotMode.OffGcd),
+            // 能量吸收/
+            new SlotResolverData(new SMNAbility_EnergyDrainSiphon(), SlotMode.OffGcd),
+            // 龙神迸发 不死鸟迸发  死星核爆
+            new SlotResolverData(new SMNAbility_DemiOffGCD(), SlotMode.OffGcd),
+            // 溃烂爆发
+            new SlotResolverData(new SMNAbility_Fester(), SlotMode.OffGcd),
+            // 灼热之闪
+            new SlotResolverData(new SMNAbility_SearingFlash(), SlotMode.OffGcd),
+            // 苏生之炎
+            new SlotResolverData(new SMNAbility_Rekindle(), SlotMode.OffGcd),
+            // 山崩
+            new SlotResolverData(new SMNAbility_MountainBuster(), SlotMode.OffGcd),
+            // 醒梦
+            new SlotResolverData(new SMNAbility_LucidDreaming(), SlotMode.OffGcd),
+        };
 
         public Rotation Build(string settingFolder)
         {
@@ -110,7 +109,7 @@ namespace LittleNightmare
                     new SMNTriggerActionUseSummon(),
                     new SMNTriggerActionSwiftCastMode(),
                     new SMNTriggerActionIfritMode()
-                // new SMNTriggerActionPreCastSwiftcast()
+                    // new SMNTriggerActionPreCastSwiftcast()
                 )
                 .AddTriggerCondition(
                     new SMNTriggerGaugeCheck(),
@@ -137,7 +136,6 @@ namespace LittleNightmare
         }
 
 
-
         public int CanUseHighPrioritySlotCheck(SlotMode slotMode, Slot slot)
         {
             foreach (var item in slot.Actions)
@@ -162,6 +160,7 @@ namespace LittleNightmare
                         {
                             return -1;
                         }
+
                         break;
                     case SlotMode.OffGcd:
                         if (spell.Charges < 1)
@@ -170,15 +169,18 @@ namespace LittleNightmare
                         }
 
                         if (spell != SMNData.Spells.RadiantAegis.GetSpell()) return 0;
-                        if (Core.Resolve<JobApi_Summoner>().SummonTimerRemaining != 0 && (SMNHelper.InBahamut || SMNHelper.InPhoenix || SMNHelper.InSolarBahamut))
+                        if (Core.Resolve<JobApi_Summoner>().SummonTimerRemaining != 0 &&
+                            (SMNHelper.InBahamut || SMNHelper.InPhoenix || SMNHelper.InSolarBahamut))
                         {
                             return -1;
                         }
+
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(slotMode), slotMode, null);
                 }
             }
+
             return 0;
         }
 
@@ -204,7 +206,6 @@ namespace LittleNightmare
 
         public void Dispose()
         {
-
         }
     }
 }

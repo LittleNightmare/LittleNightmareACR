@@ -12,7 +12,9 @@ namespace LittleNightmare.Summoner.Ability
         {
             return SMNData.Spells.SearingFlash.GetSpell();
         }
+
         public SlotMode SlotMode { get; } = SlotMode.OffGcd;
+
         public int Check()
         {
             var spell = GetSpell();
@@ -20,14 +22,17 @@ namespace LittleNightmare.Summoner.Ability
             {
                 return -10;
             }
+
             if (!spell.IsUnlock())
             {
                 return -9;
             }
+
             if (!Core.Me.HasAura(SMNData.Buffs.RubysGlimmer))
             {
                 return -8;
             }
+
             if (SummonerRotationEntry.QT.GetQt("最终爆发"))
             {
                 return 0;
@@ -35,7 +40,6 @@ namespace LittleNightmare.Summoner.Ability
 
             if (Core.Me.HasAura(AurasDefine.SearingLight))
             {
-
                 if (SMNHelper.InBahamut || SMNHelper.InPhoenix || SMNHelper.InSolarBahamut)
                 {
                     // 等待使用巴哈或凤凰的能力技

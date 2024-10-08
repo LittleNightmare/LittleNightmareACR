@@ -32,6 +32,7 @@ namespace LittleNightmare.Summoner
         {
             return Core.Resolve<MemApiSpell>().CheckActionChange(SMNData.Spells.EnkindleBahamut).GetSpell();
         }
+
         public static Spell BaseSingle()
         {
             return Core.Resolve<MemApiSpell>().CheckActionChange(SMNData.Spells.Ruin).GetSpell();
@@ -66,6 +67,7 @@ namespace LittleNightmare.Summoner
 
         public static bool InPhoenix => Core.Resolve<JobApi_Summoner>().ActivePetType == ActivePetType.Phoneix;
 
-        public static bool InSolarBahamut => Core.Resolve<JobApi_Summoner>().ActivePetType == ActivePetType.SolarBahamut;
+        public static bool InSolarBahamut =>
+            Core.Resolve<JobApi_Summoner>().ActivePetType == ActivePetType.SolarBahamut;
     }
 }

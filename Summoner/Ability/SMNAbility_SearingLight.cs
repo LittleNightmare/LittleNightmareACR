@@ -10,28 +10,34 @@ namespace LittleNightmare.Summoner.Ability;
 public class SMNAbility_SearingLight : ISlotResolver
 {
     public SlotMode SlotMode { get; } = SlotMode.OffGcd;
+
     public int Check()
     {
         if (!SMNData.Spells.SearingLight.IsReady())
         {
             return -10;
         }
+
         if (!Core.Me.InCombat())
         {
             return -9;
         }
+
         if (!Core.Resolve<JobApi_Summoner>().HasPet)
         {
             return -8;
         }
+
         if (!SummonerRotationEntry.QT.GetQt("爆发"))
         {
             return -7;
         }
+
         if (!SummonerRotationEntry.QT.GetQt("灼热之光"))
         {
             return -6;
         }
+
         return 0;
     }
 

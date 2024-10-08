@@ -10,11 +10,11 @@ namespace LittleNightmare.Summoner.GCD
 {
     public class SMNGCD_SummonCarbuncle : ISlotResolver
     {
-
         public Spell GetSpell()
         {
             return SMNData.Spells.SummonCarbuncle.GetSpell();
         }
+
         public int Check()
         {
             if (Core.Resolve<JobApi_Summoner>().HasPet)
@@ -26,18 +26,22 @@ namespace LittleNightmare.Summoner.GCD
             {
                 return -10;
             }
+
             if (Core.Resolve<JobApi_Summoner>().AttunmentTimerRemaining > 0)
             {
                 return -3;
             }
+
             if (Core.Resolve<JobApi_Summoner>().SummonTimerRemaining > 0)
             {
                 return -2;
             }
+
             if (Core.Resolve<MemApiMove>().IsMoving())
             {
                 return -1;
             }
+
             return 0;
         }
 

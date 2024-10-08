@@ -13,7 +13,6 @@ public class SMNTriggerActionSummon : ITriggerAction
 
     public void Check()
     {
-
     }
 
     public bool Draw()
@@ -37,16 +36,20 @@ public class SMNTriggerActionSummon : ITriggerAction
             {
                 NextSummon = 0;
             }
+
             if (ImGui.Selectable("风神"))
             {
                 NextSummon = 1;
             }
+
             if (ImGui.Selectable("火神"))
             {
                 NextSummon = 2;
             }
+
             ImGui.EndCombo();
         }
+
         return true;
     }
 
@@ -64,6 +67,7 @@ public class SMNTriggerActionSummon : ITriggerAction
                 SMNBattleData.Instance.IfritFirst();
                 break;
         }
+
         return true;
     }
 }

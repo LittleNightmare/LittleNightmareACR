@@ -11,7 +11,6 @@ public class SMNTriggerActionGemshine : ITriggerAction
 
     public void Check()
     {
-
     }
 
     public bool Draw()

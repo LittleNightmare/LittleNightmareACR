@@ -14,16 +14,18 @@ namespace LittleNightmare.Summoner.GCD
             var targetAction = SMNBattleData.Instance.Summon[0];
             if (SMNBattleData.Instance.CustomSummon.Count > 0)
             {
-                targetAction =  SMNBattleData.Instance.CustomSummon[0];
+                targetAction = SMNBattleData.Instance.CustomSummon[0];
             }
+
             // 50级后，召唤三神有AOE技能，关键技能是 内力迸发
             if (Core.Me.Level < 50)
             {
                 return targetAction;
             }
-            if (targetAction.Id is 
-                SMNData.Spells.SummonIfrit or 
-                SMNData.Spells.SummonTitan or 
+
+            if (targetAction.Id is
+                SMNData.Spells.SummonIfrit or
+                SMNData.Spells.SummonTitan or
                 // SMNData.Spells.SummonGaruda or
                 SMNData.Spells.SummonRuby or
                 SMNData.Spells.SummonTopaz or
@@ -34,7 +36,9 @@ namespace LittleNightmare.Summoner.GCD
             var canTargetObjects = TargetHelper.GetMostCanTargetObjects(targetAction.Id, 2);
             return canTargetObjects != null ? new Spell(targetAction.Id, canTargetObjects) : targetAction;
         }
+
         public SlotMode SlotMode { get; } = SlotMode.Gcd;
+
         public int Check()
         {
             // 不能用GetSpell，空列表会报错
@@ -43,14 +47,17 @@ namespace LittleNightmare.Summoner.GCD
             {
                 return -10;
             }
+
             if (Core.Resolve<JobApi_Summoner>().SummonTimerRemaining > 0)
             {
                 return -9;
             }
+
             if (!SummonerRotationEntry.QT.GetQt("三神召唤"))
             {
                 return -8;
             }
+
             if (Core.Resolve<JobApi_Summoner>().IsPetReady(ActivePetType.Titan)
                 || Core.Resolve<JobApi_Summoner>().IsPetReady(ActivePetType.Ifrit)
                 || Core.Resolve<JobApi_Summoner>().IsPetReady(ActivePetType.Garuda))
@@ -64,20 +71,27 @@ namespace LittleNightmare.Summoner.GCD
                 //TODO: 还有个AttunementAdjust
                 if (Core.Resolve<JobApi_Summoner>().AttunementAdjust > 0)
                 {
-                    if (Core.Resolve<JobApi_Summoner>().ActivePetType == ActivePetType.Titan && SMNBattleData.Instance.TitanGemshineTimes == 0)
+                    if (Core.Resolve<JobApi_Summoner>().ActivePetType == ActivePetType.Titan &&
+                        SMNBattleData.Instance.TitanGemshineTimes == 0)
                     {
                         return 0;
                     }
-                    if (Core.Resolve<JobApi_Summoner>().ActivePetType == ActivePetType.Ifrit && SMNBattleData.Instance.IfritGemshineTimes == 0)
+
+                    if (Core.Resolve<JobApi_Summoner>().ActivePetType == ActivePetType.Ifrit &&
+                        SMNBattleData.Instance.IfritGemshineTimes == 0)
                     {
                         return 0;
                     }
-                    if (Core.Resolve<JobApi_Summoner>().ActivePetType == ActivePetType.Garuda && SMNBattleData.Instance.GarudaGemshineTimes == 0)
+
+                    if (Core.Resolve<JobApi_Summoner>().ActivePetType == ActivePetType.Garuda &&
+                        SMNBattleData.Instance.GarudaGemshineTimes == 0)
                     {
                         return 0;
                     }
+
                     return -7;
                 }
+
                 return 0;
             }
 

@@ -9,33 +9,38 @@ namespace LittleNightmare.Summoner.GCD
     public class SMNGCD_Resurrection : ISlotResolver
     {
         public SlotMode SlotMode { get; } = SlotMode.Gcd;
+
         public int Check()
         {
             if (SMNSettings.Instance.SwiftCastMode != 0)
             {
                 return -10;
             }
+
             if (!SMNData.Spells.Resurrection.IsReady()) return -2;
             if (!Core.Me.HasAura(SMNData.Buffs.Swiftcast))
             {
                 return -9;
             }
+
             if (Core.Me.CurrentMp < 2400)
             {
                 return -8;
             }
-            var skillTarget = PartyHelper.DeadAllies.FirstOrDefault(r=>!r.HasAura(SMNData.Buffs.Raise));
+
+            var skillTarget = PartyHelper.DeadAllies.FirstOrDefault(r => !r.HasAura(SMNData.Buffs.Raise));
             if (skillTarget.IsValid())
             {
                 return 0;
             }
+
             return -1;
         }
 
         public void Build(Slot slot)
         {
-            var skillTarget = PartyHelper.DeadAllies.FirstOrDefault(r=>!r.HasAura(SMNData.Buffs.Raise));
-            slot.Add(new Spell(SMNData.Spells.Resurrection,skillTarget));           
+            var skillTarget = PartyHelper.DeadAllies.FirstOrDefault(r => !r.HasAura(SMNData.Buffs.Raise));
+            slot.Add(new Spell(SMNData.Spells.Resurrection, skillTarget));
         }
     }
 }

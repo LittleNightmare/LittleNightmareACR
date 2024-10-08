@@ -27,7 +27,8 @@ namespace LittleNightmare.Summoner.Triggers
 
         public bool Handle(ITriggerCondParams condParamas)
         {
-            if (Core.Resolve<JobApi_Summoner>().ActivePetType == ActivePetType.Titan || Core.Resolve<JobApi_Summoner>().ActivePetType == ActivePetType.Garuda)
+            if (Core.Resolve<JobApi_Summoner>().ActivePetType == ActivePetType.Titan ||
+                Core.Resolve<JobApi_Summoner>().ActivePetType == ActivePetType.Garuda)
             {
                 return Attunement == 4 - Core.Resolve<JobApi_Summoner>().AttunementAdjust;
             }

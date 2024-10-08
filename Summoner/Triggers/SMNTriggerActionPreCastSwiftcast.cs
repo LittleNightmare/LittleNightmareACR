@@ -11,7 +11,6 @@ public class SMNTriggerActionPreCastSwiftcast : ITriggerAction
 
     public void Check()
     {
-
     }
 
     public bool Draw()

@@ -11,7 +11,9 @@ namespace LittleNightmare.Summoner
         public static SMNBattleData Instance = new();
         public List<Spell> Summon = new();
         public List<Spell> CustomSummon = new();
+
         public List<Spell> CustomSummonWaitList = new();
+
         // 剩余次数
         public int TitanGemshineTimes = 4;
         public int IfritGemshineTimes = 2;
@@ -26,7 +28,7 @@ namespace LittleNightmare.Summoner
             Summon.Clear();
             TitanGemshineTimes = 4 - (4 - TitanGemshineTimesCustom);
             IfritGemshineTimes = 2 - (2 - IfritGemshineTimesCustom);
-            GarudaGemshineTimes = 4 - (4- GarudaGemshineTimesCustom);
+            GarudaGemshineTimes = 4 - (4 - GarudaGemshineTimesCustom);
         }
 
         public void OpenerSummon()
@@ -43,11 +45,14 @@ namespace LittleNightmare.Summoner
             {
                 Summon.Add(SMNHelper.Titan());
             }
+
             if (Core.Resolve<JobApi_Summoner>().IsPetReady(ActivePetType.Ifrit) && !Summon.Contains(SMNHelper.Ifrit()))
             {
                 Summon.Add(SMNHelper.Ifrit());
             }
-            if (Core.Resolve<JobApi_Summoner>().IsPetReady(ActivePetType.Garuda) && !Summon.Contains(SMNHelper.Garuda()))
+
+            if (Core.Resolve<JobApi_Summoner>().IsPetReady(ActivePetType.Garuda) &&
+                !Summon.Contains(SMNHelper.Garuda()))
             {
                 Summon.Add(SMNHelper.Garuda());
             }
@@ -73,6 +78,7 @@ namespace LittleNightmare.Summoner
                     }
                 }
             }
+
             if (!Core.Resolve<JobApi_Summoner>().IsPetReady(ActivePetType.Ifrit))
             {
                 Summon.Remove(SMNHelper.Ifrit());
@@ -80,12 +86,13 @@ namespace LittleNightmare.Summoner
                 if (Core.Resolve<JobApi_Summoner>().ActivePetType != ActivePetType.Ifrit)
                 {
                     IfritGemshineTimes = 0;
-                    if(CustomSummon.Count <= 0)
+                    if (CustomSummon.Count <= 0)
                     {
                         IfritGemshineTimesCustom = 2;
                     }
                 }
             }
+
             if (!Core.Resolve<JobApi_Summoner>().IsPetReady(ActivePetType.Garuda))
             {
                 Summon.Remove(SMNHelper.Garuda());
@@ -110,6 +117,7 @@ namespace LittleNightmare.Summoner
                     {
                         CustomSummon.Add(summon);
                     }
+
                     CustomSummonWaitList.Clear();
                 }
             }
@@ -117,13 +125,16 @@ namespace LittleNightmare.Summoner
             switch (Core.Resolve<JobApi_Summoner>().ActivePetType)
             {
                 case ActivePetType.Titan:
-                    TitanGemshineTimes = Core.Resolve<JobApi_Summoner>().AttunementAdjust - (4 - TitanGemshineTimesCustom);
+                    TitanGemshineTimes = Core.Resolve<JobApi_Summoner>().AttunementAdjust -
+                                         (4 - TitanGemshineTimesCustom);
                     break;
                 case ActivePetType.Ifrit:
-                    IfritGemshineTimes = Core.Resolve<JobApi_Summoner>().AttunementAdjust - (2 - IfritGemshineTimesCustom);
+                    IfritGemshineTimes = Core.Resolve<JobApi_Summoner>().AttunementAdjust -
+                                         (2 - IfritGemshineTimesCustom);
                     break;
                 case ActivePetType.Garuda:
-                    GarudaGemshineTimes = Core.Resolve<JobApi_Summoner>().AttunementAdjust - (4 - GarudaGemshineTimesCustom);
+                    GarudaGemshineTimes = Core.Resolve<JobApi_Summoner>().AttunementAdjust -
+                                          (4 - GarudaGemshineTimesCustom);
                     break;
             }
         }
@@ -136,6 +147,7 @@ namespace LittleNightmare.Summoner
                 Summon.Insert(0, SMNHelper.Titan());
             }
         }
+
         public void IfritFirst()
         {
             if (Summon.Contains(SMNHelper.Ifrit()))
@@ -144,6 +156,7 @@ namespace LittleNightmare.Summoner
                 Summon.Insert(0, SMNHelper.Ifrit());
             }
         }
+
         public void GarudaFirst()
         {
             if (Summon.Contains(SMNHelper.Garuda()))
@@ -199,6 +212,5 @@ namespace LittleNightmare.Summoner
         {
             Instance = new SMNBattleData();
         }
-
     }
 }

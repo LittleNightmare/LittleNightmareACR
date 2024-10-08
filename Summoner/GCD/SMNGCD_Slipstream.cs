@@ -15,23 +15,30 @@ namespace LittleNightmare.Summoner.GCD
             if (!SMNSettings.Instance.SmartAoETarget) return SMNData.Spells.Slipstream.GetSpell();
             var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SMNData.Spells.Slipstream, 2);
 
-            return canTargetObjects != null && canTargetObjects.IsValid() ? new Spell(SMNData.Spells.Slipstream, canTargetObjects) : SMNData.Spells.Slipstream.GetSpell();
+            return canTargetObjects != null && canTargetObjects.IsValid()
+                ? new Spell(SMNData.Spells.Slipstream, canTargetObjects)
+                : SMNData.Spells.Slipstream.GetSpell();
         }
+
         public SlotMode SlotMode { get; } = SlotMode.Gcd;
+
         public int Check()
         {
             if (!GetSpell().Id.IsReady())
             {
                 return -10;
             }
+
             if (Core.Me.HasAura(SMNData.Buffs.GarudasFavor))
             {
                 if (Core.Resolve<MemApiMove>().IsMoving() && !Core.Me.HasAura(SMNData.Buffs.Swiftcast))
                 {
                     return -2;
                 }
+
                 return 0;
             }
+
             return -1;
         }
 

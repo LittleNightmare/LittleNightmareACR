@@ -14,14 +14,16 @@ namespace LittleNightmare.Summoner
     public class SummonerOverlay : JobViewWindow
     {
         private static readonly string[] swiftcastModes = { "即刻复活", "风神读条", "火神读条", "全部" };
+
         private static readonly string[] IfritModes = { "先冲锋再读条", "先读条再冲锋", "读条-冲锋-读条" };
+
         // public string? SwiftcastMode;
-        public Dictionary<string,string> OpenerDictionary = Enum.GetNames<SMNSettings.OpenerType>().ToDictionary(t => t, t => t);
+        public Dictionary<string, string> OpenerDictionary =
+            Enum.GetNames<SMNSettings.OpenerType>().ToDictionary(t => t, t => t);
 
 
         public SummonerOverlay(JobViewSave jobViewSave, Action save, string name) : base(jobViewSave, save, name)
         {
-
             AddTab("通常", DrawQtGeneral);
             // AddTab("时间轴信息", DrawTriggerlineInfo);
             // AddTab("Qt", DrawQtSettingView);
@@ -73,11 +75,13 @@ namespace LittleNightmare.Summoner
             {
                 SMNBattleData.Instance.TitanFirst();
             }
+
             ImGui.SameLine();
             if (ImGui.Button("火神优先", new Vector2(100, 30)))
             {
                 SMNBattleData.Instance.IfritFirst();
             }
+
             ImGui.SameLine();
             if (ImGui.Button("风神优先", new Vector2(100, 30)))
             {
@@ -98,6 +102,7 @@ namespace LittleNightmare.Summoner
 
                 ImGui.EndCombo();
             }
+
             //ImGuiHelper.SetHoverTooltip("起手会强制启用即刻风神");
             ImGui.SetNextItemWidth(200f);
             if (ImGui.BeginCombo("火神施法模式", IfritModes[SMNSettings.Instance.IfritMode]))
@@ -127,7 +132,6 @@ namespace LittleNightmare.Summoner
             // ImGui.Checkbox("优先火神GCD", ref SMNSettings.Instance.RubyGCDFirst);
             // ImGuiHelper.SetHoverTooltip("在不移动时，优先使用火神GCD，而不是火神冲");
             ImGui.TextDisabled("Qt的描述可以看ACR的设置界面");
-
         }
 
         public void DrawDebugView(JobViewWindow window)
@@ -158,6 +162,7 @@ namespace LittleNightmare.Summoner
                     type = "太阳龙神";
                     break;
             }
+
             ImGui.Text($"召唤兽类别：{type}");
             ImGui.Text($"召唤兽时间：{Core.Resolve<JobApi_Summoner>().SummonTimerRemaining}");
             ImGui.Text($"三神时间：{Core.Resolve<JobApi_Summoner>().AttunmentTimerRemaining}");
@@ -170,7 +175,8 @@ namespace LittleNightmare.Summoner
             //}
             // ImGui.Text($"宝石耀属性: {Core.Resolve<MemApiSpell>().GetSpellType(SMNData.Spells.Gemshine.GetSpell().Id)}");
 
-            ImGui.Text($"距离Melee: {Core.Me.Distance(Core.Me.GetCurrTarget(), AEAssist.Define.DistanceMode.IgnoreTargetHitbox)}");
+            ImGui.Text(
+                $"距离Melee: {Core.Me.Distance(Core.Me.GetCurrTarget(), AEAssist.Define.DistanceMode.IgnoreTargetHitbox)}");
             ImGui.Text($"距离: {Core.Me.Distance(Core.Me.GetCurrTarget())}");
 
             ImGui.Text($"自定义等待队列宝宝数量: {SMNBattleData.Instance.CustomSummonWaitList.Count}");

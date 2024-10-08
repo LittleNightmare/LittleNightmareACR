@@ -11,7 +11,6 @@ public class SMNTriggerActionBahamutPhoenix : ITriggerAction
 
     public void Check()
     {
-
     }
 
     public bool Draw()

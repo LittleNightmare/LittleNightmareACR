@@ -1,4 +1,3 @@
-
 using AEAssist.CombatRoutine.Trigger;
 
 namespace LittleNightmare.Summoner.Triggers;
@@ -12,7 +11,6 @@ public class SMNTriggerActionAutoCrimsonCyclone : ITriggerAction
 
     public void Check()
     {
-
     }
 
     public bool Draw()

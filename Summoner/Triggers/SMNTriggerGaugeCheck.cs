@@ -9,8 +9,6 @@ namespace LittleNightmare.Summoner.Triggers;
 
 public class SMNTriggerGaugeCheck : ITriggerCond
 {
-    
-
     public string DisplayName => "SMN/量谱条件";
     public string Remark { get; set; }
 
@@ -19,7 +17,8 @@ public class SMNTriggerGaugeCheck : ITriggerCond
     public bool UseGaugeTimesDirectly;
     private string PrevSummon;
     private int _min = 0;
-    private int _max = 4; 
+    private int _max = 4;
+
     public bool Draw()
     {
         switch (CheckSummon)
@@ -43,28 +42,33 @@ public class SMNTriggerGaugeCheck : ITriggerCond
                 _min = 0;
                 _max = 4;
             }
+
             if (ImGui.Selectable("风神"))
             {
                 CheckSummon = ActivePetType.Garuda;
                 _min = 0;
                 _max = 4;
             }
+
             if (ImGui.Selectable("火神"))
             {
                 CheckSummon = ActivePetType.Ifrit;
                 _min = 0;
                 _max = 4;
             }
+
             ImGui.EndCombo();
         }
+
         ImGui.Text("剩余次数等于: ");
         ImGui.SameLine();
-        ImGuiHelper.LeftInputInt("次", ref SummonTimes, UseGaugeTimesDirectly? 1 + _min : _min, _max);
+        ImGuiHelper.LeftInputInt("次", ref SummonTimes, UseGaugeTimesDirectly ? 1 + _min : _min, _max);
         ImGuiHelper.SetHoverTooltip("举例: 三神刚出现的窗口，用最大值，比如土神设置为4\n用完第一次宝石耀的窗口，用3");
         ImGui.Checkbox("直接使用量谱次数", ref UseGaugeTimesDirectly);
         ImGuiHelper.SetHoverTooltip("如果不勾选，这个检测会受到自定义次数的影响\n勾选后，直接读取量谱，但不能检测次数为0的情况");
         return true;
     }
+
     public bool Handle(ITriggerCondParams condParamas = null)
     {
         if (UseGaugeTimesDirectly)
@@ -87,7 +91,7 @@ public class SMNTriggerGaugeCheck : ITriggerCond
                     return SMNBattleData.Instance.IfritGemshineTimes == SummonTimes;
             }
         }
+
         return false;
     }
-
 }

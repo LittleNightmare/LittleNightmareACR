@@ -47,44 +47,44 @@ public class SMNRotationEventHandler : IRotationEventHandler
 
         // switch (spell.Id)
         // {
-            // case SMNData.Spells.SummonPhoenix:
-            //     SMNBattleData.Instance.In90Opener = false;
-            //     break;
+        // case SMNData.Spells.SummonPhoenix:
+        //     SMNBattleData.Instance.In90Opener = false;
+        //     break;
 
-            // case SMNData.Spells.TopazRuin:
-            // case SMNData.Spells.TopazRuinIi:
-            // case SMNData.Spells.TopazRuinIii:
-            // case SMNData.Spells.TopazRite:
-            // case SMNData.Spells.TopazOutburst:
-            // case SMNData.Spells.TopazDisaster:
-            //     SMNBattleData.Instance.TitanGemshineTimes = Core.Resolve<JobApi_Summoner>().ElementalAttunement - (4 - SMNBattleData.Instance.TitanGemshineTimesCustom);
-            //     //
-            //     // ChatHelper.Print.Echo($"TitanGemshineTimes:{SMNBattleData.Instance.TitanGemshineTimes}");
-            //     break;
-            //
-            // case SMNData.Spells.RubyRuin:
-            // case SMNData.Spells.RubyRuinIi:
-            // case SMNData.Spells.RubyRuinIii:
-            // case SMNData.Spells.RubyRite:
-            // case SMNData.Spells.RubyOutburst:
-            // case SMNData.Spells.RubyDisaster:
-            //     SMNBattleData.Instance.IfritGemshineTimes = Core.Resolve<JobApi_Summoner>().ElementalAttunement - (2 - SMNBattleData.Instance.IfritGemshineTimesCustom);
-            //     // ChatHelper.Print.Echo($"IfritGemshineTimes:{SMNBattleData.Instance.IfritGemshineTimes}");
-            //     break;
-            //
-            // case SMNData.Spells.EmeraldRuin:
-            // case SMNData.Spells.EmeraldRuinIi:
-            // case SMNData.Spells.EmeraldRuinIii:
-            // case SMNData.Spells.EmeraldRite:
-            // case SMNData.Spells.EmeraldOutburst:
-            // case SMNData.Spells.EmeraldDisaster:
-            //     SMNBattleData.Instance.GarudaGemshineTimes = Core.Resolve<JobApi_Summoner>().ElementalAttunement - (4 - SMNBattleData.Instance.GarudaGemshineTimesCustom);
-            //     // ChatHelper.Print.Echo($"GarudaGemshineTimes:{SMNBattleData.Instance.GarudaGemshineTimes}");
-            //     break;
-            //
-            // default:
-            //     AI.Instance.BattleData.LimitAbility = false;
-            //     break;
+        // case SMNData.Spells.TopazRuin:
+        // case SMNData.Spells.TopazRuinIi:
+        // case SMNData.Spells.TopazRuinIii:
+        // case SMNData.Spells.TopazRite:
+        // case SMNData.Spells.TopazOutburst:
+        // case SMNData.Spells.TopazDisaster:
+        //     SMNBattleData.Instance.TitanGemshineTimes = Core.Resolve<JobApi_Summoner>().ElementalAttunement - (4 - SMNBattleData.Instance.TitanGemshineTimesCustom);
+        //     //
+        //     // ChatHelper.Print.Echo($"TitanGemshineTimes:{SMNBattleData.Instance.TitanGemshineTimes}");
+        //     break;
+        //
+        // case SMNData.Spells.RubyRuin:
+        // case SMNData.Spells.RubyRuinIi:
+        // case SMNData.Spells.RubyRuinIii:
+        // case SMNData.Spells.RubyRite:
+        // case SMNData.Spells.RubyOutburst:
+        // case SMNData.Spells.RubyDisaster:
+        //     SMNBattleData.Instance.IfritGemshineTimes = Core.Resolve<JobApi_Summoner>().ElementalAttunement - (2 - SMNBattleData.Instance.IfritGemshineTimesCustom);
+        //     // ChatHelper.Print.Echo($"IfritGemshineTimes:{SMNBattleData.Instance.IfritGemshineTimes}");
+        //     break;
+        //
+        // case SMNData.Spells.EmeraldRuin:
+        // case SMNData.Spells.EmeraldRuinIi:
+        // case SMNData.Spells.EmeraldRuinIii:
+        // case SMNData.Spells.EmeraldRite:
+        // case SMNData.Spells.EmeraldOutburst:
+        // case SMNData.Spells.EmeraldDisaster:
+        //     SMNBattleData.Instance.GarudaGemshineTimes = Core.Resolve<JobApi_Summoner>().ElementalAttunement - (4 - SMNBattleData.Instance.GarudaGemshineTimesCustom);
+        //     // ChatHelper.Print.Echo($"GarudaGemshineTimes:{SMNBattleData.Instance.GarudaGemshineTimes}");
+        //     break;
+        //
+        // default:
+        //     AI.Instance.BattleData.LimitAbility = false;
+        //     break;
         // }
         // 两次矫正，主要出现莫名奇妙不重置次数的问题，这里多加一个保险
         // switch (Core.Resolve<JobApi_Summoner>().ActivePetType)
@@ -99,7 +99,7 @@ public class SMNRotationEventHandler : IRotationEventHandler
         //         SMNBattleData.Instance.GarudaGemshineTimes = Core.Resolve<JobApi_Summoner>().ElementalAttunement - (4 - SMNBattleData.Instance.GarudaGemshineTimesCustom);
         //         break;
         // }
-        
+
         // LogHelper.Info($"SpellID:{spell.Name}Trace:{new StackTrace()}");
         // ChatHelp.Print.Echo($"SpellID:{spell.Name}Trace:{new StackTrace()}");
     }

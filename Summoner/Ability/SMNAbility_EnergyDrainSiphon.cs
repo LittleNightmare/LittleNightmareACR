@@ -19,7 +19,8 @@ public class SMNAbility_EnergyDrainSiphon : ISlotResolver
             var canTargetObjects = TargetHelper.GetMostCanTargetObjects(SMNData.Spells.EnergySiphon, 2);
             if (canTargetObjects != null && canTargetObjects.IsValid())
                 return new Spell(SMNData.Spells.EnergySiphon.GetSpell().Id, canTargetObjects);
-        }else
+        }
+        else
         {
             var currentTarget = Core.Me.GetCurrTarget();
             if (currentTarget != null && TargetHelper.GetNearbyEnemyCount(currentTarget, 25, 5) >= 3)
@@ -30,16 +31,19 @@ public class SMNAbility_EnergyDrainSiphon : ISlotResolver
 
         return SMNData.Spells.EnergyDrain.GetSpell();
     }
+
     public int Check()
     {
         if (!GetSpell().Id.IsReady())
         {
             return -10;
         }
+
         if (!Core.Resolve<JobApi_Summoner>().HasAetherflowStacks)
         {
             return 0;
         }
+
         return -1;
     }
 

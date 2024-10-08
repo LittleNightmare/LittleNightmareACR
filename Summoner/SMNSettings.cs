@@ -9,6 +9,7 @@ namespace LittleNightmare.Summoner
     {
         public static SMNSettings Instance;
         private static string path;
+
         public static void Build(string settingPath)
         {
             path = Path.Combine(settingPath, "SMNSettings.json");
@@ -35,6 +36,7 @@ namespace LittleNightmare.Summoner
             Directory.CreateDirectory(Path.GetDirectoryName(path));
             File.WriteAllText(path, JsonHelper.ToJson(this));
         }
+
         public JobViewSave JobViewSave = new();
         // public Dictionary<string, object> StyleSetting = new();
         // public bool AutoReset = true;
@@ -46,10 +48,10 @@ namespace LittleNightmare.Summoner
         /// 灼热之光优先于亚灵神释放
         /// </summary>
         // public bool SearingLightFirst = false;
-
         public enum OpenerType
         {
             TheBalance,
+
             //FastEnergyDrain,
             TheBalance90,
         }
@@ -77,9 +79,11 @@ namespace LittleNightmare.Summoner
         /// </summary>
         // public bool RubyGCDFirst = false;
         public bool qt自动爆发药 = true;
+
         public int SwiftCastMode = 1;
         public int IfritMode = 0;
         public bool PreventDoubleFester = false;
+
         /// <summary>
         /// MP阈值，如果低于这个值，使用醒梦
         /// </summary>

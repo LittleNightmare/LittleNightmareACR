@@ -15,7 +15,6 @@ public class SMNTriggerActionCustomSummon : ITriggerAction
 
     public void Check()
     {
-
     }
 
     public bool Draw()
@@ -41,40 +40,47 @@ public class SMNTriggerActionCustomSummon : ITriggerAction
                 PrevSummon = "风-火-土";
                 break;
         }
+
         if (ImGui.BeginCombo("", PrevSummon))
         {
             if (ImGui.Selectable("土-火-风"))
             {
                 NextSummon = 0;
             }
+
             if (ImGui.Selectable("土-风-火"))
             {
                 NextSummon = 1;
             }
+
             if (ImGui.Selectable("火-土-风"))
             {
                 NextSummon = 2;
             }
+
             if (ImGui.Selectable("火-风-土"))
             {
                 NextSummon = 3;
             }
+
             if (ImGui.Selectable("风-土-火"))
             {
                 NextSummon = 4;
             }
+
             if (ImGui.Selectable("风-火-土"))
             {
                 NextSummon = 5;
             }
+
             ImGui.EndCombo();
         }
-        
+
         ImGui.Checkbox("##ClearPrevoiusSummon", ref ClearPrevoiusSummon);
         ImGui.SameLine();
         ImGui.Text("添加前清除当前自定义的蛮神队列");
         ImGuiHelper.SetHoverTooltip("因为蛮神队列是添加到队尾\n有时需要清空队列，以保证符合预期");
-        
+
         return true;
     }
 
@@ -85,7 +91,7 @@ public class SMNTriggerActionCustomSummon : ITriggerAction
             SMNBattleData.Instance.CustomSummonWaitList.Clear();
             SMNBattleData.Instance.CustomSummon.Clear();
         }
-        
+
         switch (NextSummon)
         {
             case 0:
@@ -119,6 +125,7 @@ public class SMNTriggerActionCustomSummon : ITriggerAction
                 SMNBattleData.Instance.CustomSummonWaitList.Add(SMNHelper.Titan());
                 break;
         }
+
         return true;
     }
 }

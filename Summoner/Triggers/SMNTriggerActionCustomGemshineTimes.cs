@@ -18,10 +18,12 @@ public class SMNTriggerActionCustomGemshineTimes : ITriggerAction
         {
             throw new Exception("TitanGemshineCastTimes must be >= 0 && <= 4");
         }
+
         if (IfritGemshineTimes < 0 || IfritGemshineTimes > 2)
         {
             throw new Exception("IfritGemshineTimes must be >= 0 && <= 2");
         }
+
         if (GarudaGemshineTimes < 0 || GarudaGemshineTimes > 4)
         {
             throw new Exception("GarudaGemshineTimes must be >= 0 && <= 4");
@@ -33,15 +35,21 @@ public class SMNTriggerActionCustomGemshineTimes : ITriggerAction
         if (ImGui.InputInt("土神", ref TitanGemshineTimes))
         {
             TitanGemshineTimes = Math.Clamp(TitanGemshineTimes, 0, 4);
-        };
+        }
+
+        ;
         if (ImGui.InputInt("火神", ref IfritGemshineTimes))
         {
             IfritGemshineTimes = Math.Clamp(IfritGemshineTimes, 0, 2);
-        };
+        }
+
+        ;
         if (ImGui.InputInt("风神", ref GarudaGemshineTimes))
         {
             GarudaGemshineTimes = Math.Clamp(GarudaGemshineTimes, 0, 4);
-        };
+        }
+
+        ;
         return true;
     }
 

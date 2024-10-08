@@ -8,7 +8,6 @@ using AEAssist.JobApi;
 
 namespace LittleNightmare.Summoner
 {
-
     public class OpenerSMN90 : IOpener
     {
         public int StartCheck()
@@ -17,26 +16,32 @@ namespace LittleNightmare.Summoner
             {
                 return -10;
             }
+
             if (!Core.Resolve<JobApi_Summoner>().HasPet)
             {
                 return -9;
             }
+
             if (!Core.Resolve<JobApi_Summoner>().IsPetReady(ActivePetType.Bahamut))
             {
                 return -8;
             }
+
             if (!SMNData.Spells.SummonBahamut.IsReady())
             {
                 return -7;
             }
+
             if (!SMNData.Spells.SearingLight.IsReady())
             {
                 return -6;
             }
+
             if (AI.Instance.BattleData.CurrBattleTimeInMs > 5)
             {
                 return -5;
             }
+
             return 0;
         }
 
@@ -65,8 +70,8 @@ namespace LittleNightmare.Summoner
             {
                 slot.Add(new SlotAction(SlotAction.WaitType.WaitForSndHalfWindow, 0, Spell.CreatePotion()));
             }
-
         }
+
         private static void Step1(Slot slot)
         {
             slot.Add(new Spell(SMNHelper.BaseSingle().Id, SpellTargetType.Target));
@@ -75,25 +80,28 @@ namespace LittleNightmare.Summoner
                 SMNBattleData.Instance.OpenerSummon();
             }
 
-            slot.Add(new SlotAction(SlotAction.WaitType.WaitForSndHalfWindow, 0, SMNData.Spells.SearingLight.GetSpell()));
+            slot.Add(
+                new SlotAction(SlotAction.WaitType.WaitForSndHalfWindow, 0, SMNData.Spells.SearingLight.GetSpell()));
         }
+
         private static void Step2(Slot slot)
         {
             slot.Add(new Spell(SMNHelper.BaseSingle().Id, SpellTargetType.Target));
         }
+
         private static void Step3(Slot slot)
         {
             slot.Add(new Spell(SMNHelper.BaseSingle().Id, SpellTargetType.Target));
             slot.Add(new Spell(SMNData.Spells.EnergyDrain, SpellTargetType.Target));
-            
         }
+
         private static void Step4(Slot slot)
         {
-
             slot.Add(new Spell(SMNHelper.BaseSingle().Id, SpellTargetType.Target));
             slot.Add(new Spell(SMNData.Spells.EnkindleBahamut, SpellTargetType.Target));
             slot.Add(new Spell(SMNData.Spells.Fester, SpellTargetType.Target));
         }
+
         private static void Step5(Slot slot)
         {
             slot.Add(new Spell(SMNHelper.BaseSingle().Id, SpellTargetType.Target));
@@ -102,12 +110,14 @@ namespace LittleNightmare.Summoner
         }
 
         public uint Level { get; } = 90;
+
         public void InitCountDown(CountDownHandler countDownHandler)
         {
             if (!Core.Resolve<JobApi_Summoner>().HasPet)
             {
                 countDownHandler.AddAction(30000, SMNData.Spells.SummonCarbuncle);
             }
+
             countDownHandler.AddAction(1500, SMNHelper.BaseSingle().Id, SpellTargetType.Target);
         }
     }

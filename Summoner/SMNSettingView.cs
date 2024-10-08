@@ -17,7 +17,7 @@ namespace LittleNightmare.Summoner
             ImGuiHelper.ToggleButton("自动火神冲", ref SMNSettings.Instance.qt自动火神冲);
             ImGuiHelper.ToggleButton("自动爆发药", ref SMNSettings.Instance.qt自动爆发药);
             ImGuiHelper.ToggleButton("阻止双插溃烂爆发", ref SMNSettings.Instance.PreventDoubleFester);
-            
+
             ImGui.Text("醒梦阈值: ");
             ImGui.SameLine();
             ImGui.SetNextItemWidth(150);
@@ -33,7 +33,6 @@ namespace LittleNightmare.Summoner
             ImGuiHelper.SetHoverTooltip("TheBalance: 是用TheBalance的通用起手\nTheBalance90: 是用TheBalance的90级起手");
 
 
-
             if (ImGui.Button("保存设置"))
             {
                 SMNSettings.Instance.Save();
@@ -41,6 +40,7 @@ namespace LittleNightmare.Summoner
                 SummonerRotationEntry.QT.NewDefault("爆发药", SMNSettings.Instance.qt自动爆发药);
                 SummonerRotationEntry.QT.Reset();
             }
+
             /*
             ImGui.Text("如何迁移逆光时间轴到小小梦魇:");
             ImGui.SetNextItemWidth(200);

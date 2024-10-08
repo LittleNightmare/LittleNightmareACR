@@ -11,7 +11,6 @@ public class SMNTriggerActionUseSummon : ITriggerAction
 
     public void Check()
     {
-
     }
 
     public bool Draw()

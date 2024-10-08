@@ -16,23 +16,28 @@ public class SMNAbility_Rekindle : ISlotResolver
     {
         return new Spell(SMNData.Spells.Rekindle.GetSpell().Id, SpellTargetType.TargetTarget);
     }
+
     public int Check()
     {
         if (!SMNData.Spells.Rekindle.IsReady())
         {
             return -10;
         }
+
         if (!SMNHelper.InPhoenix)
         {
             return -9;
         }
+
         if (Core.Resolve<JobApi_Summoner>().SummonTimerRemaining > 0)
         {
-            if (Core.Resolve<JobApi_Summoner>().SummonTimerRemaining <= Core.Resolve<MemApiSpell>().GetGCDDuration(false) * 2 )
+            if (Core.Resolve<JobApi_Summoner>().SummonTimerRemaining <=
+                Core.Resolve<MemApiSpell>().GetGCDDuration(false) * 2)
             {
                 return 0;
             }
         }
+
         return -1;
     }
 
