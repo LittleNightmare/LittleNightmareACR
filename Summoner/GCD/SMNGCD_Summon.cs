@@ -41,8 +41,13 @@ namespace LittleNightmare.Summoner.GCD
 
         public int Check()
         {
-            // 不能用GetSpell，空列表会报错
-            // if (!GetSpell().IsReady()) return -10;
+            if (SMNBattleData.Instance.Summon.Count == 0)
+            {
+                return -12;
+            }
+            // 不能用GetSpell，一个个对比下
+            if (!SMNHelper.Titan().Id.IsReady() && !SMNHelper.Ifrit().Id.IsReady() &&
+                !SMNHelper.Garuda().Id.IsReady()) return -11;
             if (!Core.Resolve<JobApi_Summoner>().HasPet)
             {
                 return -10;
@@ -68,7 +73,6 @@ namespace LittleNightmare.Summoner.GCD
                 }
                 //TODO: 检查三神召唤后，是否会延后巴哈/凤凰的召唤
 
-                //TODO: 还有个AttunementAdjust
                 if (Core.Resolve<JobApi_Summoner>().AttunementAdjust > 0)
                 {
                     if (Core.Resolve<JobApi_Summoner>().ActivePetType == ActivePetType.Titan &&
