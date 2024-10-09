@@ -32,17 +32,8 @@ namespace LittleNightmare.Summoner
             ImGuiHelper.ToggleButton("智能AOE目标", ref SMNSettings.Instance.SmartAoETarget);
             ImGuiHelper.SetHoverTooltip("将智能选择最适合释放AoE的目标，而不是根据当前目标决定是否使用AoE\n火神冲的支持待定");
 
-            if (SettingMgr.GetSetting<GeneralSettings>().OpenTTK)
-            {
-                ImGuiHelper.ToggleButton("濒死检测", ref SMNSettings.Instance.TTKControl);
-            }
-            else
-            {
-                SMNSettings.Instance.TTKControl = false;
-                ImGui.Text("濒死检测: AE未开启TTK");
-            }
-            ImGuiHelper.SetHoverTooltip("濒死检测会在你的目标濒死时，自动关闭爆发qt，以免浪费相关技能\n推荐日随使用，高难本请自行判断是否启用\n如果AE里没有开启TTK，会自动禁用");
-            ImGui.Text($"当前AE的TTK状态：{SettingMgr.GetSetting<GeneralSettings>().OpenTTK: '开启' ? '关闭'}");
+            ImGuiHelper.ToggleButton("濒死检测", ref SMNSettings.Instance.TTKControl);
+            ImGuiHelper.SetHoverTooltip("濒死检测会在你的目标濒死时，自动关闭爆发qt，以免浪费相关技能\n推荐日随使用，高难本请自行判断是否启用");
 
             ImGuiHelper.DrawEnum<OpenerType>("起手选择: ", ref SMNSettings.Instance.SelectedOpener);
             ImGuiHelper.SetHoverTooltip("TheBalance: 是用TheBalance的通用起手\nTheBalance90: 是用TheBalance的90级起手");
@@ -93,6 +84,11 @@ namespace LittleNightmare.Summoner
             ImGui.Text("宝石耀: 关闭时不会自动使用三神的GCD，不开启爆发qt也不会用");
             ImGui.SetNextItemWidth(200);
             ImGui.Text("自动火神冲: 火神冲会遵循火神模式设置，关闭时只有在目标圈上会用火神冲。开启后，会在不移动时使用火神冲");
+
+            if (ImGui.CollapsingHeader("更新日志##LittleNightmare"))
+            {
+                ImGui.Text("2024-10-09" + "\n增加濒死检测（TTK）\n理论上修复召唤兽列表导致的崩溃\n增加一个更新日志");
+            }
         }
     }
 }
