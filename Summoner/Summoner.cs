@@ -199,7 +199,34 @@ namespace LittleNightmare.Summoner
             ImGui.Text($"最终BOSS：{SMNBattleData.Instance.FinalBoss}");
             ImGui.Text($"TTKTriggered：{SMNBattleData.Instance.TTKTriggered}");
             ImGui.Text($"IsLastTask：{LNMHelper.IsLastTask()}");
+#if DEBUG
+            try
+            {
+                var tasks = LNMHelper.GetTask();
+                if (tasks.Count == 0)
+                {
+                    ImGui.Text("任务列表为空");
+                }
+                var index = -1;
+                foreach (var task in tasks)
+                {
+                    ImGui.Text($"任务：{task.Label.ToString()}");
+                    ImGui.Text($"任务进度：{task.CountCurrent}/{task.CountNeeded}");
+                    ImGui.Text($"任务状态：{task.Enabled}");
+                    if (task.Enabled)
+                    {
+                        index++;
+                    }
+                        
 
+                }
+                ImGui.Text($"最后一个符合条件的是：{index}");
+            }
+            catch (Exception e)
+            {
+                
+            }
+#endif
             // ImGui.Text($"优先火神GD: {SMNSettings.Instance.RubyGCDFirst && SMNBattleData.Instance.IfritGemshineTimes > 0}");
             // ImGui.Text($"灼热之光时间剩余时间(ms): {Core.Me.GetBuffTimespanLeft(AurasDefine.SearingLight).TotalMilliseconds}");
             // ImGui.Text($"灼热之光buff: {Core.Me.HasMyAura(AurasDefine.SearingLight)}");

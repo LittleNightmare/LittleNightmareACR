@@ -87,6 +87,7 @@ namespace LittleNightmare.Summoner
 
             if (ImGui.CollapsingHeader("更新日志##LittleNightmare"))
             {
+                ImGui.Text("2024-10-10" + "\n修复副本内停止攻击的问题");
                 ImGui.Text("2024-10-09" + "\n增加濒死检测（TTK）\n理论上修复召唤兽列表导致的崩溃\n增加一个更新日志");
             }
         }
