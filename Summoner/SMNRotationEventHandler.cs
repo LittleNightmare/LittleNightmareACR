@@ -141,7 +141,7 @@ public class SMNRotationEventHandler : IRotationEventHandler
         }
 
         var target = Core.Me.GetCurrTarget();
-        if (target != null && LNMHelper.IsLastTask() && TargetHelper.IsBoss(target))
+        if (target != null && LNMHelper.IsLastTaskAE() && TargetHelper.IsBoss(target))
         {
             SMNBattleData.Instance.FinalBoss = true;
         }
