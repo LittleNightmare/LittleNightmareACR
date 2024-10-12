@@ -14,7 +14,8 @@ public class SMNAbility_Rekindle : ISlotResolver
 
     public Spell GetSpell()
     {
-        return new Spell(SMNData.Spells.Rekindle.GetSpell().Id, SpellTargetType.TargetTarget);
+        // TODO: 添加更多的自定义目标，比方说最低血量，或者最低血量百分比
+        return new Spell(SMNData.Spells.Rekindle.GetSpell().Id, SMNSettings.Instance.RekindleTarget);
     }
 
     public int Check()

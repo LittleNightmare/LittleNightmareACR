@@ -1,6 +1,7 @@
 using AEAssist.Helper;
 using AEAssist.IO;
 using AEAssist.CombatRoutine.View.JobView;
+using AEAssist.CombatRoutine;
 
 
 namespace LittleNightmare.Summoner
@@ -98,5 +99,10 @@ namespace LittleNightmare.Summoner
         /// 智能AoE目标
         /// </summary>
         public bool SmartAoETarget = false;
+
+        /// <summary>
+        /// 苏生之炎目标
+        /// </summary>
+        public SpellTargetType RekindleTarget = SpellTargetType.TargetTarget;
     }
 }

@@ -8,6 +8,7 @@ using AEAssist.GUI;
 using AEAssist.JobApi;
 using ImGuiNET;
 using System.Numerics;
+using AEAssist.Helper;
 
 namespace LittleNightmare.Summoner
 {
@@ -45,6 +46,11 @@ namespace LittleNightmare.Summoner
             AddHotkey("沉稳咏唱", new HotKeyResolver_NormalSpell(SpellsDefine.Surecast, SpellTargetType.Self));
             AddHotkey("昏乱", new HotKeyResolver_NormalSpell(SpellsDefine.Addle, SpellTargetType.Target));
             AddHotkey("疾跑", new HotKeyResolver_疾跑());
+
+            var crimson = new HotKeyResolver_NormalSpell(SMNData.Spells.CrimsonCyclone, SpellTargetType.Target, true);
+            bool CustomCondition() => Core.Me.HasAura(SMNData.Buffs.IfritsFavor);
+            AddHotkey("深红旋风", new HotKeyResolver_NormalSpellCustom(crimson, CustomCondition));
+
             AddHotkey("守护之光", new HotKeyResolver_NormalSpell(SMNData.Spells.RadiantAegis, SpellTargetType.Self));
             AddHotkey("日光普照", new HotKeyResolver_NormalSpell(SMNData.Spells.LuxSolaris, SpellTargetType.Self));
         }

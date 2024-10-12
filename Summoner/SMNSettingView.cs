@@ -1,11 +1,5 @@
-using AEAssist;
-using AEAssist.CombatRoutine;
-using AEAssist.CombatRoutine.Module;
-using AEAssist.CombatRoutine.View;
 using AEAssist.GUI;
-using AEAssist.Helper;
 using ImGuiNET;
-using static LittleNightmare.Summoner.SMNSettings;
 
 namespace LittleNightmare.Summoner
 {
@@ -35,8 +29,11 @@ namespace LittleNightmare.Summoner
             ImGuiHelper.ToggleButton("濒死检测", ref SMNSettings.Instance.TTKControl);
             ImGuiHelper.SetHoverTooltip("濒死检测会在你的目标濒死时，自动关闭爆发qt，以免浪费相关技能\n推荐日随使用，高难本请自行判断是否启用");
 
-            ImGuiHelper.DrawEnum<OpenerType>("起手选择: ", ref SMNSettings.Instance.SelectedOpener);
+            ImGuiHelper.DrawEnum("起手选择: ", ref SMNSettings.Instance.SelectedOpener);
             ImGuiHelper.SetHoverTooltip("TheBalance: 是用TheBalance的通用起手\nTheBalance90: 是用TheBalance的90级起手");
+
+            ImGuiHelper.DrawEnum("苏生之炎目标: ", ref SMNSettings.Instance.RekindleTarget);
+            ImGuiHelper.SetHoverTooltip("苏生之炎的目标选择\n注意：最后三个 不 要 选");
 
 
             if (ImGui.Button("保存设置"))
@@ -87,6 +84,7 @@ namespace LittleNightmare.Summoner
 
             if (ImGui.CollapsingHeader("更新日志##LittleNightmare"))
             {
+                ImGui.Text("2024-10-12" + "\nTTK的相关判断（是否为最后一个BOSS）采用AE内置的方法，更加稳定\n添加苏生之炎的目标选择\n添加火神冲1段在热键栏，如果还有想要加入的可以告诉我，适合那种写时间轴很麻烦，按钮控制又不太好的");
                 ImGui.Text("2024-10-10" + "\n修复副本内停止攻击的问题");
                 ImGui.Text("2024-10-09" + "\n增加濒死检测（TTK）\n理论上修复召唤兽列表导致的崩溃\n增加一个更新日志");
             }
