@@ -9,6 +9,7 @@ using AEAssist.JobApi;
 using ImGuiNET;
 using System.Numerics;
 using AEAssist.Helper;
+using AEAssist.MemoryApi;
 
 namespace LittleNightmare.Summoner
 {
@@ -135,6 +136,16 @@ namespace LittleNightmare.Summoner
             ImGuiHelper.SetHoverTooltip("移动时，如果在目标圈上，使用火神冲\n不然尝试其他的技能，比如毁4");
             ImGui.Checkbox("优先毁三填充最后GCD窗口", ref SMNSettings.Instance.UseRuinIIIFirst);
             ImGuiHelper.SetHoverTooltip("在GCD填充时，如果不移动，能量吸收还没马上好，优先毁3填充，再是毁4");
+            ImGui.Checkbox("最终爆发时速卸三神", ref SMNSettings.Instance.FastPassSummon);
+            ImGuiHelper.SetHoverTooltip("在最终爆发时，除了描述的行为外，同时速卸三神\n就是尽可能优先召唤三神，即使宝石技能没打完");
+            if (SMNSettings.Instance.FastPassSummon)
+            {
+                // move next text object to a little right
+                ImGui.Indent();
+                ImGui.Checkbox("调整火神施法模式", ref SMNSettings.Instance.ModifyIfritMode);
+                ImGuiHelper.SetHoverTooltip("强制将火神施法模式视为：先冲锋再读条");
+                ImGui.Unindent();
+            }
 
             // ImGuiHelper.ToggleButton("最终BOSS", ref SMNBattleData.Instance.FinalBoss);
             // ImGui.Checkbox("优先火神GCD", ref SMNSettings.Instance.RubyGCDFirst);
@@ -200,7 +211,15 @@ namespace LittleNightmare.Summoner
             {
                 SMNBattleData.Instance.CustomSummon.Clear();
             }
-
+#if DEBUG
+            ImGui.Text($"Duty相关");
+            if (Core.Resolve<MemApiDuty>().GetSchedule() != null)
+            {
+                ImGui.Text($"NowPoint: {Core.Resolve<MemApiDuty>().GetSchedule()?.NowPoint}");
+                ImGui.Text($"CountPoint: {Core.Resolve<MemApiDuty>().GetSchedule()?.CountPoint}");
+            }
+            ImGui.Text($"InBossBattle: {Core.Resolve<MemApiDuty>().InBossBattle}");
+#endif
             ImGui.Text($"TTK相关");
             ImGui.Text($"最终BOSS：{SMNBattleData.Instance.FinalBoss}");
             ImGui.Text($"TTKTriggered：{SMNBattleData.Instance.TTKTriggered}");

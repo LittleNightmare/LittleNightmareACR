@@ -104,5 +104,13 @@ namespace LittleNightmare.Summoner
         /// 苏生之炎目标
         /// </summary>
         public SpellTargetType RekindleTarget = SpellTargetType.TargetTarget;
+        /// <summary>
+        /// 速卸三神召唤
+        /// </summary>
+        public bool FastPassSummon = false;
+        /// <summary>
+        /// 调整火神施法模式
+        /// </summary>
+        public bool ModifyIfritMode = false;
     }
 }

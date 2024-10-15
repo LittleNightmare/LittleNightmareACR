@@ -108,7 +108,8 @@ namespace LittleNightmare
                     new SMNTriggerActionSummon(),
                     new SMNTriggerActionUseSummon(),
                     new SMNTriggerActionSwiftCastMode(),
-                    new SMNTriggerActionIfritMode()
+                    new SMNTriggerActionIfritMode(),
+                    new SMNTriggerActionAdjustACRSimpleSettings()
                     // new SMNTriggerActionPreCastSwiftcast()
                 )
                 .AddTriggerCondition(

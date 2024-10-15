@@ -51,12 +51,12 @@ namespace LittleNightmare.Summoner.GCD
                 (onTargetRing || SummonerRotationEntry.QT.GetQt("自动火神冲")))
             {
                 // 先冲锋再读条
-                if (SMNSettings.Instance.IfritMode == 0)
+                if (SMNSettings.Instance.IfritMode == 0 || SMNSettings.Instance.ModifyIfritMode)
                 {
                     return 0;
                 }
 
-                // 先读条再冲锋，此时还有宝石技能,此时不会移动，不考虑自动火神冲; 这里好像会导致读条后不冲锋，
+                // 先读条再冲锋，此时还有宝石技能,此时不会移动，不考虑自动火神冲; 这里好像会导致读条后不冲锋，但实际没有
                 if (SMNSettings.Instance.IfritMode == 1)
                 {
                     return -3;

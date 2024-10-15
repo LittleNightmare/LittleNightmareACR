@@ -3,6 +3,8 @@ using AEAssist.CombatRoutine;
 using AEAssist.CombatRoutine.Module;
 using AEAssist.Extension;
 using AEAssist.Helper;
+using FFXIVClientStructs;
+using FFXIVClientStructs.FFXIV.Client.Game;
 
 namespace LittleNightmare.Summoner.GCD
 {
@@ -29,7 +31,7 @@ namespace LittleNightmare.Summoner.GCD
             }
 
             var skillTarget = PartyHelper.DeadAllies.FirstOrDefault(r => !r.HasAura(SMNData.Buffs.Raise));
-            if (skillTarget.IsValid())
+            if (skillTarget != null && skillTarget.IsValid())
             {
                 return 0;
             }
@@ -40,7 +42,10 @@ namespace LittleNightmare.Summoner.GCD
         public void Build(Slot slot)
         {
             var skillTarget = PartyHelper.DeadAllies.FirstOrDefault(r => !r.HasAura(SMNData.Buffs.Raise));
-            slot.Add(new Spell(SMNData.Spells.Resurrection, skillTarget));
+            if (skillTarget != null)
+            {
+                slot.Add(new Spell(SMNData.Spells.Resurrection, skillTarget));
+            }
         }
     }
 }

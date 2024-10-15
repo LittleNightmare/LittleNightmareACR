@@ -68,6 +68,14 @@ namespace LittleNightmare.Summoner.GCD
                 {
                     return -2;
                 }
+                // 速卸三神用的
+                if (SummonerRotationEntry.QT.GetQt("最终爆发") && SMNSettings.Instance.FastPassSummon)
+                {
+                    if (new SMNGCD_Summon().Check() == 1)
+                    {
+                        return -11;
+                    }
+                }
 
                 return 0;
             }
