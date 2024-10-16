@@ -51,7 +51,8 @@ namespace LittleNightmare.Summoner.GCD
                 (onTargetRing || SummonerRotationEntry.QT.GetQt("自动火神冲")))
             {
                 // 先冲锋再读条
-                if (SMNSettings.Instance.IfritMode == 0 || SMNSettings.Instance.ModifyIfritMode)
+                if (SMNSettings.Instance.IfritMode == 0 
+                    || (SMNSettings.Instance.ModifyIfritMode && SMNSettings.Instance.FastPassSummon))
                 {
                     return 0;
                 }
