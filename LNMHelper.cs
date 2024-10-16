@@ -10,15 +10,16 @@ public class LNMHelper
 {
     public static bool IsLastTaskAE()
     {
-        var duty = Core.Resolve<MemApiDuty>()?.GetSchedule();
+        var duty = Core.Resolve<MemApiDuty>().GetSchedule();
         if (duty == null) return true;
+        if (duty.CountPoint == 0) return true;
         var target = Core.Me.GetCurrTarget();
         if (target == null) return false;
         var additionalCheck = target.IsBoss();
-        // TODO: 多变迷宫也是四人本，所以用不了这个判断，要不判断CountPoint>1？
-        if (Core.Resolve<MemApiDuty>().DutyMembersNumber() == 24 || duty.CountPoint > 1)
+        // TODO: 多变迷宫也是四人本，所以用不了这个判断，要不判断CountPoint>=1？
+        if (Core.Resolve<MemApiDuty>().DutyMembersNumber() == 24 || duty.CountPoint >= 1 )
             additionalCheck = Core.Resolve<MemApiDuty>().InBossBattle;
-        return duty.CountPoint == duty.NowPoint + 1 && additionalCheck;
+        return duty.CountPoint == duty.NowPoint && additionalCheck;
     }
 
     public static unsafe bool IsLastTask()

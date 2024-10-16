@@ -84,12 +84,15 @@ namespace LittleNightmare.Summoner
 
             if (ImGui.CollapsingHeader("更新日志##LittleNightmare"))
             {
-                ImGui.Text("2024-10-16" +
-                           "\n修复即刻咏唱模式的问题导致无法正常释放能力技" +
-                           "\n优化代码逻辑，避免类似的事情发生" +
-                           "\n修复不拉人的问题");
+                ImGui.Text("2024-10-17" +
+                           "\n修复速卸三神下的火神冲会影响正常的问题" +
+                           "\n修复濒死检测的错误判断问题，现在应该更准确了");
                 if (ImGui.CollapsingHeader("历史更新日志##LittleNightmareHistory"))
                 {
+                    ImGui.Text("2024-10-16" +
+                               "\n修复即刻咏唱模式的问题导致无法正常释放能力技" +
+                               "\n优化代码逻辑，避免类似的事情发生" +
+                               "\n修复不拉人的问题");
                     ImGui.Text("2024-10-15" +
                                "\n更完善的濒死检测，现在应该更多的BOSS会被准确识别了" +
                                "\n在QT面板中，可以控制在最终爆发时，可以速卸三神" +

@@ -10,6 +10,9 @@ using ImGuiNET;
 using System.Numerics;
 using AEAssist.Helper;
 using AEAssist.MemoryApi;
+using Dalamud.Utility;
+using FFXIVClientStructs.FFXIV.Client.Game.Event;
+using FFXIVClientStructs.STD;
 
 namespace LittleNightmare.Summoner
 {
@@ -215,8 +218,21 @@ namespace LittleNightmare.Summoner
             ImGui.Text($"Duty相关");
             if (Core.Resolve<MemApiDuty>().GetSchedule() != null)
             {
-                ImGui.Text($"NowPoint: {Core.Resolve<MemApiDuty>().GetSchedule()?.NowPoint}");
-                ImGui.Text($"CountPoint: {Core.Resolve<MemApiDuty>().GetSchedule()?.CountPoint}");
+                ImGui.Text($"AENowPoint: {Core.Resolve<MemApiDuty>().GetSchedule()?.NowPoint}");
+                ImGui.Text($"AECountPoint: {Core.Resolve<MemApiDuty>().GetSchedule()?.CountPoint}");
+            }
+
+            var dutys = LNMHelper.GetTask();
+            if (!dutys.Equals(new StdVector<EventHandlerObjective>()))
+            {
+                foreach (var duty in dutys)
+                {
+                    var name = duty.Label.ToString();
+                    if (name.IsNullOrEmpty()) continue;
+                    ImGui.Text($"Name:{name}");
+                    ImGui.Text($"CountCurrent:{duty.CountCurrent}");
+                    ImGui.Text($"CountNeeded:{duty.CountNeeded}");
+                }
             }
             ImGui.Text($"InBossBattle: {Core.Resolve<MemApiDuty>().InBossBattle}");
 #endif
@@ -224,6 +240,9 @@ namespace LittleNightmare.Summoner
             ImGui.Text($"最终BOSS：{SMNBattleData.Instance.FinalBoss}");
             ImGui.Text($"TTKTriggered：{SMNBattleData.Instance.TTKTriggered}");
             ImGui.Text($"IsLastTaskAE：{LNMHelper.IsLastTaskAE()}");
+            ImGui.Text($"IsLastTask：{LNMHelper.IsLastTask()}");
+            if (Core.Me.GetCurrTarget() != null)
+                ImGui.Text($"IsBOSS: {Core.Me.GetCurrTarget().IsBoss()}");
             // ImGui.Text($"优先火神GD: {SMNSettings.Instance.RubyGCDFirst && SMNBattleData.Instance.IfritGemshineTimes > 0}");
             // ImGui.Text($"灼热之光时间剩余时间(ms): {Core.Me.GetBuffTimespanLeft(AurasDefine.SearingLight).TotalMilliseconds}");
             // ImGui.Text($"灼热之光buff: {Core.Me.HasMyAura(AurasDefine.SearingLight)}");
