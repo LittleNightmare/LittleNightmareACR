@@ -8,7 +8,7 @@ using AEAssist.MemoryApi;
 
 namespace LittleNightmare.Summoner.Ability;
 
-public class SMNAbility_Fester : ISlotResolver
+public class SMNAbility_Aether : ISlotResolver
 {
     public SlotMode SlotMode { get; } = SlotMode.OffGcd;
 
@@ -52,7 +52,7 @@ public class SMNAbility_Fester : ISlotResolver
 
         if (SummonerRotationEntry.QT.GetQt("最终爆发"))
         {
-            return 0;
+            return 1;
         }
 
         if (SMNSettings.Instance.PreventDoubleFester)
@@ -66,7 +66,7 @@ public class SMNAbility_Fester : ISlotResolver
 
         if (!SMNData.Spells.SearingLight.IsLevelEnough())
         {
-            return 0;
+            return 2;
         }
 
         if (!Core.Me.HasAura(AurasDefine.SearingLight)) return -1;
@@ -79,10 +79,10 @@ public class SMNAbility_Fester : ISlotResolver
         // 在灼热之光持续时间内，如果能量吸收马上冷却完成，还是直接用吧
         if (SMNData.Spells.EnergyDrain.CoolDownInGCDs(2))
         {
-            return 0;
+            return 3;
         }
-
-        if (!SMNHelper.InBahamut && !SMNHelper.InPhoenix && !SMNHelper.InSolarBahamut) return 0;
+        // TODO: 这里干啥的。。。
+        if (!SMNHelper.InBahamut && !SMNHelper.InPhoenix && !SMNHelper.InSolarBahamut) return 4;
         // 等待使用巴哈或凤凰的能力技，有设计等待时间
         if (!SMNHelper.EnkindleDemi().RecentlyUsed() && SMNHelper.EnkindleDemi().Id.IsReady())
         {

@@ -25,12 +25,13 @@ namespace LittleNightmare.Summoner.GCD
 
         public int Check()
         {
-            if (GetSpell() == null)
+            var spell = GetSpell();
+            if (spell == null)
             {
                 return -11;
             }
 
-            if (!GetSpell().Id.IsReady())
+            if (!spell.Id.IsReady())
             {
                 return -10;
             }

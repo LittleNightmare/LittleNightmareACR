@@ -12,6 +12,7 @@ namespace LittleNightmare.Summoner.GCD
         public Spell GetSpell()
         {
             if (!SummonerRotationEntry.QT.GetQt("AOE")) return SMNHelper.BaseSingle();
+            var currentTarget = Core.Me.GetCurrTarget();
 
             if (SMNSettings.Instance.SmartAoETarget)
             {
@@ -21,8 +22,8 @@ namespace LittleNightmare.Summoner.GCD
                     return new Spell(SMNHelper.BaseAoE().Id, canTargetObjects);
                 }
             }
-            else if (Core.Me.GetCurrTarget() != null &&
-                     TargetHelper.GetNearbyEnemyCount(Core.Me.GetCurrTarget(), 25, 5) >= 3)
+            else if (currentTarget != null &&
+                     TargetHelper.GetNearbyEnemyCount(currentTarget, 25, 5) >= 3)
             {
                 return SMNHelper.BaseAoE();
             }
@@ -46,8 +47,6 @@ namespace LittleNightmare.Summoner.GCD
         public void Build(Slot slot)
         {
             var spell = GetSpell();
-            if (spell == null)
-                return;
             slot.Add(spell);
         }
     }

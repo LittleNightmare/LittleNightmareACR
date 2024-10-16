@@ -58,8 +58,6 @@ namespace LittleNightmare.Summoner.Ability
         public void Build(Slot slot)
         {
             var spell = GetSpell();
-            if (spell == null)
-                return;
             slot.Add(spell);
         }
     }

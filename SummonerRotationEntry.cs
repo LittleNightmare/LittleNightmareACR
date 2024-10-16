@@ -69,7 +69,7 @@ namespace LittleNightmare
             // 龙神迸发 不死鸟迸发  死星核爆
             new SlotResolverData(new SMNAbility_DemiOffGCD(), SlotMode.OffGcd),
             // 溃烂爆发
-            new SlotResolverData(new SMNAbility_Fester(), SlotMode.OffGcd),
+            new SlotResolverData(new SMNAbility_Aether(), SlotMode.OffGcd),
             // 灼热之闪
             new SlotResolverData(new SMNAbility_SearingFlash(), SlotMode.OffGcd),
             // 苏生之炎

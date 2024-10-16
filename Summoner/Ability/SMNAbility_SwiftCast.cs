@@ -19,7 +19,8 @@ public class SMNAbility_SwiftCast : ISlotResolver
         }
 
         var skillTarget = PartyHelper.DeadAllies.FirstOrDefault(r => !r.HasAura(SMNData.Buffs.Raise));
-        if (SMNSettings.Instance.SwiftCastMode is 0 or 3 && skillTarget.IsValid())
+
+        if (SMNSettings.Instance.SwiftCastMode is 0 or 3 && skillTarget != null && skillTarget.IsValid() && skillTarget.IsTargetable)
         {
             return 0;
         }
@@ -28,7 +29,7 @@ public class SMNAbility_SwiftCast : ISlotResolver
         {
             if (Core.Me.HasAura(SMNData.Buffs.GarudasFavor))
             {
-                return 0;
+                return 1;
             }
         }
 
@@ -36,7 +37,7 @@ public class SMNAbility_SwiftCast : ISlotResolver
         {
             if (Core.Resolve<JobApi_Summoner>().ActivePetType == ActivePetType.Ifrit)
             {
-                return 0;
+                return 2;
             }
         }
 
