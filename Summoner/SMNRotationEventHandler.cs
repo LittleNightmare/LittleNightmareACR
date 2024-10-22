@@ -55,7 +55,7 @@ public class SMNRotationEventHandler : IRotationEventHandler
                 {
                     if (TTKHelper.IsTargetTTK(target))
                     {
-                        LogHelper.Debug("目标濒死，关闭爆发");
+                        LogHelper.Print("目标濒死，关闭爆发");
                         SummonerRotationEntry.QT.SetQt("爆发", false);
                         SMNBattleData.Instance.TTKTriggered = true;
                     }
@@ -64,7 +64,7 @@ public class SMNRotationEventHandler : IRotationEventHandler
                 {
                     if (TTKHelper.CheckFinalBurst(target))
                     {
-                        LogHelper.Debug("目标濒死，开启最终爆发");
+                        LogHelper.Print("目标濒死，开启最终爆发");
                         SummonerRotationEntry.QT.SetQt("最终爆发", true);
                         SMNBattleData.Instance.TTKTriggered = true;
                     }

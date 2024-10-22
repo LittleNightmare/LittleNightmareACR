@@ -52,7 +52,7 @@ namespace LittleNightmare.Summoner.GCD
             {
                 // 先冲锋再读条
                 if (SMNSettings.Instance.IfritMode == 0 
-                    || (SMNSettings.Instance.ModifyIfritMode && SMNSettings.Instance.FastPassSummon))
+                    || (SummonerRotationEntry.QT.GetQt("最终爆发") && SMNSettings.Instance.ModifyIfritMode && SMNSettings.Instance.FastPassSummon))
                 {
                     return 0;
                 }
@@ -71,7 +71,7 @@ namespace LittleNightmare.Summoner.GCD
 
                 return -2;
             }
-
+            // 到这里这里正常应该火神读条都放完了
             if (onTargetRing || SummonerRotationEntry.QT.GetQt("自动火神冲"))
             {
                 return 0;
