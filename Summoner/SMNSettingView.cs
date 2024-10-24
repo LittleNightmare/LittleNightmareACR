@@ -84,11 +84,13 @@ namespace LittleNightmare.Summoner
 
             if (ImGui.CollapsingHeader("更新日志##LittleNightmare"))
             {
-                ImGui.Text("2024-10-19" +
-                           "\n修复速卸三神下的火神冲会影响正常的问题x2" +
-                           "\n添加濒死控制下，切换QT的提示");
+                ImGui.Text("2024-10-22" +
+                           "\n移动反馈链接到AE标准位置");
                 if (ImGui.CollapsingHeader("历史更新日志##LittleNightmareHistory"))
                 {
+                    ImGui.Text("2024-10-19" +
+                               "\n修复速卸三神下的火神冲会影响正常的问题x2" +
+                               "\n添加濒死控制下，切换QT的提示");
                     ImGui.Text("2024-10-17" +
                                "\n修复速卸三神下的火神冲会影响正常的问题" +
                                "\n修复濒死检测的错误判断问题，现在应该更准确了");

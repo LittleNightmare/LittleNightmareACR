@@ -161,7 +161,6 @@ public class SMNRotationEventHandler : IRotationEventHandler
         var assembly = Assembly.GetExecutingAssembly();
         var version = assembly.GetName().Version?.ToString() ?? "Unknown version";
         LogHelper.Print("LittleNightmare召唤 当前版本: " + version);
-        LogHelper.Print("反馈问题如果找不到我，可以访问下列地址去提\nhttps://github.com/LittleNightmare/LittleNightmareACR/issues/new");
     }
 
     public void OnSpellCastSuccess(Slot slot, Spell spell)
