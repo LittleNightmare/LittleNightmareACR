@@ -142,8 +142,7 @@ namespace LittleNightmare
             foreach (var item in slot.Actions)
             {
                 var spell = item.Spell;
-                if (!spell.Id.IsReady()) return -1;
-                if (spell.CanCast() < 0) return -1;
+                if (!spell.IsReadyWithCanCast()) return -1;
                 switch (slotMode)
                 {
                     case SlotMode.Gcd:

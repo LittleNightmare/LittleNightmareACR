@@ -20,7 +20,7 @@ public class SMNAbility_Rekindle : ISlotResolver
 
     public int Check()
     {
-        if (!SMNData.Spells.Rekindle.IsReady())
+        if (!SMNData.Spells.Rekindle.GetSpell().IsReadyWithCanCast())
         {
             return -10;
         }

@@ -35,7 +35,7 @@ namespace LittleNightmare.Summoner.GCD
 
         public int Check()
         {
-            if (!GetSpell().Id.IsReady()) return -10;
+            if (!GetSpell().IsReadyWithCanCast()) return -10;
             if (Core.Resolve<MemApiMove>().IsMoving())
             {
                 return -1;

@@ -18,7 +18,7 @@ namespace LittleNightmare.Summoner.Ability
         public int Check()
         {
             var spell = GetSpell();
-            if (!spell.Id.IsReady())
+            if (!spell.IsReadyWithCanCast())
             {
                 return -10;
             }
@@ -43,7 +43,7 @@ namespace LittleNightmare.Summoner.Ability
                 if (SMNHelper.InBahamut || SMNHelper.InPhoenix || SMNHelper.InSolarBahamut)
                 {
                     // 等待使用巴哈或凤凰的能力技
-                    if (!SMNHelper.EnkindleDemi().RecentlyUsed() && SMNHelper.EnkindleDemi().Id.IsReady())
+                    if (!SMNHelper.EnkindleDemi().RecentlyUsed() && SMNHelper.EnkindleDemi().IsReadyWithCanCast())
                     {
                         return -2;
                     }

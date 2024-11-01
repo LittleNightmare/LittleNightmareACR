@@ -15,12 +15,12 @@ public class SMNAbility_DemiOffGCD : ISlotResolver
     public Spell GetSpell()
     {
         var targetAction = SMNHelper.EnkindleDemi();
-        if (!SMNHelper.EnkindleDemi().Id.IsReady() && SMNHelper.InBahamut)
+        if (!SMNHelper.EnkindleDemi().IsReadyWithCanCast() && SMNHelper.InBahamut)
         {
             targetAction = SMNData.Spells.Deathflare.GetSpell();
         }
 
-        if (!SMNHelper.EnkindleDemi().Id.IsReady() && SMNHelper.InSolarBahamut)
+        if (!SMNHelper.EnkindleDemi().IsReadyWithCanCast() && SMNHelper.InSolarBahamut)
         {
             targetAction = SMNData.Spells.Sunflare.GetSpell();
         }
@@ -35,7 +35,7 @@ public class SMNAbility_DemiOffGCD : ISlotResolver
 
     public int Check()
     {
-        if (!GetSpell().Id.IsReady())
+        if (!GetSpell().IsReadyWithCanCast())
         {
             return -10;
         }

@@ -46,8 +46,8 @@ namespace LittleNightmare.Summoner.GCD
                 return -12;
             }
             // 不能用GetSpell，一个个对比下
-            if (!SMNHelper.Titan().Id.IsReady() && !SMNHelper.Ifrit().Id.IsReady() &&
-                !SMNHelper.Garuda().Id.IsReady()) return -11;
+            if (!SMNHelper.Titan().IsReadyWithCanCast() && !SMNHelper.Ifrit().IsReadyWithCanCast() &&
+                !SMNHelper.Garuda().IsReadyWithCanCast()) return -11;
             if (!Core.Resolve<JobApi_Summoner>().HasPet)
             {
                 return -10;

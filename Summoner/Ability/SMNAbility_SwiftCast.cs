@@ -13,7 +13,7 @@ public class SMNAbility_SwiftCast : ISlotResolver
 
     public int Check()
     {
-        if (!SpellsDefine.Swiftcast.IsReady())
+        if (!SpellsDefine.Swiftcast.GetSpell().IsReadyWithCanCast())
         {
             return -10;
         }

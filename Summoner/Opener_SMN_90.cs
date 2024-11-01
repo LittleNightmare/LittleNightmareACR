@@ -28,12 +28,12 @@ namespace LittleNightmare.Summoner
                 return -8;
             }
 
-            if (!SMNData.Spells.SummonBahamut.IsReady())
+            if (!SMNData.Spells.SummonBahamut.GetSpell().IsReadyWithCanCast())
             {
                 return -7;
             }
 
-            if (!SMNData.Spells.SearingLight.IsReady())
+            if (!SMNData.Spells.SearingLight.GetSpell().IsReadyWithCanCast())
             {
                 return -6;
             }

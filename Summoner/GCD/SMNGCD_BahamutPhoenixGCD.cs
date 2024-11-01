@@ -50,7 +50,7 @@ namespace LittleNightmare.Summoner.GCD
 
         public int Check()
         {
-            if (!GetSpell().Id.IsReady())
+            if (!GetSpell().IsReadyWithCanCast())
             {
                 return -10;
             }

@@ -22,7 +22,7 @@ public class SMNAbility_MountainBuster : ISlotResolver
 
     public int Check()
     {
-        if (!SMNData.Spells.MountainBuster.IsReady())
+        if (!SMNData.Spells.MountainBuster.GetSpell().IsReadyWithCanCast())
         {
             return -10;
         }

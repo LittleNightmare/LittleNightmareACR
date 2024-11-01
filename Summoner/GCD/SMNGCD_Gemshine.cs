@@ -43,7 +43,7 @@ namespace LittleNightmare.Summoner.GCD
             }
 
             // 宝石耀和宝石辉应该状态是相同的，就不单独判断了
-            if (!GetSpell().Id.IsReady()) return -10;
+            if (!GetSpell().IsReadyWithCanCast()) return -10;
             if (Core.Resolve<JobApi_Summoner>().AttunementAdjust <= 0) return -8;
 
             // var isEnableCustom = SMNBattleData.Instance.CustomSummon.Count > 0;

@@ -26,7 +26,7 @@ namespace LittleNightmare.Summoner.GCD
                 return -11;
             }
 
-            if (!spell.Id.IsReady())
+            if (!spell.IsReadyWithCanCast())
             {
                 return -10;
             }

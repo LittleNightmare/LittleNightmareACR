@@ -31,7 +31,7 @@ namespace LittleNightmare.Summoner.GCD
             var skillTarget = PartyHelper.DeadAllies.FirstOrDefault(r => !r.HasAura(SMNData.Buffs.Raise));
             if (skillTarget != null && skillTarget.IsValid() && skillTarget.IsTargetable)
             {
-                return 0;
+                if (new Spell(SMNData.Spells.Resurrection, skillTarget).IsReadyWithCanCast()) return 0;
             }
 
             return -1;

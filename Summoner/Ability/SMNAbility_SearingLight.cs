@@ -13,7 +13,7 @@ public class SMNAbility_SearingLight : ISlotResolver
 
     public int Check()
     {
-        if (!SMNData.Spells.SearingLight.IsReady())
+        if (!SMNData.Spells.SearingLight.GetSpell().IsReadyWithCanCast())
         {
             return -10;
         }

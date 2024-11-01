@@ -12,7 +12,7 @@ public class SMNAbility_LucidDreaming : ISlotResolver
 
     public int Check()
     {
-        if (!SpellsDefine.LucidDreaming.IsReady())
+        if (!SpellsDefine.LucidDreaming.GetSpell().IsReadyWithCanCast())
         {
             return -10;
         }

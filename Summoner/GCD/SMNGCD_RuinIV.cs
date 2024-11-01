@@ -24,7 +24,7 @@ namespace LittleNightmare.Summoner.GCD
 
         public int Check()
         {
-            if (!SMNData.Spells.Ruin4.IsReady())
+            if (!SMNData.Spells.Ruin4.GetSpell().IsReadyWithCanCast())
             {
                 return -10;
             }

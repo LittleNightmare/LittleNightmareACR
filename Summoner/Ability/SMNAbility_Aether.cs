@@ -45,7 +45,7 @@ public class SMNAbility_Aether : ISlotResolver
             return -11;
         }
 
-        if (!spell.Id.IsReady())
+        if (!spell.IsReadyWithCanCast())
         {
             return -10;
         }
@@ -84,7 +84,7 @@ public class SMNAbility_Aether : ISlotResolver
         // TODO: 这里干啥的。。。
         if (!SMNHelper.InBahamut && !SMNHelper.InPhoenix && !SMNHelper.InSolarBahamut) return 4;
         // 等待使用巴哈或凤凰的能力技，有设计等待时间
-        if (!SMNHelper.EnkindleDemi().RecentlyUsed() && SMNHelper.EnkindleDemi().Id.IsReady())
+        if (!SMNHelper.EnkindleDemi().RecentlyUsed() && SMNHelper.EnkindleDemi().IsReadyWithCanCast())
         {
             return -2;
         }
