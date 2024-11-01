@@ -9,16 +9,9 @@ namespace LittleNightmare.Summoner.GCD
 {
     public class SMNGCD_BahamutPhoenix : ISlotResolver
     {
-        public Spell? GetSpell()
+        public Spell GetSpell()
         {
-            if (Core.Resolve<JobApi_Summoner>().IsPetReady(ActivePetType.Bahamut)
-                || Core.Resolve<JobApi_Summoner>().IsPetReady(ActivePetType.Phoneix)
-                || Core.Resolve<JobApi_Summoner>().IsPetReady(ActivePetType.SolarBahamut))
-            {
-                return SMNHelper.BahamutPhoneix();
-            }
-
-            return null;
+            return SMNHelper.BahamutPhoneix();
         }
 
         public SlotMode SlotMode { get; } = SlotMode.Gcd;
@@ -26,7 +19,9 @@ namespace LittleNightmare.Summoner.GCD
         public int Check()
         {
             var spell = GetSpell();
-            if (spell == null)
+            if (!(Core.Resolve<JobApi_Summoner>().IsPetReady(ActivePetType.Bahamut)
+                 || Core.Resolve<JobApi_Summoner>().IsPetReady(ActivePetType.Phoneix)
+                 || Core.Resolve<JobApi_Summoner>().IsPetReady(ActivePetType.SolarBahamut)))
             {
                 return -11;
             }
@@ -62,8 +57,6 @@ namespace LittleNightmare.Summoner.GCD
         public void Build(Slot slot)
         {
             var spell = GetSpell();
-            if (spell == null)
-                return;
             slot.Add(spell);
         }
     }

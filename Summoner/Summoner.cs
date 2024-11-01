@@ -216,6 +216,8 @@ namespace LittleNightmare.Summoner
             }
 #if DEBUG
             ImGui.Text($"Duty相关");
+            ImGui.Text($"IsLastDutyTaskAE：{LNMHelper.IsLastDutyTaskAE()}");
+            ImGui.Text($"IsLastDutyTask：{LNMHelper.IsLastDutyTask()}");
             if (Core.Resolve<MemApiDuty>().GetSchedule() != null)
             {
                 ImGui.Text($"AENowPoint: {Core.Resolve<MemApiDuty>().GetSchedule()?.NowPoint}");
@@ -239,7 +241,6 @@ namespace LittleNightmare.Summoner
             ImGui.Text($"TTK相关");
             ImGui.Text($"最终BOSS：{SMNBattleData.Instance.FinalBoss}");
             ImGui.Text($"TTKTriggered：{SMNBattleData.Instance.TTKTriggered}");
-            ImGui.Text($"IsLastTaskAE：{LNMHelper.IsLastTaskAE()}");
             ImGui.Text($"IsLastTask：{LNMHelper.IsLastTask()}");
             if (Core.Me.GetCurrTarget() != null)
                 ImGui.Text($"IsBOSS: {Core.Me.GetCurrTarget().IsBoss()}");

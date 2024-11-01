@@ -139,8 +139,8 @@ public class SMNRotationEventHandler : IRotationEventHandler
         {
             SMNBattleData.Instance.CustomSummon.Clear();
         }
-
-        if (LNMHelper.IsLastTaskAE())
+        // TODO: 要确认是最后一个BOSS，这里只能判断到最后一个任务，有时候，有各种奇葩的BOSS，二段变身，死而复生，打核心巴拉巴拉的
+        if (LNMHelper.IsLastTask())
         {
             SMNBattleData.Instance.FinalBoss = true;
         }

@@ -68,7 +68,6 @@ namespace LittleNightmare.Summoner.GCD
                 || Core.Resolve<JobApi_Summoner>().IsPetReady(ActivePetType.Garuda))
             {
                 // 在开启三神召唤后，并且如果启用了最终爆发，那么就疯狂召唤三神，中间不管三神带来的技能，中间这些技能没有哪个单独威力高过召唤三神本身的
-                // TODO：基于TTK，确定高威力技能都能打出去
                 if (SummonerRotationEntry.QT.GetQt("最终爆发") && SMNSettings.Instance.FastPassSummon)
                 {
                     return 1;
@@ -78,6 +77,7 @@ namespace LittleNightmare.Summoner.GCD
                     return -2;
                 }
                 //TODO: 检查三神召唤后，是否会延后巴哈/凤凰的召唤
+
 
                 if (Core.Resolve<JobApi_Summoner>().AttunementAdjust > 0)
                 {
