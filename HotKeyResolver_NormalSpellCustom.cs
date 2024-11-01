@@ -55,6 +55,14 @@ namespace LittleNightmare
 
         public void Run() => _resolver.Run();
 
-        public int Check() => _resolver.Check();
+        public int Check()
+        {
+            Spell spell = this.SpellId.GetSpell();
+            if (!spell.IsAbility() && !spell.IsReadyWithCanCast())
+            {
+                return -2;
+            }
+            return _resolver.Check();
+        }
     }
 }

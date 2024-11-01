@@ -143,6 +143,7 @@ namespace LittleNightmare
             {
                 var spell = item.Spell;
                 if (!spell.IsReadyWithCanCast()) return -1;
+                if (!spell.CanCast()) return -2;
                 switch (slotMode)
                 {
                     case SlotMode.Gcd:
@@ -151,28 +152,28 @@ namespace LittleNightmare
                         {
                             if (Core.Resolve<MemApiMove>().IsMoving() && !Core.Me.HasAura(SMNData.Buffs.Swiftcast))
                             {
-                                return -1;
+                                return -3;
                             }
                         }
 
                         if (spell.Id != SMNData.Spells.Ruin4) return 0;
                         if (!Core.Me.HasAura(SMNData.Buffs.FurtherRuin))
                         {
-                            return -1;
+                            return -4;
                         }
 
                         break;
                     case SlotMode.OffGcd:
                         if (spell.Charges < 1)
                         {
-                            return -1;
+                            return -5;
                         }
 
                         if (spell != SMNData.Spells.RadiantAegis.GetSpell()) return 0;
                         if (Core.Resolve<JobApi_Summoner>().SummonTimerRemaining != 0 &&
                             (SMNHelper.InBahamut || SMNHelper.InPhoenix || SMNHelper.InSolarBahamut))
                         {
-                            return -1;
+                            return -6;
                         }
 
                         break;
