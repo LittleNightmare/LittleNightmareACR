@@ -57,11 +57,11 @@ namespace LittleNightmare
 
         public int Check()
         {
-            Spell spell = this.SpellId.GetSpell();
-            if (!spell.IsAbility() && !spell.IsReadyWithCanCast())
+            if (!_customCondition())
             {
                 return -2;
             }
+
             return _resolver.Check();
         }
     }

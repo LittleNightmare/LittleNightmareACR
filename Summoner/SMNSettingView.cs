@@ -95,23 +95,27 @@ namespace LittleNightmare.Summoner
                 ImGui.SetNextItemWidth(200);
                 ImGui.Text("宝石耀: 关闭时不会自动使用三神的GCD，不开启爆发qt也不会用");
                 ImGui.SetNextItemWidth(200);
-                ImGui.Text("自动火神冲: 火神冲会遵循火神模式设置，关闭时只有在目标圈上会用火神冲。开启后，会在不移动时使用火神冲");
+                ImGui.Text("自动火神冲: 火神冲会遵循火神模式设置，关闭时只有在目标圈上会用火神冲。开启后，保留之前的不变，会在目标圈外不移动时使用火神冲");
                 ImGui.Unindent();
             }
             ImGui.Spacing();
             if (ImGui.CollapsingHeader("更新日志##LittleNightmare"))
             {
                 ImGui.Indent();
-                ImGui.Text("2024-11-01" +
-                           "\n更准确的判断最后一个boss，现在24人本的濒死判断（TTK）应该会正常工作" +
-                           "\n更新api，解决高优先级能力技的问题" +
-                           "\n现在火神冲Hotkey不会在没好的时候进入优先级队列" +
-                           "\n现在aoe类型的豆子技能也会进入阻止双插的检测了" +
-                           "\n优化文本，更精准的描述");
+                ImGui.Text("2024-11-02" +
+                           "\n修复火神冲hotkey需要激情连点的问题，现在火神冲会在亮起时加入队列" +
+                           "\n如果需要想要提前选定火神施法行为，可以使用位于qt面板的`火神施法模式`" +
+                           "\n将`自动火神冲`解释的更清晰点");
                 ImGui.Indent();
                 if (ImGui.CollapsingHeader("历史更新日志##LittleNightmareHistory"))
                 {
                     ImGui.Indent();
+                    ImGui.Text("2024-11-01" +
+                               "\n更准确的判断最后一个boss，现在24人本的濒死判断（TTK）应该会正常工作" +
+                               "\n更新api，解决高优先级能力技的问题" +
+                               "\n现在火神冲Hotkey不会在没好的时候进入优先级队列" +
+                               "\n现在aoe类型的豆子技能也会进入阻止双插的检测了" +
+                               "\n优化文本，更精准的描述");
                     ImGui.Text("2024-10-22" +
                                "\n移动反馈链接到AE标准位置");
                     ImGui.Text("2024-10-19" +
