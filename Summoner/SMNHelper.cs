@@ -69,5 +69,7 @@ namespace LittleNightmare.Summoner
 
         public static bool InSolarBahamut =>
             Core.Resolve<JobApi_Summoner>().ActivePetType == ActivePetType.SolarBahamut;
+
+        public static bool InAnyDemi => InBahamut || InPhoenix || InSolarBahamut;
     }
 }

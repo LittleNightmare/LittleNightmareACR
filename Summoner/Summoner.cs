@@ -36,7 +36,7 @@ namespace LittleNightmare.Summoner
             AddTab("调试", DrawDebugView);
 
 
-            AddQt("爆发", true);
+            AddQt("爆发", true, "关闭时不会使用巴哈凤凰和灼热之光");
             AddQt("爆发药", SMNSettings.Instance.qt自动爆发药);
             AddQt("AOE", true);
             AddQt("最终爆发", false);
@@ -147,6 +147,8 @@ namespace LittleNightmare.Summoner
                 ImGui.Indent();
                 ImGui.Checkbox("调整火神施法模式", ref SMNSettings.Instance.ModifyIfritMode);
                 ImGuiHelper.SetHoverTooltip("强制将火神施法模式视为：先冲锋再读条");
+                ImGui.Checkbox("无视龙神CD", ref SMNSettings.Instance.IngoreBahamutCDDuringFassPassSummon);
+                ImGuiHelper.SetHoverTooltip("在速卸三神召唤时，忽略巴哈的CD\n即，可能会导致延后巴哈凤凰这些亚灵神");
                 ImGui.Unindent();
             }
 

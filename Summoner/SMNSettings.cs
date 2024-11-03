@@ -112,5 +112,9 @@ namespace LittleNightmare.Summoner
         /// 调整火神施法模式
         /// </summary>
         public bool ModifyIfritMode = false;
+        /// <summary>
+        /// 在速卸三神召唤时，忽略巴哈的CD
+        /// </summary>
+        internal bool IngoreBahamutCDDuringFassPassSummon = false;
     }
 }

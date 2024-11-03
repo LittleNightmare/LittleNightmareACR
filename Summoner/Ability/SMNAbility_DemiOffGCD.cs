@@ -40,7 +40,7 @@ public class SMNAbility_DemiOffGCD : ISlotResolver
             return -10;
         }
 
-        if (!(SMNHelper.InBahamut || SMNHelper.InPhoenix || SMNHelper.InSolarBahamut))
+        if (!SMNHelper.InAnyDemi)
         {
             return -9;
         }

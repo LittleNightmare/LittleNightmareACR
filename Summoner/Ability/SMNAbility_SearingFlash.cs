@@ -40,7 +40,7 @@ namespace LittleNightmare.Summoner.Ability
 
             if (Core.Me.HasAura(AurasDefine.SearingLight))
             {
-                if (SMNHelper.InBahamut || SMNHelper.InPhoenix || SMNHelper.InSolarBahamut)
+                if (SMNHelper.InAnyDemi)
                 {
                     // 等待使用巴哈或凤凰的能力技
                     if (!SMNHelper.EnkindleDemi().RecentlyUsed() && SMNHelper.EnkindleDemi().IsReadyWithCanCast())

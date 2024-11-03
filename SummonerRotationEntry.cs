@@ -171,7 +171,7 @@ namespace LittleNightmare
 
                         if (spell != SMNData.Spells.RadiantAegis.GetSpell()) return 0;
                         if (Core.Resolve<JobApi_Summoner>().SummonTimerRemaining != 0 &&
-                            (SMNHelper.InBahamut || SMNHelper.InPhoenix || SMNHelper.InSolarBahamut))
+                            SMNHelper.InAnyDemi)
                         {
                             return -6;
                         }

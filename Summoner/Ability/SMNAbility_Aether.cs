@@ -82,8 +82,8 @@ public class SMNAbility_Aether : ISlotResolver
         {
             return 3;
         }
-        // 如果不是巴哈或凤凰状态，那么就直接用（在灼热之光持续时间内）TODO：这里考虑判断一下是否马上就要用巴哈或凤凰
-        if (!SMNHelper.InBahamut && !SMNHelper.InPhoenix && !SMNHelper.InSolarBahamut) return 4;
+        // 如果不是巴哈或凤凰状态，那么就直接用（在灼热之光持续时间内)
+        if (!SMNHelper.InAnyDemi || SMNHelper.BahamutPhoneix().Id.CoolDownInGCDs(2)) return 4;
         // 等待使用巴哈或凤凰的能力技，有设计等待时间
         if (!SMNHelper.EnkindleDemi().RecentlyUsed() && SMNHelper.EnkindleDemi().IsReadyWithCanCast())
         {
