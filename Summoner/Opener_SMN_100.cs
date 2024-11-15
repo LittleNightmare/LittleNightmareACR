@@ -37,8 +37,7 @@ namespace LittleNightmare.Summoner
             {
                 return -6;
             }
-
-            if (AI.Instance.BattleData.CurrBattleTimeInMs > 5)
+            if (AI.Instance.BattleData.CurrBattleTimeInMs > 5000)
             {
                 return -5;
             }
@@ -66,6 +65,7 @@ namespace LittleNightmare.Summoner
 
         private static void Step0(Slot slot)
         {
+            LogHelper.Print("进入TheBalance起手");
             slot.Add(new Spell(SMNData.Spells.SummonSolarBahamut, SpellTargetType.Target));
             if (SummonerRotationEntry.QT.GetQt("爆发药"))
             {

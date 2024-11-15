@@ -102,14 +102,17 @@ namespace LittleNightmare.Summoner
             if (ImGui.CollapsingHeader("更新日志##LittleNightmare"))
             {
                 ImGui.Indent();
-                ImGui.Text("2024-11-03" +
-                           "\n三神现在不会在巴哈凤凰CD快结束时召唤" +
-                           "\n最终爆发速卸三神添加可选 无视龙神CD");
+                ImGui.Text("2024-11-15" +
+                           "\n放宽起手判断到5s，可以更好的兼容一些抢开情况" +
+                           "\n起手添加聊天栏提示");
                 ImGui.Indent();
                 if (ImGui.CollapsingHeader("历史更新日志##LittleNightmareHistory"))
                 {
                     ImGui.Indent();
 
+                    ImGui.Text("2024-11-03" +
+                               "\n三神现在不会在巴哈凤凰CD快结束时召唤" +
+                               "\n最终爆发速卸三神添加可选 无视龙神CD");
                     ImGui.Text("2024-11-02" +
                                "\n修复火神冲hotkey需要激情连点的问题，现在火神冲会在亮起时加入队列" +
                                "\n如果需要想要提前选定火神施法行为，可以使用位于qt面板的`火神施法模式`" +
