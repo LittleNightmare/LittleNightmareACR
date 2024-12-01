@@ -10,8 +10,8 @@ namespace LittleNightmare.Summoner.Triggers
 
         public string Remark { get; set; }
 
-        private int _selectedIndex = 0; // 当前选中的设置项索引
-        private bool _currentValue = false; // 当前选中的设置项的值
+        public int SelectedIndex = 0; // 当前选中的设置项索引
+        public bool CurrentValue = false; // 当前选中的设置项的值
 
         private string[] _settingNames = new string[]
         {
@@ -30,11 +30,11 @@ namespace LittleNightmare.Summoner.Triggers
             ImGui.Text("将");
             ImGui.SameLine();
             // 下拉列表用于选择设置项
-            ImGui.Combo("设置状态为：", ref _selectedIndex, _settingNames, _settingNames.Length);
+            ImGui.Combo("设置状态为：", ref SelectedIndex, _settingNames, _settingNames.Length);
             ImGui.SameLine();
             // 复选框用于设置选定设置项的值
-            ImGui.Checkbox(_currentValue ? "开启" : "关闭", ref _currentValue);
-            var currentStatus = GetSettingValue(_settingNames[_selectedIndex]) ? "开启" : "关闭";
+            ImGui.Checkbox(CurrentValue ? "开启" : "关闭", ref CurrentValue);
+            var currentStatus = GetSettingValue(_settingNames[SelectedIndex]) ? "开启" : "关闭";
             ImGui.Text($"当前状态：{currentStatus}");
 
             return true;
@@ -42,7 +42,7 @@ namespace LittleNightmare.Summoner.Triggers
 
         public bool Handle()
         {
-            SetSettingValue(_settingNames[_selectedIndex], _currentValue);
+            SetSettingValue(_settingNames[SelectedIndex], CurrentValue);
             return true;
         }
 
