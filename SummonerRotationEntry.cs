@@ -78,6 +78,10 @@ namespace LittleNightmare
             new SlotResolverData(new SMNAbility_MountainBuster(), SlotMode.OffGcd),
             // 醒梦
             new SlotResolverData(new SMNAbility_LucidDreaming(), SlotMode.OffGcd),
+            
+            // 下面是自动减伤，目前考虑高难先不加，检测当前高难自动关闭
+            // TODO 准备一个变量，只能通过时间轴控制，用来在高难中开启减伤
+            new SlotResolverData(new SMNAbility_Addle(), SlotMode.OffGcd),
         };
 
         public Rotation Build(string settingFolder)

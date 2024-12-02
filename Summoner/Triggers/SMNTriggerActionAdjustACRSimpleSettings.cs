@@ -21,7 +21,8 @@ namespace LittleNightmare.Summoner.Triggers
             "阻止双插溃烂爆发",
             "智能AOE目标",
             "最终爆发时速卸三神",
-            "调整火神施法模式"
+            "调整火神施法模式",
+            "自动减伤"
         };
 
 
@@ -72,6 +73,9 @@ namespace LittleNightmare.Summoner.Triggers
                 case "调整火神施法模式":
                     SMNSettings.Instance.ModifyIfritMode = value;
                     break;
+                case "自动减伤":
+                    SMNSettings.Instance.AutoReduceDamage = value;
+                    break;
                 default:
                     throw new ArgumentException("Invalid setting name");
             }
@@ -95,6 +99,8 @@ namespace LittleNightmare.Summoner.Triggers
                     return SMNSettings.Instance.FastPassSummon;
                 case "调整火神施法模式":
                     return SMNSettings.Instance.ModifyIfritMode;
+                case "自动减伤":
+                    return SMNSettings.Instance.AutoReduceDamage;
                 default:
                     throw new ArgumentException("Invalid setting name");
             }

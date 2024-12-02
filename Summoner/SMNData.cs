@@ -120,6 +120,7 @@ public class SMNData
             RubysGlimmer = 3873,
             RefulgentLux = 3874,
             Raise = 148,
-            Swiftcast = 167;
+            Swiftcast = 167,
+            Addle = 1203;
     }
 }

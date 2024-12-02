@@ -115,6 +115,10 @@ namespace LittleNightmare.Summoner
         /// <summary>
         /// 在速卸三神召唤时，忽略巴哈的CD
         /// </summary>
-        internal bool IngoreBahamutCDDuringFassPassSummon = false;
+        public bool IngoreBahamutCDDuringFassPassSummon = false;
+        /// <summary>
+        /// 在非当前高难本中，自动开启减伤，目前只有昏乱
+        /// </summary>
+        public bool AutoReduceDamage = false;
     }
 }

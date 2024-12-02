@@ -30,6 +30,9 @@ namespace LittleNightmare.Summoner
             ImGuiHelper.ToggleButton("濒死检测", ref SMNSettings.Instance.TTKControl);
             ImGuiHelper.SetHoverTooltip("濒死检测会在你的目标濒死时，自动关闭爆发qt，以免浪费相关技能\n推荐日随使用，高难本请自行判断是否启用");
 
+            ImGuiHelper.ToggleButton("自动减伤", ref SMNSettings.Instance.AutoReduceDamage);
+            ImGuiHelper.SetHoverTooltip("在非当前高难本中，自动开启减伤，目前只有昏乱");
+
             ImGuiHelper.DrawEnum("起手选择: ", ref SMNSettings.Instance.SelectedOpener);
             ImGuiHelper.SetHoverTooltip("TheBalance: 是用TheBalance的通用起手\nTheBalance90: 是用TheBalance的90级起手");
 
@@ -52,6 +55,7 @@ namespace LittleNightmare.Summoner
                 ImGui.Text("1. 豆子不打：设定是即使卡能量吸收也会等到开启灼热之光再打");
                 ImGui.Text("2. 在目标圈里不放火神冲：在目标圈内移动中释放，需要开启面板的`目标圈内移动时使用火神冲`");
                 ImGui.Text("3. 在目标圈外不放火神冲：需求启动`自动火神冲`，并不在移动");
+                ImGui.Text("4. 关闭`爆发`后，不打三神：待修复，这个原因是为了防止龙神延后，目前还没找到比较好的解决方案。建议先手动打一下");
                 ImGui.Unindent();
             }
                 
@@ -102,14 +106,18 @@ namespace LittleNightmare.Summoner
             if (ImGui.CollapsingHeader("更新日志##LittleNightmare"))
             {
                 ImGui.Indent();
-                ImGui.Text("2024-11-15" +
-                           "\n放宽起手判断到5s，可以更好的兼容一些抢开情况" +
-                           "\n起手添加聊天栏提示");
+                ImGui.Text("2024-12-02" +
+                           "\n添加自动减伤，目前只有昏乱，只能用在非当前高难" +
+                           "\n添加TTK控制到QT面板，方便控制");
                 ImGui.Indent();
                 if (ImGui.CollapsingHeader("历史更新日志##LittleNightmareHistory"))
                 {
                     ImGui.Indent();
-
+                    ImGui.Text("2024-12-01" +
+                               "\n修复`修改ACR简单设置`在时间轴里不保存的问题");
+                    ImGui.Text("2024-11-15" +
+                               "\n放宽起手判断到5s，可以更好的兼容一些抢开情况" +
+                               "\n起手添加聊天栏提示");
                     ImGui.Text("2024-11-03" +
                                "\n三神现在不会在巴哈凤凰CD快结束时召唤" +
                                "\n最终爆发速卸三神添加可选 无视龙神CD");
