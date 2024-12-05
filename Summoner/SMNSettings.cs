@@ -113,12 +113,16 @@ namespace LittleNightmare.Summoner
         /// </summary>
         public bool ModifyIfritMode = false;
         /// <summary>
-        /// 在速卸三神召唤时，忽略巴哈的CD
+        /// 在速卸三神召唤时，忽略巴哈的CD，只会在PreventSummonBeforeBahamut启用时生效
         /// </summary>
         public bool IngoreBahamutCDDuringFassPassSummon = false;
         /// <summary>
         /// 在非当前高难本中，自动开启减伤，目前只有昏乱
         /// </summary>
         public bool AutoReduceDamage = false;
+        /// <summary>
+        /// 召唤三神会影响亚灵神的释放时，不会召唤三神
+        /// </summary>
+        public bool PreventSummonBeforeBahamut  = false;
     }
 }

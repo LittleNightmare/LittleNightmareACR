@@ -71,5 +71,15 @@ namespace LittleNightmare.Summoner
             Core.Resolve<JobApi_Summoner>().ActivePetType == ActivePetType.SolarBahamut;
 
         public static bool InAnyDemi => InBahamut || InPhoenix || InSolarBahamut;
+
+        /// <summary>
+        /// 检查是否亚灵神快好了
+        /// </summary>
+        /// <param name="numberOfCoolDownInGCDs">在numberOfCoolDownInGCDs个GCD内转好</param>
+        /// <returns></returns>
+        public static bool DemiCoolDownAlmostOver(int numberOfCoolDownInGCDs = 3)
+        {
+            return SMNHelper.BahamutPhoneix().Id.CoolDownInGCDs(numberOfCoolDownInGCDs);
+        }
     }
 }

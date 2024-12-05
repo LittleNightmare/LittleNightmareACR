@@ -15,6 +15,10 @@ namespace LittleNightmare.Summoner
             ImGuiHelper.ToggleButton("自动爆发药", ref SMNSettings.Instance.qt自动爆发药);
             ImGuiHelper.ToggleButton("阻止双插以太豆子技", ref SMNSettings.Instance.PreventDoubleFester);
             ImGuiHelper.SetHoverTooltip("阻止一个能力技窗口内，双插溃烂爆发或坏死爆发，还有他们的对应AOE技能");
+            ImGuiHelper.ToggleButton("阻止亚灵神前召唤三神", ref SMNSettings.Instance.PreventSummonBeforeBahamut);
+            ImGuiHelper.SetHoverTooltip("开启后召唤三神会影响亚灵神的释放时，不会召唤三神。主要用于防止循环因为召唤三神错位。" +
+                                        "\n日随中开启应该没问题" +
+                                        "\n高难时建议时间轴作者自行决定");
 
             ImGui.Text("醒梦阈值: ");
             ImGui.SameLine();
@@ -106,13 +110,16 @@ namespace LittleNightmare.Summoner
             if (ImGui.CollapsingHeader("更新日志##LittleNightmare"))
             {
                 ImGui.Indent();
-                ImGui.Text("2024-12-02" +
-                           "\n添加自动减伤，目前只有昏乱，只能用在非当前高难" +
-                           "\n添加TTK控制到QT面板，方便控制");
+                ImGui.Text("2024-12-05" +
+                           "\n在默认状态下，恢复以前的逻辑" +
+                           "\n新增选择`阻止亚灵神前召唤三神`，开启后召唤三神会影响亚灵神的释放时，不会召唤三神");
                 ImGui.Indent();
                 if (ImGui.CollapsingHeader("历史更新日志##LittleNightmareHistory"))
                 {
                     ImGui.Indent();
+                    ImGui.Text("2024-12-02" +
+                               "\n添加自动减伤，目前只有昏乱，只能用在非当前高难" +
+                               "\n添加TTK控制到QT面板，方便控制");
                     ImGui.Text("2024-12-01" +
                                "\n修复`修改ACR简单设置`在时间轴里不保存的问题");
                     ImGui.Text("2024-11-15" +

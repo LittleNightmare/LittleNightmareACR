@@ -145,6 +145,12 @@ namespace LittleNightmare.Summoner
             ImGuiHelper.SetHoverTooltip("移动时，如果在目标圈上，使用火神冲\n不然尝试其他的技能，比如毁4");
             ImGui.Checkbox("优先毁三填充最后GCD窗口", ref SMNSettings.Instance.UseRuinIIIFirst);
             ImGuiHelper.SetHoverTooltip("在GCD填充时，如果不移动，能量吸收还没马上好，优先毁3填充，再是毁4");
+
+            ImGui.Checkbox("阻止亚灵神前召唤三神", ref SMNSettings.Instance.PreventSummonBeforeBahamut);
+            ImGuiHelper.SetHoverTooltip("开启后召唤三神会影响亚灵神的释放时，不会召唤三神。主要用于防止循环因为召唤三神错位。" +
+                                        "\n日随中开启应该没问题" +
+                                        "\n高难时建议时间轴作者自行决定");
+
             ImGui.Checkbox("最终爆发时速卸三神", ref SMNSettings.Instance.FastPassSummon);
             ImGuiHelper.SetHoverTooltip("在最终爆发时，除了描述的行为外，同时速卸三神\n就是尽可能优先召唤三神，即使宝石技能没打完");
             if (SMNSettings.Instance.FastPassSummon)
@@ -153,8 +159,12 @@ namespace LittleNightmare.Summoner
                 ImGui.Indent();
                 ImGui.Checkbox("调整火神施法模式", ref SMNSettings.Instance.ModifyIfritMode);
                 ImGuiHelper.SetHoverTooltip("强制将火神施法模式视为：先冲锋再读条");
+                ImGui.BeginDisabled(!SMNSettings.Instance.PreventSummonBeforeBahamut);
                 ImGui.Checkbox("无视龙神CD", ref SMNSettings.Instance.IngoreBahamutCDDuringFassPassSummon);
-                ImGuiHelper.SetHoverTooltip("在速卸三神召唤时，忽略巴哈的CD\n即，可能会导致延后巴哈凤凰这些亚灵神");
+                ImGui.EndDisabled();
+                ImGuiHelper.SetHoverTooltip("只是为了调整，开启`阻止亚灵神前召唤三神`时最终爆发的逻辑" +
+                                            "\n在速卸三神召唤时，忽略巴哈的CD" +
+                                            "\n即，可能会导致延后巴哈凤凰这些亚灵神");
                 ImGui.Unindent();
             }
 

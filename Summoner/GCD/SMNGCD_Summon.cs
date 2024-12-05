@@ -71,12 +71,12 @@ namespace LittleNightmare.Summoner.GCD
                 if (SummonerRotationEntry.QT.GetQt("最终爆发") && SMNSettings.Instance.FastPassSummon)
                 {
                     if (!SMNSettings.Instance.IngoreBahamutCDDuringFassPassSummon
-                        && SMNHelper.BahamutPhoneix().Id.CoolDownInGCDs(3))
+                        && (SMNSettings.Instance.PreventSummonBeforeBahamut && SMNHelper.DemiCoolDownAlmostOver()))
                         return -3;
                     return 1;
                 }
-
-                if (SMNHelper.BahamutPhoneix().Id.CoolDownInGCDs(3))
+                // 如果三神召唤后，会影响亚灵神的释放，那么就不召唤三神
+                if (SMNSettings.Instance.PreventSummonBeforeBahamut && SMNHelper.DemiCoolDownAlmostOver())
                 {
                     return -4;
                 }
