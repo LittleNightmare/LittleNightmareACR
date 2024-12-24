@@ -53,7 +53,7 @@ namespace LittleNightmare.Summoner
         {
             TheBalance,
 
-            //FastEnergyDrain,
+            FastEnergyDrain,
             TheBalance90,
         }
 

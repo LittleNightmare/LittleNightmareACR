@@ -126,7 +126,7 @@ namespace LittleNightmare
 
         private IOpener theBalanceOpener90 = new OpenerSMN90();
         private IOpener theBalanceOpener = new OpenerSMN100();
-        //private IOpener FastEnergyDrainOpener = new OpenerSMN90FastEnergyDrain();
+        private IOpener FastEnergyDrainOpener = new OpenerSMN90FastEnergyDrain();
 
         IOpener? GetOpener(uint level)
         {
@@ -134,7 +134,7 @@ namespace LittleNightmare
             return SMNSettings.Instance.SelectedOpener switch
             {
                 SMNSettings.OpenerType.TheBalance => theBalanceOpener,
-                //SMNSettings.OpenerType.FastEnergyDrain => FastEnergyDrainOpener,
+                SMNSettings.OpenerType.FastEnergyDrain => FastEnergyDrainOpener,
                 SMNSettings.OpenerType.TheBalance90 => theBalanceOpener90,
                 _ => null,
             };

@@ -13,7 +13,8 @@ namespace LittleNightmare.Summoner
     {
         public int StartCheck()
         {
-            if (PartyHelper.Party.Count <= 4 && !Core.Me.GetCurrTarget().IsDummy())
+            var currentTarget = Core.Me.GetCurrTarget();
+            if (PartyHelper.Party.Count <= 4 && currentTarget != null && !currentTarget.IsDummy())
             {
                 return -10;
             }
@@ -38,7 +39,7 @@ namespace LittleNightmare.Summoner
                 return -6;
             }
 
-            if (AI.Instance.BattleData.CurrBattleTimeInMs > 5)
+            if (AI.Instance.BattleData.CurrBattleTimeInMs > 5000)
             {
                 return -5;
             }
