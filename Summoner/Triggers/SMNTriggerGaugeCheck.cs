@@ -69,7 +69,7 @@ public class SMNTriggerGaugeCheck : ITriggerCond
         return true;
     }
 
-    public bool Handle(ITriggerCondParams condParamas = null)
+    public bool Handle(ITriggerCondParams? condParamas = null)
     {
         if (UseGaugeTimesDirectly)
         {

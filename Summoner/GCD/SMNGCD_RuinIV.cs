@@ -4,7 +4,6 @@ using AEAssist.CombatRoutine.Module;
 using AEAssist.Extension;
 using AEAssist.Helper;
 using AEAssist.MemoryApi;
-using LittleNightmare.Summoner.Ability;
 
 namespace LittleNightmare.Summoner.GCD
 {

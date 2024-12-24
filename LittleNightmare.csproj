@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Version>2.3.5.1</Version>
+    <Version>2.3.5.2</Version>
   </PropertyGroup>
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
@@ -27,10 +27,6 @@
   <ItemGroup>
     <Reference Include="AEAssist">
       <HintPath>..\AEAssistCNVersion\AEAssist\AEAssist.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="ECommons">
-      <HintPath>..\AEAssistCNVersion\AEAssist\ECommons.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Dalamud">
