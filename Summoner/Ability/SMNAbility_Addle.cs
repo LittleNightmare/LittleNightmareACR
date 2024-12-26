@@ -3,7 +3,6 @@ using AEAssist.CombatRoutine;
 using AEAssist.CombatRoutine.Module;
 using AEAssist.Extension;
 using AEAssist.Helper;
-using AEAssist.MemoryApi;
 
 namespace LittleNightmare.Summoner.Ability;
 
@@ -17,9 +16,7 @@ public class SMNAbility_Addle : ISlotResolver
         {
             return -12;
         }
-        // 检查高难
-        var dutyInfo = Core.Resolve<MemApiDuty>().DutyInfo;
-        if (dutyInfo is { HighEndDuty: true })
+        if (Data.IsInHighEndDuty)
             return -11;
         if (!SpellsDefine.Addle.GetSpell().IsReadyWithCanCast())
         {
