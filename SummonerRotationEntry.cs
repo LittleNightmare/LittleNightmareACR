@@ -34,6 +34,8 @@ namespace LittleNightmare
 
         public static JobViewWindow QT { get; private set; }
 
+        public static HintManager SMNHintManager { get; private set; }
+
 
         private readonly List<SlotResolverData> SlotResolvers = new()
         {
@@ -87,6 +89,7 @@ namespace LittleNightmare
         public Rotation Build(string settingFolder)
         {
             SMNSettings.Build(settingFolder);
+            BuildHints();
             BuildQt();
             var rotation = new Rotation(SlotResolvers)
             {
@@ -193,6 +196,29 @@ namespace LittleNightmare
         {
             QT = new SummonerOverlay(SMNSettings.Instance.JobViewSave, SMNSettings.Instance.Save, OverlayTitle);
             //QT.SetUpdateAction(OnUIUpdate);
+        }
+
+        public static void BuildHints(bool reset = false)
+        {
+            SMNHintManager = new HintManager(SMNSettings.Instance.SMNHints);
+            if (reset)
+            {
+                SMNHintManager = new HintManager();
+            }
+
+            SMNHintManager.AddHint("Welcome", new Hint("", toast2TimeInMs: 5000, useTTS: true));
+            
+            // ttK提示
+            SMNHintManager.AddHint("TTK",new Hint("目标濒死，关闭爆发"));
+            SMNHintManager.AddHint("TTKFinal", new Hint("目标濒死，开启最终爆发"));
+            // 起手提示
+            SMNHintManager.AddHint("TheBalanceOpener100", new Hint("进入TheBalance起手", showToast2: false));
+            SMNHintManager.AddHint("TheBalanceOpener90", new Hint("进入TheBalance90起手", showToast2: false));
+            SMNHintManager.AddHint("FastEnergyDrainOpener", new Hint("进入FastEnergyDrain起手", showToast2: false));
+
+            SMNHintManager.AddHint("减伤", new Hint(""));
+
+
         }
 
         public void OnUIUpdate()

@@ -65,7 +65,7 @@ namespace LittleNightmare.Summoner
 
         private static void Step0(Slot slot)
         {
-            LogHelper.Print("进入TheBalance起手");
+            SummonerRotationEntry.SMNHintManager.TriggerHint("TheBalanceOpener100");
             slot.Add(new Spell(SMNData.Spells.SummonSolarBahamut, SpellTargetType.Target));
             if (SummonerRotationEntry.QT.GetQt("爆发药"))
             {

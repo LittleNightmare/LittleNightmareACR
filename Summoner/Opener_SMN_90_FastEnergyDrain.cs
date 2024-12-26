@@ -66,6 +66,7 @@ namespace LittleNightmare.Summoner
 
         private static void Step0(Slot slot)
         {
+            SummonerRotationEntry.SMNHintManager.TriggerHint("FastEnergyDrainOpener");
             slot.Add(new Spell(SMNData.Spells.SearingLight, SpellTargetType.Self));
             slot.Add(new Spell(SMNData.Spells.SummonBahamut, SpellTargetType.Target));
             slot.Add(new Spell(SMNData.Spells.EnergyDrain, SpellTargetType.Target));

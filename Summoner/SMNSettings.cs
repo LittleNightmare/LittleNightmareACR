@@ -34,6 +34,7 @@ namespace LittleNightmare.Summoner
 
         public void Save()
         {
+            SMNHints = SummonerRotationEntry.SMNHintManager.Hints;
             Directory.CreateDirectory(Path.GetDirectoryName(path));
             File.WriteAllText(path, JsonHelper.ToJson(this));
         }
@@ -41,6 +42,7 @@ namespace LittleNightmare.Summoner
         public JobViewSave JobViewSave = new();
         // public Dictionary<string, object> StyleSetting = new();
         // public bool AutoReset = true;
+        public Dictionary<string, Hint> SMNHints= new ();
 
         // public int 即刻咏唱模式 = 1;
         public bool qt自动火神冲 = false;

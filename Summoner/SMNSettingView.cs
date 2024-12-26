@@ -7,10 +7,19 @@ namespace LittleNightmare.Summoner
     {
         public static SMNSettingView Instance = new();
 
-        //public SMNSettings SMNSettings => SMNSettings.Instance;
+        private string[] TableColum = ["名称", "内容", "聊天栏", "Toast2", "Toast2显示时间(ms)", "TTS", "提示音"];
 
         public void Draw()
         {
+            ImGui.Spacing();
+            if (ImGui.Button("保存设置"))
+            {
+                SMNSettings.Instance.Save();
+                SummonerRotationEntry.QT.NewDefault("自动火神冲", SMNSettings.Instance.qt自动火神冲);
+                SummonerRotationEntry.QT.NewDefault("爆发药", SMNSettings.Instance.qt自动爆发药);
+                SummonerRotationEntry.QT.Reset();
+            }
+            ImGui.Spacing();
             ImGuiHelper.ToggleButton("自动火神冲", ref SMNSettings.Instance.qt自动火神冲);
             ImGuiHelper.ToggleButton("自动爆发药", ref SMNSettings.Instance.qt自动爆发药);
             ImGuiHelper.ToggleButton("阻止双插以太豆子技", ref SMNSettings.Instance.PreventDoubleFester);
@@ -38,19 +47,76 @@ namespace LittleNightmare.Summoner
             ImGuiHelper.SetHoverTooltip("在非当前高难本中，自动开启减伤，目前只有昏乱");
 
             ImGuiHelper.DrawEnum("起手选择: ", ref SMNSettings.Instance.SelectedOpener);
-            ImGuiHelper.SetHoverTooltip("TheBalance: 是用TheBalance的通用起手\nTheBalance90: 是用TheBalance的90级起手");
+            ImGuiHelper.SetHoverTooltip("TheBalance: 是用TheBalance的通用起手" +
+                                        "\nTheBalance90: 是用TheBalance的90级起手" +
+                                        "\nFastEnergyDrain: 是绝欧特化起手（暂时先别用，尚未确定当前版本仍是这个）");
 
             ImGuiHelper.DrawEnum("苏生之炎目标: ", ref SMNSettings.Instance.RekindleTarget);
             ImGuiHelper.SetHoverTooltip("苏生之炎的目标选择\n注意：最后四个 不 要 选");
 
 
-            if (ImGui.Button("保存设置"))
+            ImGui.Spacing();
+            ImGui.Text("ACR自动提示控制:");
+            ImGuiHelper.SetHoverTooltip("ACR自动行为的提示" +
+                                        "\n勾选表示需要使用，请注意" +
+                                        "\nTTS使用DailyRoutine" +
+                                        "\n提示音暂时没有，可以忽视" +
+                                        "\n如果误操作，请不要点保存，直接切换ACR");
+            if (ImGui.BeginTable("hints", TableColum.Length,
+                    ImGuiTableFlags.RowBg | ImGuiTableFlags.ScrollY | ImGuiTableFlags.Resizable))
             {
-                SMNSettings.Instance.Save();
-                SummonerRotationEntry.QT.NewDefault("自动火神冲", SMNSettings.Instance.qt自动火神冲);
-                SummonerRotationEntry.QT.NewDefault("爆发药", SMNSettings.Instance.qt自动爆发药);
-                SummonerRotationEntry.QT.Reset();
+                // 画一个Table，用来展示SummonerRotationEntry.SMNHintManager.Hints内容
+                foreach (var t in TableColum)
+                {
+                    ImGui.TableSetupColumn(t, ImGuiTableColumnFlags.None, t.Length);
+                }
+                ImGui.TableHeadersRow();
+                var index = 0;
+                foreach (var key in SummonerRotationEntry.SMNHintManager.Hints.Keys.ToList())
+                {
+                    ImGui.TableNextRow();
+                    var hint = SummonerRotationEntry.SMNHintManager.Hints[key];
+                    ImGui.TableNextColumn();
+                    ImGui.Text(key);
+                    ImGui.TableNextColumn();
+                    if (key is "减伤" or "Welcome")
+                    {
+                        ImGui.Text("ACR自动控制，暂不可调整");
+                    }
+                    else
+                    {
+                        ImGui.InputText($"##内容{index}", ref hint.Content, 200);
+                    }
+                    ImGui.TableNextColumn();
+                    ImGui.Checkbox($"##聊天栏{index}", ref hint.ShowInChat);
+                    ImGui.TableNextColumn();
+                    ImGui.Checkbox($"##Toast2{index}", ref hint.ShowToast2);
+                    ImGui.TableNextColumn();
+                    ImGui.InputInt($"##Toast2显示时间{index}", ref hint.Toast2TimeInMs);
+                    ImGui.TableNextColumn();
+                    ImGui.Checkbox($"##TTS{index}", ref hint.UseTTS);
+                    ImGui.TableNextColumn();
+                    ImGui.Checkbox($"##提示音{index}", ref hint.PlaySound);
+                    SummonerRotationEntry.SMNHintManager.Hints[key] = hint; // 直接更新 Hints 中的值
+                    index++;
+                }
+
+                ImGui.EndTable();
             }
+
+            ImGui.Spacing();
+            ImGui.BeginDisabled(!ImGui.GetIO().KeyShift);
+            if (ImGui.Button("重置ACR自动提示控制##hints"))
+            {
+                SummonerRotationEntry.BuildHints(true);
+            }
+
+            ImGui.EndDisabled();
+
+            ImGuiHelper.SetHoverTooltip("重置ACR自动提示到默认状态" +
+                                        "\n按住Shift，才能重置" +
+                                        "\n如果误操作，请不要点保存，直接切换ACR");
+
             ImGui.Spacing();
             if (ImGui.CollapsingHeader("常见ACR行为"))
             {
@@ -62,8 +128,8 @@ namespace LittleNightmare.Summoner
                 ImGui.Text("4. 关闭`爆发`后，不打三神：待修复，这个原因是为了防止龙神延后，目前还没找到比较好的解决方案。建议先手动打一下");
                 ImGui.Unindent();
             }
-                
-            
+
+
             /*
             ImGui.Text("如何迁移逆光时间轴到小小梦魇:");
             ImGui.SetNextItemWidth(200);
@@ -110,13 +176,18 @@ namespace LittleNightmare.Summoner
             if (ImGui.CollapsingHeader("更新日志##LittleNightmare"))
             {
                 ImGui.Indent();
-                ImGui.Text("2024-12-05" +
-                           "\n在默认状态下，恢复以前的逻辑" +
-                           "\n新增选择`阻止亚灵神前召唤三神`，开启后召唤三神会影响亚灵神的释放时，不会召唤三神");
+                ImGui.Text("2024-12-27" +
+                           "\n1. 增加新功能`ACR自动提示控制`用户可以控制ACR部分自动操作的提示了（如果还有哪里需要，可以告诉我加或直接PR）" +
+                           "\n提示音暂时没有" +
+                           "\n2. 恢复绝欧特化起手，即提前能量吸收，不确定现在还是不是这么打" +
+                           "\n3. 去掉冗余部分，正常无体感影响");
                 ImGui.Indent();
                 if (ImGui.CollapsingHeader("历史更新日志##LittleNightmareHistory"))
                 {
                     ImGui.Indent();
+                    ImGui.Text("2024-12-05" +
+                               "\n在默认状态下，恢复以前的逻辑" +
+                               "\n新增选择`阻止亚灵神前召唤三神`，开启后召唤三神会影响亚灵神的释放时，不会召唤三神");
                     ImGui.Text("2024-12-02" +
                                "\n添加自动减伤，目前只有昏乱，只能用在非当前高难" +
                                "\n添加TTK控制到QT面板，方便控制");
@@ -156,7 +227,7 @@ namespace LittleNightmare.Summoner
                                "\n在QT面板中，可以控制在速卸三神时，可以选择优先火神冲" +
                                "\n添加了一个时间轴行为，可以控制一些ACR设置");
                     ImGui.Text("2024-10-12" + "\nTTK的相关判断（是否为最后一个BOSS）采用AE内置的方法，更加稳定\n添加苏生之炎的目标选择\n添加火神冲1段在热键栏，如果还有想要加入的可以告诉我，适合那种写时间轴很麻烦，按钮控制又不太好的");
-                    
+
                     ImGui.Text("2024-10-10" + "\n修复副本内停止攻击的问题");
                     ImGui.Spacing();
                     ImGui.Text("2024-10-09" + "\n增加濒死检测（TTK）\n理论上修复召唤兽列表导致的崩溃\n增加一个更新日志");

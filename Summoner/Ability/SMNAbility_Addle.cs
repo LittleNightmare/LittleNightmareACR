@@ -43,6 +43,7 @@ public class SMNAbility_Addle : ISlotResolver
 
     public void Build(Slot slot)
     {
+        SummonerRotationEntry.SMNHintManager.TriggerHint("减伤",$"自动昏乱", customTTS: "自动昏乱已触发");
         slot.Add(Spell);
     }
 }

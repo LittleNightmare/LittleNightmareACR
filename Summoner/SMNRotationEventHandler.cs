@@ -5,6 +5,7 @@ using AEAssist.Extension;
 using AEAssist.Helper;
 using AEAssist.JobApi;
 using System.Reflection;
+using LittleNightmare;
 
 
 namespace LittleNightmare.Summoner;
@@ -55,7 +56,7 @@ public class SMNRotationEventHandler : IRotationEventHandler
                 {
                     if (TTKHelper.IsTargetTTK(target))
                     {
-                        LogHelper.Print("目标濒死，关闭爆发");
+                        SummonerRotationEntry.SMNHintManager.TriggerHint("TTK");
                         SummonerRotationEntry.QT.SetQt("爆发", false);
                         SMNBattleData.Instance.TTKTriggered = true;
                     }
@@ -64,7 +65,7 @@ public class SMNRotationEventHandler : IRotationEventHandler
                 {
                     if (TTKHelper.CheckFinalBurst(target))
                     {
-                        LogHelper.Print("目标濒死，开启最终爆发");
+                        SummonerRotationEntry.SMNHintManager.TriggerHint("FinalTTK");
                         SummonerRotationEntry.QT.SetQt("最终爆发", true);
                         SMNBattleData.Instance.TTKTriggered = true;
                     }
@@ -160,7 +161,7 @@ public class SMNRotationEventHandler : IRotationEventHandler
     {
         var assembly = Assembly.GetExecutingAssembly();
         var version = assembly.GetName().Version?.ToString() ?? "Unknown version";
-        LogHelper.Print("LittleNightmare召唤 当前版本: " + version);
+        SummonerRotationEntry.SMNHintManager.TriggerHint("Welcome", customContent: "LittleNightmare召唤 当前版本: " + version, customTTS: "欢迎使用Little Nightmare的召唤ACR");
     }
 
     public void OnSpellCastSuccess(Slot slot, Spell spell)

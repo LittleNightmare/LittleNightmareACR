@@ -65,7 +65,7 @@ namespace LittleNightmare.Summoner
 
         private static void Step0(Slot slot)
         {
-            LogHelper.Print("进入TheBalance90级起手");
+            SummonerRotationEntry.SMNHintManager.TriggerHint("TheBalanceOpener90");
             slot.Add(new Spell(SMNData.Spells.SummonBahamut, SpellTargetType.Target));
 
             if (SummonerRotationEntry.QT.GetQt("爆发药"))
