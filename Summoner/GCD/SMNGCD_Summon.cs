@@ -9,7 +9,7 @@ namespace LittleNightmare.Summoner.GCD
 {
     public class SMNGCD_Summon : ISlotResolver
     {
-        public Spell? GetSpell()
+        public Spell GetSpell()
         {
             var targetAction = SMNBattleData.Instance.Summon[0];
             if (SMNBattleData.Instance.CustomSummon.Count > 0)
@@ -118,8 +118,6 @@ namespace LittleNightmare.Summoner.GCD
         public void Build(Slot slot)
         {
             var spell = GetSpell();
-            if (spell == null)
-                return;
             slot.Add(spell);
         }
     }

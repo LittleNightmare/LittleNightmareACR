@@ -15,10 +15,10 @@ public class SMNRotationEventHandler : IRotationEventHandler
     public void OnResetBattle()
     {
         SMNBattleData.Instance.Reset();
-        if (SMNSettings.Instance.JobViewSave.AutoReset)
+        if (SMNSettings.Instance.AutoResetQt)
         {
             SummonerRotationEntry.QT.Reset();
-        }
+        }   
     }
 
     public Task OnPreCombat()

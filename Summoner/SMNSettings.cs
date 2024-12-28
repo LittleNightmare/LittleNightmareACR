@@ -34,7 +34,6 @@ namespace LittleNightmare.Summoner
 
         public void Save()
         {
-            SMNHints = SummonerRotationEntry.SMNHintManager.Hints;
             Directory.CreateDirectory(Path.GetDirectoryName(path));
             File.WriteAllText(path, JsonHelper.ToJson(this));
         }
@@ -126,5 +125,9 @@ namespace LittleNightmare.Summoner
         /// 召唤三神会影响亚灵神的释放时，不会召唤三神
         /// </summary>
         public bool PreventSummonBeforeBahamut  = false;
+        /// <summary>
+        /// 战斗结束后，自动重置qt
+        /// </summary>
+        public bool AutoResetQt = false;
     }
 }

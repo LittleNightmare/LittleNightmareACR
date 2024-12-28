@@ -39,6 +39,7 @@ namespace LittleNightmare.Summoner.GCD
 
         public void Build(Slot slot)
         {
+            // TODO：这里可能会导致没有add，这会导致报错。但说实话，正常不应该出现这种情况。就check过了，到实际调用中间tmd的人活了
             var skillTarget = PartyHelper.DeadAllies.FirstOrDefault(r => !r.HasAura(SMNData.Buffs.Raise));
             if (skillTarget != null && skillTarget.IsValid())
             {

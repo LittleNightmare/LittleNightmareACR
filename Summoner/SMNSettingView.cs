@@ -17,9 +17,13 @@ namespace LittleNightmare.Summoner
                 SMNSettings.Instance.Save();
                 SummonerRotationEntry.QT.NewDefault("自动火神冲", SMNSettings.Instance.qt自动火神冲);
                 SummonerRotationEntry.QT.NewDefault("爆发药", SMNSettings.Instance.qt自动爆发药);
+                SummonerRotationEntry.QT.QTDefaultValue["爆发药"] = (SMNSettings.Instance.qt自动爆发药, "");
+                SummonerRotationEntry.QT.QTDefaultValue["自动火神冲"] = (SMNSettings.Instance.qt自动火神冲, "");
                 SummonerRotationEntry.QT.Reset();
             }
+            ImGuiHelper.SetHoverTooltip("手动保存一下，切换时会自动保存");
             ImGui.Spacing();
+            ImGuiHelper.ToggleButton("战斗结束后自动重置QT", ref SMNSettings.Instance.AutoResetQt);
             ImGuiHelper.ToggleButton("自动火神冲", ref SMNSettings.Instance.qt自动火神冲);
             ImGuiHelper.ToggleButton("自动爆发药", ref SMNSettings.Instance.qt自动爆发药);
             ImGuiHelper.ToggleButton("阻止双插以太豆子技", ref SMNSettings.Instance.PreventDoubleFester);
@@ -114,8 +118,7 @@ namespace LittleNightmare.Summoner
             ImGui.EndDisabled();
 
             ImGuiHelper.SetHoverTooltip("重置ACR自动提示到默认状态" +
-                                        "\n按住Shift，才能重置" +
-                                        "\n如果误操作，请不要点保存，直接切换ACR");
+                                        "\n按住Shift，才能重置");
 
             ImGui.Spacing();
             if (ImGui.CollapsingHeader("常见ACR行为"))
@@ -176,14 +179,17 @@ namespace LittleNightmare.Summoner
             if (ImGui.CollapsingHeader("更新日志##LittleNightmare"))
             {
                 ImGui.Indent();
-                ImGui.Text("2024-12-27" +
-                           "\n1. 增加新功能`ACR自动提示控制`用户可以控制ACR部分自动操作的提示了（如果还有哪里需要，可以告诉我加或直接PR）" +
-                           "\n提示音暂时没有" +
-                           "\n2. 恢复绝欧特化起手，即提前能量吸收，不确定现在还是不是这么打" +
-                           "\n3. 去掉冗余部分，正常无体感影响");
+                ImGui.Text("2024-12-28" +
+                           "\n修复新用户的报错问题" +
+                           "\n同步AE，现在需要战斗后重置QT移动到了设置界面");
                 ImGui.Indent();
                 if (ImGui.CollapsingHeader("历史更新日志##LittleNightmareHistory"))
                 {
+                    ImGui.Text("2024-12-27" +
+                               "\n1. 增加新功能`ACR自动提示控制`用户可以控制ACR部分自动操作的提示了（如果还有哪里需要，可以告诉我加或直接PR）" +
+                               "\n提示音暂时没有" +
+                               "\n2. 恢复绝欧特化起手，即提前能量吸收，不确定现在还是不是这么打" +
+                               "\n3. 去掉冗余部分，正常无体感影响");
                     ImGui.Indent();
                     ImGui.Text("2024-12-05" +
                                "\n在默认状态下，恢复以前的逻辑" +

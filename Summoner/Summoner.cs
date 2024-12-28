@@ -26,6 +26,19 @@ namespace LittleNightmare.Summoner
         public Dictionary<string, string> OpenerDictionary =
             Enum.GetNames<SMNSettings.OpenerType>().ToDictionary(t => t, t => t);
 
+        public Dictionary<string, (bool, string)> QTDefaultValue = new()
+        {
+            {"爆发", (true, "关闭时不会使用巴哈凤凰和灼热之光")},
+            {"爆发药", (SMNSettings.Instance.qt自动爆发药, "")},
+            {"AOE", (true, "")},
+            {"最终爆发", (false, "")},
+            {"灼热之光", (true, "")},
+            {"三神召唤", (true, "")},
+            {"巴哈凤凰", (true, "")},
+            {"宝石耀", (true, "")},
+            {"自动火神冲", (SMNSettings.Instance.qt自动火神冲, "")}
+        };
+
 
         public SummonerOverlay(JobViewSave jobViewSave, Action save, string name) : base(jobViewSave, save, name)
         {
@@ -35,17 +48,18 @@ namespace LittleNightmare.Summoner
             // AddTab("风格", DrawChangeStyleView);
             AddTab("调试", DrawDebugView);
 
-
-            AddQt("爆发", true, "关闭时不会使用巴哈凤凰和灼热之光");
-            AddQt("爆发药", SMNSettings.Instance.qt自动爆发药);
-            AddQt("AOE", true);
-            AddQt("最终爆发", false);
-            AddQt("灼热之光", true);
-            AddQt("三神召唤", true);
-            AddQt("巴哈凤凰", true);
-            AddQt("宝石耀", true);
-            AddQt("自动火神冲", SMNSettings.Instance.qt自动火神冲);
-
+            foreach (var (key, (value, tips)) in QTDefaultValue)
+            {
+                if (tips.IsNullOrEmpty())
+                {
+                    AddQt(key, value);
+                }
+                else
+                {
+                    AddQt(key, value, tips);
+                }
+            }
+            
             AddHotkey("LB", new HotKeyResolver_LB());
             AddHotkey("沉稳咏唱", new HotKeyResolver_NormalSpell(SpellsDefine.Surecast, SpellTargetType.Self));
             AddHotkey("昏乱", new HotKeyResolver_NormalSpell(SpellsDefine.Addle, SpellTargetType.Target));
@@ -57,6 +71,14 @@ namespace LittleNightmare.Summoner
 
             AddHotkey("守护之光", new HotKeyResolver_NormalSpell(SMNData.Spells.RadiantAegis, SpellTargetType.Self));
             AddHotkey("日光普照", new HotKeyResolver_NormalSpell(SMNData.Spells.LuxSolaris, SpellTargetType.Self));
+        }
+
+        public new void Reset()
+        {
+            foreach (var (key, (value, tips)) in QTDefaultValue)
+            {
+                SetQt(key, value);
+            }
         }
 
         public static void DrawQtGeneral(JobViewWindow jobViewWindow)

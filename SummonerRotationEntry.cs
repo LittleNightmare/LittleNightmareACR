@@ -32,7 +32,7 @@ namespace LittleNightmare
 
         public string AuthorName { get; set; } = "LittleNightmare";
 
-        public static JobViewWindow QT { get; private set; }
+        public static SummonerOverlay QT { get; private set; }
 
         public static HintManager SMNHintManager { get; private set; }
 
@@ -203,7 +203,7 @@ namespace LittleNightmare
             SMNHintManager = new HintManager(SMNSettings.Instance.SMNHints);
             if (reset)
             {
-                SMNHintManager = new HintManager();
+                SMNSettings.Instance.SMNHints = new();
             }
 
             SMNHintManager.AddHint("Welcome", new Hint("", toast2TimeInMs: 5000, useTTS: true));
