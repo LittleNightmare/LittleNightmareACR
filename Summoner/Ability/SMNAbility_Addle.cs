@@ -32,7 +32,7 @@ public class SMNAbility_Addle : ISlotResolver
             return -7;
         }
         
-        if (TargetHelper.TargercastingIsbossaoe(target, 1))
+        if (TargetHelper.TargercastingIsbossaoe(target, 3))
         {
             return 1;
         }
@@ -43,7 +43,9 @@ public class SMNAbility_Addle : ISlotResolver
 
     public void Build(Slot slot)
     {
-        SummonerRotationEntry.SMNHintManager.TriggerHint("减伤",$"自动昏乱", customTTS: "自动昏乱已触发");
+#pragma warning disable CS8602 // 解引用可能出现空引用。
+        SummonerRotationEntry.SMNHintManager.TriggerHint("减伤",$"昏乱 给 {Spell.GetTarget().CastActionId.GetSpell().LocalizedName}", customTTS: "自动昏乱已触发");
+#pragma warning restore CS8602 // 解引用可能出现空引用。
         slot.Add(Spell);
     }
 }

@@ -22,6 +22,7 @@ public class SMNAbility_SwiftCast : ISlotResolver
 
         if (SMNSettings.Instance.SwiftCastMode is 0 or 3 && skillTarget != null && skillTarget.IsValid() && skillTarget.IsTargetable)
         {
+            SummonerRotationEntry.SMNHintManager.TriggerHint("即刻", customContent: "准备即刻，目的: 拉人", customTTS:"准备即刻拉人");
             return 0;
         }
 
@@ -29,6 +30,7 @@ public class SMNAbility_SwiftCast : ISlotResolver
         {
             if (Core.Me.HasAura(SMNData.Buffs.GarudasFavor))
             {
+                SummonerRotationEntry.SMNHintManager.TriggerHint("即刻", customContent: "准备即刻，目的: 风圈", customTTS: "准备即刻风圈");
                 return 1;
             }
         }
@@ -37,6 +39,7 @@ public class SMNAbility_SwiftCast : ISlotResolver
         {
             if (Core.Resolve<JobApi_Summoner>().ActivePetType == ActivePetType.Ifrit)
             {
+                SummonerRotationEntry.SMNHintManager.TriggerHint("即刻", customContent: "准备即刻，目的: 火读条", customTTS: "准备即刻火");
                 return 2;
             }
         }

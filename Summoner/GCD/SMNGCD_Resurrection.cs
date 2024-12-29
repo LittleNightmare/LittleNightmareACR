@@ -12,6 +12,7 @@ namespace LittleNightmare.Summoner.GCD
 
         public int Check()
         {
+            //TODO 增加读条模式，或者用hotkey触发？直接放到hotkey可能导致高优先级一直卡着不放弃？
             if (SMNSettings.Instance.SwiftCastMode is not (0 or 3))
             {
                 return -10;
@@ -43,6 +44,7 @@ namespace LittleNightmare.Summoner.GCD
             var skillTarget = PartyHelper.DeadAllies.FirstOrDefault(r => !r.HasAura(SMNData.Buffs.Raise));
             if (skillTarget != null && skillTarget.IsValid())
             {
+                SummonerRotationEntry.SMNHintManager.TriggerHint("复活", customContent: $"复活: {skillTarget.Name}");
                 slot.Add(new Spell(SMNData.Spells.Resurrection, skillTarget));
             }
         }

@@ -83,7 +83,7 @@ namespace LittleNightmare.Summoner
                     ImGui.TableNextColumn();
                     ImGui.Text(key);
                     ImGui.TableNextColumn();
-                    if (key is "减伤" or "Welcome")
+                    if (key is "减伤" or "Welcome" or "即刻" or "复活")
                     {
                         ImGui.Text("ACR自动控制，暂不可调整");
                     }
@@ -179,18 +179,22 @@ namespace LittleNightmare.Summoner
             if (ImGui.CollapsingHeader("更新日志##LittleNightmare"))
             {
                 ImGui.Indent();
-                ImGui.Text("2024-12-28" +
-                           "\n修复新用户的报错问题" +
-                           "\n同步AE，现在需要战斗后重置QT移动到了设置界面");
+                ImGui.Text("2024-12-29" +
+                           "\n新增了爆发药QT检测，用于时间轴：判断是否开启了爆发药" +
+                           "\n修复最终爆发（倾泻资源）没有提示的问题" +
+                           "\n添加复活、即刻提示，优化提示描述");
                 ImGui.Indent();
                 if (ImGui.CollapsingHeader("历史更新日志##LittleNightmareHistory"))
                 {
+                    ImGui.Indent();
+                    ImGui.Text("2024-12-28" +
+                               "\n修复新用户的报错问题" +
+                               "\n同步AE，现在需要战斗后重置QT移动到了设置界面");
                     ImGui.Text("2024-12-27" +
                                "\n1. 增加新功能`ACR自动提示控制`用户可以控制ACR部分自动操作的提示了（如果还有哪里需要，可以告诉我加或直接PR）" +
                                "\n提示音暂时没有" +
                                "\n2. 恢复绝欧特化起手，即提前能量吸收，不确定现在还是不是这么打" +
                                "\n3. 去掉冗余部分，正常无体感影响");
-                    ImGui.Indent();
                     ImGui.Text("2024-12-05" +
                                "\n在默认状态下，恢复以前的逻辑" +
                                "\n新增选择`阻止亚灵神前召唤三神`，开启后召唤三神会影响亚灵神的释放时，不会召唤三神");

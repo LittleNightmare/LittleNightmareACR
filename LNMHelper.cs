@@ -47,9 +47,10 @@ public class LNMHelper
             totalNeeded += task.CountNeeded;
             currentCount += task.CountCurrent;
             // 处理那种存在第一行任务进行度，第二行显示当前任务的情况
-            if (!task.Label.IsEmpty && task.Label.ToString().Equals(ECHelper.Data.GetExcelSheet<InstanceContentTextData>().GetRow(7).Text.RawString)) break;
+            var instanceContentTextData = ECHelper.Data.GetExcelSheet<InstanceContentTextData>()?.GetRow(7);
+            if (instanceContentTextData != null && !task.Label.IsEmpty && task.Label.ToString().Equals(instanceContentTextData.Text.RawString)) break;
         }
-        
+
         if (totalNeeded == 0) return true;
         return totalNeeded - 1 == currentCount;
     }

@@ -1,6 +1,5 @@
 using AEAssist;
 using AEAssist.CombatRoutine;
-using AEAssist.CombatRoutine.Module;
 using AEAssist.CombatRoutine.View.JobView;
 using AEAssist.CombatRoutine.View.JobView.HotkeyResolver;
 using AEAssist.Extension;
@@ -8,11 +7,13 @@ using AEAssist.GUI;
 using AEAssist.JobApi;
 using ImGuiNET;
 using System.Numerics;
-using AEAssist.Helper;
-using AEAssist.MemoryApi;
 using Dalamud.Utility;
+
+#if DEBUG
+using AEAssist.MemoryApi;
 using FFXIVClientStructs.FFXIV.Client.Game.Event;
 using FFXIVClientStructs.STD;
+#endif
 
 namespace LittleNightmare.Summoner
 {
@@ -31,7 +32,7 @@ namespace LittleNightmare.Summoner
             {"爆发", (true, "关闭时不会使用巴哈凤凰和灼热之光")},
             {"爆发药", (SMNSettings.Instance.qt自动爆发药, "")},
             {"AOE", (true, "")},
-            {"最终爆发", (false, "")},
+            {"最终爆发", (false, "倾泻资源")},
             {"灼热之光", (true, "")},
             {"三神召唤", (true, "")},
             {"巴哈凤凰", (true, "")},
@@ -59,7 +60,7 @@ namespace LittleNightmare.Summoner
                     AddQt(key, value, tips);
                 }
             }
-            
+
             AddHotkey("LB", new HotKeyResolver_LB());
             AddHotkey("沉稳咏唱", new HotKeyResolver_NormalSpell(SpellsDefine.Surecast, SpellTargetType.Self));
             AddHotkey("昏乱", new HotKeyResolver_NormalSpell(SpellsDefine.Addle, SpellTargetType.Target));
@@ -198,6 +199,7 @@ namespace LittleNightmare.Summoner
 
         public void DrawDebugView(JobViewWindow window)
         {
+            var target = Core.Me.GetCurrTarget();
             ImGui.Text($"Attunement层数：{Core.Resolve<JobApi_Summoner>().AttunementAdjust}");
             var type = "";
             switch (Core.Resolve<JobApi_Summoner>().ActivePetType)
@@ -236,11 +238,11 @@ namespace LittleNightmare.Summoner
             //AI.Instance.BattleData.AbilityCount = 0;
             //}
             // ImGui.Text($"宝石耀属性: {Core.Resolve<MemApiSpell>().GetSpellType(SMNData.Spells.Gemshine.GetSpell().Id)}");
-
-            ImGui.Text(
-                $"距离Melee: {Core.Me.Distance(Core.Me.GetCurrTarget(), AEAssist.Define.DistanceMode.IgnoreTargetHitbox)}");
-            ImGui.Text($"距离: {Core.Me.Distance(Core.Me.GetCurrTarget())}");
-
+            if (target != null)
+            {
+                ImGui.Text($"距离Melee: {Core.Me.Distance(target, AEAssist.Define.DistanceMode.IgnoreTargetHitbox)}");
+                ImGui.Text($"距离: {Core.Me.Distance(target)}");
+            }
             ImGui.Text($"自定义等待队列宝宝数量: {SMNBattleData.Instance.CustomSummonWaitList.Count}");
             ImGui.SameLine();
             if (ImGui.Button("手动归零##CustomSummonWaitList"))
@@ -282,8 +284,8 @@ namespace LittleNightmare.Summoner
             ImGui.Text($"最终BOSS：{SMNBattleData.Instance.FinalBoss}");
             ImGui.Text($"TTKTriggered：{SMNBattleData.Instance.TTKTriggered}");
             ImGui.Text($"IsLastTask：{LNMHelper.IsLastTask()}");
-            if (Core.Me.GetCurrTarget() != null)
-                ImGui.Text($"IsBOSS: {Core.Me.GetCurrTarget().IsBoss()}");
+            if (target != null)
+                ImGui.Text($"IsBOSS: {target.IsBoss()}");
             // ImGui.Text($"优先火神GD: {SMNSettings.Instance.RubyGCDFirst && SMNBattleData.Instance.IfritGemshineTimes > 0}");
             // ImGui.Text($"灼热之光时间剩余时间(ms): {Core.Me.GetBuffTimespanLeft(AurasDefine.SearingLight).TotalMilliseconds}");
             // ImGui.Text($"灼热之光buff: {Core.Me.HasMyAura(AurasDefine.SearingLight)}");

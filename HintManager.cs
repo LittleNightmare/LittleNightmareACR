@@ -1,5 +1,4 @@
 ﻿using AEAssist;
-using AEAssist.Command;
 using AEAssist.Helper;
 using AEAssist.MemoryApi;
 
@@ -54,7 +53,10 @@ namespace LittleNightmare
                 {
                     ShowToast(customToast2 ?? content, hint.Toast2Style, hint.Toast2TimeInMs);
                 }
+                return;
             }
+
+            LogHelper.Error($"触发了不存在的key: {key}");
         }
 
         private void ShowInChat(string message)
@@ -76,7 +78,7 @@ namespace LittleNightmare
         private void ShowToast(string message, int s, int time)
         {
             Core.Resolve<MemApiChatMessage>().Toast2(message, s, time);
-            
+
         }
     }
 

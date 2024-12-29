@@ -123,7 +123,8 @@ namespace LittleNightmare
                     new SMNTriggerGaugeCheck(),
                     new SMNTriggersActionPetCheck(),
                     new SMNTriggersActionAttunementCheck(),
-                    new SMNTriggersActionSummonTimeCheck())
+                    new SMNTriggersActionSummonTimeCheck(),
+                    new SMNTriggersPotionCheck())
                 .AddCanUseHighPrioritySlotCheck(CanUseHighPrioritySlotCheck);
         }
 
@@ -217,6 +218,8 @@ namespace LittleNightmare
             SMNHintManager.AddHint("FastEnergyDrainOpener", new Hint("进入FastEnergyDrain起手", showToast2: false));
 
             SMNHintManager.AddHint("减伤", new Hint(""));
+            SMNHintManager.AddHint("即刻", new Hint("", showInChat: false));
+            SMNHintManager.AddHint("复活", new Hint("", showToast2: false, toast2TimeInMs: 5000));
 
 
         }

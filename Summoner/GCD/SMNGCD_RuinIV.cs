@@ -41,10 +41,13 @@ namespace LittleNightmare.Summoner.GCD
                     return -2;
                 }
 
-                if (SMNSettings.Instance.SlideUseCrimonCyclone && Core.Me.HasAura(SMNData.Buffs.IfritsFavor) &&
-                    Core.Me.Distance(Core.Me.GetCurrTarget(), AEAssist.Define.DistanceMode.IgnoreTargetHitbox) <= 0)
+                if (SMNSettings.Instance.SlideUseCrimonCyclone && Core.Me.HasAura(SMNData.Buffs.IfritsFavor))
                 {
-                    return -2;
+                    var target = Core.Me.GetCurrTarget();
+                    if (target != null && Core.Me.Distance(target, AEAssist.Define.DistanceMode.IgnoreTargetHitbox) <= 0)
+                    {
+                        return -2;
+                    }
                 }
 
                 return 0;

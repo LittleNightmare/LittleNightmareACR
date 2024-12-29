@@ -5,7 +5,6 @@ using AEAssist.Extension;
 using AEAssist.Helper;
 using AEAssist.JobApi;
 using System.Reflection;
-using LittleNightmare;
 
 
 namespace LittleNightmare.Summoner;
@@ -65,7 +64,7 @@ public class SMNRotationEventHandler : IRotationEventHandler
                 {
                     if (TTKHelper.CheckFinalBurst(target))
                     {
-                        SummonerRotationEntry.SMNHintManager.TriggerHint("FinalTTK");
+                        SummonerRotationEntry.SMNHintManager.TriggerHint("TTKFinal");
                         SummonerRotationEntry.QT.SetQt("最终爆发", true);
                         SMNBattleData.Instance.TTKTriggered = true;
                     }
