@@ -179,14 +179,16 @@ namespace LittleNightmare.Summoner
             if (ImGui.CollapsingHeader("更新日志##LittleNightmare"))
             {
                 ImGui.Indent();
-                ImGui.Text("2024-12-29" +
-                           "\n新增了爆发药QT检测，用于时间轴：判断是否开启了爆发药" +
-                           "\n修复最终爆发（倾泻资源）没有提示的问题" +
-                           "\n添加复活、即刻提示，优化提示描述");
+                ImGui.Text("2025-01-07" +
+                           "\n修复API变化引起的ACR行为不正常的问题，如一直在使用宝石兽召唤");
                 ImGui.Indent();
                 if (ImGui.CollapsingHeader("历史更新日志##LittleNightmareHistory"))
                 {
                     ImGui.Indent();
+                    ImGui.Text("2024-12-29" +
+                               "\n新增了爆发药QT检测，用于时间轴：判断是否开启了爆发药" +
+                               "\n修复最终爆发（倾泻资源）没有提示的问题" +
+                               "\n添加复活、即刻提示，优化提示描述");
                     ImGui.Text("2024-12-28" +
                                "\n修复新用户的报错问题" +
                                "\n同步AE，现在需要战斗后重置QT移动到了设置界面");

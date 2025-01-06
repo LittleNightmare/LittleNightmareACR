@@ -62,7 +62,7 @@ public class SMNRotationEventHandler : IRotationEventHandler
                 }
                 else
                 {
-                    if (TTKHelper.CheckFinalBurst(target))
+                    if (TTKHelper.IsTargetTTK(target, SettingMgr.GetSetting<GeneralSettings>().AutoFinalBurstCheckTime, false))
                     {
                         SummonerRotationEntry.SMNHintManager.TriggerHint("TTKFinal");
                         SummonerRotationEntry.QT.SetQt("最终爆发", true);
