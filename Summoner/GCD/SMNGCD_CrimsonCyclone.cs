@@ -37,7 +37,7 @@ namespace LittleNightmare.Summoner.GCD
             //var onTargetRing = Core.Me.DistanceMelee(Core.Me.GetCurrTarget()) <= 0;
             var onTargetRing =
                 Core.Me.Distance(Core.Me.GetCurrTarget(), AEAssist.Define.DistanceMode.IgnoreTargetHitbox) <= 0;
-            if (Core.Resolve<MemApiMove>().IsMoving())
+            if (MoveHelper.IsMoving())
             {
                 if (!onTargetRing)
                 {

@@ -2,17 +2,14 @@
 using AEAssist.CombatRoutine;
 using AEAssist.CombatRoutine.Module;
 using AEAssist.CombatRoutine.Module.Opener;
-using AEAssist.CombatRoutine.View.JobView;
 using AEAssist.Extension;
 using AEAssist.Helper;
 using AEAssist.JobApi;
-using AEAssist.MemoryApi;
-using LittleNightmare.Summoner;
 using LittleNightmare.Summoner.Ability;
 using LittleNightmare.Summoner.GCD;
 using LittleNightmare.Summoner.Triggers;
 
-namespace LittleNightmare
+namespace LittleNightmare.Summoner
 {
     public class SummonerRotationEntry : IRotationEntry
     {
@@ -155,10 +152,10 @@ namespace LittleNightmare
                 switch (slotMode)
                 {
                     case SlotMode.Gcd:
-                        // TODO: 火神冲2段
+                        // TODO: 火神冲2段,好像不用搞了，等国际服的更新同步以后就不用了
                         if (spell.CastTime.TotalSeconds > 0)
                         {
-                            if (Core.Resolve<MemApiMove>().IsMoving() && !Core.Me.HasAura(SMNData.Buffs.Swiftcast))
+                            if (MoveHelper.IsMoving() && !Core.Me.HasAura(SMNData.Buffs.Swiftcast))
                             {
                                 return -3;
                             }
@@ -208,9 +205,9 @@ namespace LittleNightmare
             }
 
             SMNHintManager.AddHint("Welcome", new Hint("", toast2TimeInMs: 5000, useTTS: true));
-            
+
             // ttK提示
-            SMNHintManager.AddHint("TTK",new Hint("目标濒死，关闭爆发"));
+            SMNHintManager.AddHint("TTK", new Hint("目标濒死，关闭爆发"));
             SMNHintManager.AddHint("TTKFinal", new Hint("目标濒死，开启最终爆发"));
             // 起手提示
             SMNHintManager.AddHint("TheBalanceOpener100", new Hint("进入TheBalance起手", showToast2: false));

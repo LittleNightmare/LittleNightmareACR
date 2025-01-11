@@ -37,7 +37,7 @@ namespace LittleNightmare.Summoner.GCD
                 return -2;
             }
 
-            if (Core.Resolve<MemApiMove>().IsMoving())
+            if (MoveHelper.IsMoving())
             {
                 return -1;
             }

@@ -63,7 +63,7 @@ namespace LittleNightmare.Summoner.GCD
                     return -3;
                 }
 
-                if (Core.Resolve<MemApiMove>().IsMoving() && !Core.Me.HasAura(SMNData.Buffs.Swiftcast) &&
+                if (MoveHelper.IsMoving() && !Core.Me.HasAura(SMNData.Buffs.Swiftcast) &&
                     Core.Resolve<JobApi_Summoner>().ActivePetType == ActivePetType.Ifrit)
                 {
                     return -2;

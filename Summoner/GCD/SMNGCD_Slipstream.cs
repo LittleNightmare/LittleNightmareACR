@@ -31,7 +31,7 @@ namespace LittleNightmare.Summoner.GCD
 
             if (Core.Me.HasAura(SMNData.Buffs.GarudasFavor))
             {
-                if (Core.Resolve<MemApiMove>().IsMoving() && !Core.Me.HasAura(SMNData.Buffs.Swiftcast))
+                if (MoveHelper.IsMoving() && !Core.Me.HasAura(SMNData.Buffs.Swiftcast))
                 {
                     return -2;
                 }

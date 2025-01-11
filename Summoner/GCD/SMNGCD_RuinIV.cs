@@ -30,7 +30,7 @@ namespace LittleNightmare.Summoner.GCD
 
             if (Core.Me.HasAura(SMNData.Buffs.FurtherRuin))
             {
-                if (SMNSettings.Instance.UseRuinIIIFirst && !Core.Resolve<MemApiMove>().IsMoving() &&
+                if (SMNSettings.Instance.UseRuinIIIFirst && !MoveHelper.IsMoving() &&
                     !SMNData.Spells.EnergyDrain.CoolDownInGCDs(1) && !SummonerRotationEntry.QT.GetQt("最终爆发"))
                 {
                     if (SMNHelper.BahamutPhoneix().Id.CoolDownInGCDs(1))
