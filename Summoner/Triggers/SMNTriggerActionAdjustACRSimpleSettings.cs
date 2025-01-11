@@ -25,6 +25,7 @@ namespace LittleNightmare.Summoner.Triggers
             "自动减伤",
             "阻止亚灵神前召唤三神",
             "战斗结束后自动重置QT",
+            "自动停手",
         };
 
 
@@ -84,6 +85,9 @@ namespace LittleNightmare.Summoner.Triggers
                 case "战斗结束后自动重置QT":
                     SMNSettings.Instance.AutoResetQt = value;
                     break;
+                case "自动停手":
+                    SMNSettings.Instance.AutoStopForSpecialBuff = value;
+                    break;
                 default:
                     throw new ArgumentException("Invalid setting name");
             }
@@ -113,6 +117,8 @@ namespace LittleNightmare.Summoner.Triggers
                     return SMNSettings.Instance.PreventSummonBeforeBahamut;
                 case "战斗结束后自动重置QT":
                     return SMNSettings.Instance.AutoResetQt;
+                case "自动停手":
+                    return SMNSettings.Instance.AutoStopForSpecialBuff;
                 default:
                     throw new ArgumentException("Invalid setting name");
             }

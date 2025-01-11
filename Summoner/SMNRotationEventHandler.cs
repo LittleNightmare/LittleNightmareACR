@@ -5,7 +5,9 @@ using AEAssist.Extension;
 using AEAssist.Helper;
 using AEAssist.JobApi;
 using System.Reflection;
-
+#if !EXCLUDE_SUM_REFERENCE
+using Sum.Sum.Reference;
+#endif
 
 namespace LittleNightmare.Summoner;
 
@@ -144,6 +146,41 @@ public class SMNRotationEventHandler : IRotationEventHandler
         {
             SMNBattleData.Instance.FinalBoss = true;
         }
+
+        if (SMNSettings.Instance.AutoStopForSpecialBuff)
+        {
+            List<uint> stopList = new List<uint>();
+            try
+            {
+                stopList = Invincible.InvincibleBuff.Concat(Unattackable.UnattackableBuff).ToList();
+            }
+            catch (Exception e)
+            {
+                SMNSettings.Instance.AutoStopForSpecialBuff = false;
+                SummonerRotationEntry.SMNHintManager.TriggerHint("引用检测", customContent: "自动停手已关闭，请参考聊天栏内容", customChat:"未检测到Buff列表，请确认已经下载JiaXX的ACR并重新启动AE");
+                return;
+            }
+            var currentTarget = Core.Me.GetCurrTarget();
+            if ((currentTarget != null
+                 && currentTarget.HasAnyAura(stopList))
+                || Core.Me.HasAnyAura(Unattackable.AccelerationBomb))
+            {
+                SMNBattleData.Instance.NeedStop = true;
+            }
+            if (SMNBattleData.Instance.NeedStop && !Core.Me.HasAnyAura(Unattackable.AccelerationBomb) && SMNBattleData.Instance.LastTarget != null && !SMNBattleData.Instance.LastTarget.HasAnyAura(stopList))
+            {
+                SMNBattleData.Instance.NeedStop = false;
+            }
+            if (SMNBattleData.Instance.NeedStop && !SMNBattleData.Instance.AutoStopTriggered && !PlayerOptions.Instance.Stop)
+            {
+                SMNBattleData.Instance.StopAttack();
+            }
+            if (SMNBattleData.Instance.AutoStopTriggered && !SMNBattleData.Instance.NeedStop)
+            {
+                SMNBattleData.Instance.StartAttack();
+            }
+        }
+        
         // FIXME: 不知道干啥用的
         //if (SMNHelper.InBahamut || SMNHelper.InPhoenix || SMNHelper.InSolarBahamut)
         //{
@@ -161,6 +198,12 @@ public class SMNRotationEventHandler : IRotationEventHandler
         var assembly = Assembly.GetExecutingAssembly();
         var version = assembly.GetName().Version?.ToString() ?? "Unknown version";
         SummonerRotationEntry.SMNHintManager.TriggerHint("Welcome", customContent: "LittleNightmare召唤 当前版本: " + version, customTTS: "欢迎使用Little Nightmare的召唤ACR");
+        
+        if (!RotationManager.Instance.Job2Rotations.TryGetValue(Jobs.Summoner, out var rotations) || rotations.All(x => x.RotationEntry.AuthorName != "JiaXX"))
+        {
+            SummonerRotationEntry.SMNHintManager.TriggerHint("引用检测", customContent: "检测到您没有使用JiaXX的ACR，请您下载它后并重开AE以保证功能正常运行");
+            SMNSettings.Instance.AutoStopForSpecialBuff = false;
+        }
     }
 
     public void OnSpellCastSuccess(Slot slot, Spell spell)

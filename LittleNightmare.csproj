@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Version>2.4.2.0</Version>
+    <Version>2.4.3.0</Version>
   </PropertyGroup>
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
@@ -48,6 +48,10 @@
     <Reference Include="FFXIVClientStructs">
       <HintPath>$(DalamudLibPath)FFXIVClientStructs.dll</HintPath>
       <Private>false</Private>
+    </Reference>
+    <Reference Include="JiaXX">
+      <HintPath>..\Output\ACR\JiaXX\JiaXX.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
 	<Target Name="PackageACR" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' == 'Release'">

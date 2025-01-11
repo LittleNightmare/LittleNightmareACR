@@ -129,5 +129,13 @@ namespace LittleNightmare.Summoner
         /// 战斗结束后，自动重置qt
         /// </summary>
         public bool AutoResetQt = false;
+        /// <summary>
+        /// 提前多少秒减伤
+        /// </summary>
+        public int CastReduceTimeBeforeSeconds = 3;
+        /// <summary>
+        /// 特殊buff自动停手
+        /// </summary>
+        public bool AutoStopForSpecialBuff = false;
     }
 }

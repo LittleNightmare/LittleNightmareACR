@@ -23,7 +23,7 @@ namespace LittleNightmare.Summoner
 
         public int MaxLevel = 100;
 
-        public string Description = "召唤通用ACR，与逆光的大体相同，处于测试状态，有问题请及时告诉我\n" +
+        public string Description = "召唤通用ACR，需要下载JiaXX的ACR才能获得完整功能，处于测试状态，有问题请及时告诉我\n" +
                                     //"这个ACR与逆光的相比，提供多一点点的自定义设置。这可以增强日常体验，让ACR更符合各位召唤师的习惯\n" +
                                     "选项的介绍请查看 设置";
 
@@ -205,6 +205,7 @@ namespace LittleNightmare.Summoner
             }
 
             SMNHintManager.AddHint("Welcome", new Hint("", toast2TimeInMs: 5000, useTTS: true));
+            SMNHintManager.AddHint("引用检测", new Hint("", toast2TimeInMs: 5000));
 
             // ttK提示
             SMNHintManager.AddHint("TTK", new Hint("目标濒死，关闭爆发"));

@@ -1,7 +1,11 @@
 ﻿using AEAssist;
 using AEAssist.CombatRoutine;
+using AEAssist.CombatRoutine.Module;
+using AEAssist.Extension;
 using AEAssist.Helper;
 using AEAssist.JobApi;
+using AEAssist.MemoryApi;
+using Dalamud.Game.ClientState.Objects.Types;
 
 
 namespace LittleNightmare.Summoner
@@ -27,6 +31,11 @@ namespace LittleNightmare.Summoner
 
         public bool TTKTriggered = false;
 
+        public bool NeedStop = false;
+
+        public bool AutoStopTriggered = false;
+
+        public IBattleChara? LastTarget = null;
         public void UpdateSummon()
         {
             Summon.Clear();
@@ -170,6 +179,24 @@ namespace LittleNightmare.Summoner
             }
         }
 
+        public void StopAttack()
+        {
+            LastTarget = Core.Me.GetCurrTarget();
+            PlayerOptions.Instance.Stop = true;
+            Core.Resolve<MemApiSpell>().CancelCast();
+            AutoStopTriggered = true;
+        }
+
+        public void StartAttack()
+        {
+            if (Core.Me.GetCurrTarget() == null && LastTarget != null && LastTarget.IsValid() && LastTarget.IsTargetable)
+            {
+                LastTarget.BecomeTargetOfLocalPlayer();
+                LastTarget = null;
+            }
+            PlayerOptions.Instance.Stop = false;
+            AutoStopTriggered = false;
+        }
         //public bool CastSwiftCastCouldCoverTargetSpell()
         //{
         //    var leftGCD = GCDLeftUntilNextSwiftCasted();

@@ -67,6 +67,8 @@ namespace LittleNightmare.Summoner
             ImGui.Spacing();
             if (ImGui.CollapsingHeader("智能设置", ImGuiTreeNodeFlags.DefaultOpen))
             {
+                ImGuiHelper.SetHoverTooltip("智能设置会造成性能损耗，如果发现严重影响请关闭");
+
                 ImGuiHelper.ToggleButton("智能AOE目标", ref SMNSettings.Instance.SmartAoETarget);
                 ImGuiHelper.SetHoverTooltip("将智能选择最适合释放AoE的目标，而不是根据当前目标决定是否使用AoE\n火神冲的暂无支持计划");
 
@@ -74,7 +76,17 @@ namespace LittleNightmare.Summoner
                 ImGuiHelper.SetHoverTooltip("濒死检测会在你的目标濒死时，自动关闭爆发qt，以免浪费相关技能\n推荐日随使用，高难本请自行判断是否启用");
 
                 ImGuiHelper.ToggleButton("自动减伤", ref SMNSettings.Instance.AutoReduceDamage);
-                ImGuiHelper.SetHoverTooltip("在非当前高难本中，自动3s前开启减伤，目前只有昏乱");
+                ImGuiHelper.SetHoverTooltip("在非当前高难本中，自动开启减伤，目前只有昏乱");
+                ImGui.BeginDisabled(!SMNSettings.Instance.AutoReduceDamage);
+                ImGuiHelper.LeftInputInt("自动减伤阈值:", ref SMNSettings.Instance.CastReduceTimeBeforeSeconds);
+                ImGui.EndDisabled();
+                ImGuiHelper.SetHoverTooltip("设置提前多少秒使用减伤");
+
+                ImGuiHelper.ToggleButton("自动停手", ref SMNSettings.Instance.AutoStopForSpecialBuff);
+                ImGuiHelper.SetHoverTooltip("在特殊buff下，自动停止攻击" +
+                                            "\n如`加速度炸弹`在2s前停止、`无敌`时停手" +
+                                            "\n理论上高难能用？请时间轴作者自行判断");
+                
                 ImGuiHelper.DrawEnum("苏生之炎目标: ", ref SMNSettings.Instance.RekindleTarget);
                 ImGuiHelper.SetHoverTooltip("苏生之炎的目标选择\n注意：最后四个 不 要 选");
             }
@@ -105,7 +117,7 @@ namespace LittleNightmare.Summoner
                         ImGui.TableNextColumn();
                         ImGui.Text(key);
                         ImGui.TableNextColumn();
-                        if (key is "减伤" or "Welcome" or "即刻" or "复活")
+                        if (key is "减伤" or "Welcome" or "即刻" or "复活" or "引用检测")
                         {
                             ImGui.Text("ACR自动控制，暂不可调整");
                         }
@@ -196,14 +208,17 @@ namespace LittleNightmare.Summoner
             ImGui.Spacing();
             if (ImGui.CollapsingHeader("更新日志##LittleNightmare"))
             {
-                ImGui.Text("2025-01-11" +
-                           "\n修改部分描述：`起手选择`,`常见ACR行为`" +
-                           "\n添加了一个`使用Tips`" +
-                           "\n优化ACR设置UI，如果发现选项有丢失请及时联系我" +
-                           "\n优化ACR代码，使用不应发生变化，除非有其他ACR用户引用我的SummonerRotationEntry");
+                ImGui.Text("2025-01-12" +
+                           "\n添加功能`自动停手`，现在依赖JiaXX的ACR，必须下载，不然我不保证这玩意不炸" +
+                           "\n添加`减伤阈值`");
                 ImGui.Indent();
                 if (ImGui.CollapsingHeader("历史更新日志##LittleNightmareHistory"))
                 {
+                    ImGui.Text("2025-01-11" +
+                               "\n修改部分描述：`起手选择`,`常见ACR行为`" +
+                               "\n添加了一个`使用Tips`" +
+                               "\n优化ACR设置UI，如果发现选项有丢失请及时联系我" +
+                               "\n优化ACR代码，使用不应发生变化，除非有其他ACR用户引用我的SummonerRotationEntry");
                     ImGui.Text("2025-01-07" +
                                "\n修复API变化引起的ACR行为不正常的问题，如一直在使用宝石兽召唤");
                     ImGui.Text("2024-12-29" +

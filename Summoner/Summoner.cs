@@ -200,6 +200,11 @@ namespace LittleNightmare.Summoner
         public void DrawDebugView(JobViewWindow window)
         {
             var target = Core.Me.GetCurrTarget();
+            if (SMNSettings.Instance.AutoStopForSpecialBuff)
+            {
+                ImGui.Text($"需要停手：{SMNBattleData.Instance.NeedStop}");
+                ImGui.Text($"自动停手已触发：{SMNBattleData.Instance.AutoStopTriggered}");
+            }
             ImGui.Text($"Attunement层数：{Core.Resolve<JobApi_Summoner>().AttunementAdjust}");
             var type = "";
             switch (Core.Resolve<JobApi_Summoner>().ActivePetType)
