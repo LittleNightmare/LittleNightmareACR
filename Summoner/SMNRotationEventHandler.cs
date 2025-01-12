@@ -195,15 +195,15 @@ public class SMNRotationEventHandler : IRotationEventHandler
 
     public void OnEnterRotation()
     {
-        var assembly = Assembly.GetExecutingAssembly();
-        var version = assembly.GetName().Version?.ToString() ?? "Unknown version";
-        SummonerRotationEntry.SMNHintManager.TriggerHint("Welcome", customContent: "LittleNightmare召唤 当前版本: " + version, customTTS: "欢迎使用Little Nightmare的召唤ACR");
-        
         if (!RotationManager.Instance.Job2Rotations.TryGetValue(Jobs.Summoner, out var rotations) || rotations.All(x => x.RotationEntry.AuthorName != "JiaXX"))
         {
             SummonerRotationEntry.SMNHintManager.TriggerHint("引用检测", customContent: "检测到您没有使用JiaXX的ACR，请您下载它后并重开AE以保证功能正常运行");
             SMNSettings.Instance.AutoStopForSpecialBuff = false;
         }
+
+        var assembly = Assembly.GetExecutingAssembly();
+        var version = assembly.GetName().Version?.ToString() ?? "Unknown version";
+        SummonerRotationEntry.SMNHintManager.TriggerHint("Welcome", customContent: "LittleNightmare召唤 当前版本: " + version, customTTS: "欢迎使用Little Nightmare的召唤ACR");
     }
 
     public void OnSpellCastSuccess(Slot slot, Spell spell)

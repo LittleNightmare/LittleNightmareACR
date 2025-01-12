@@ -209,11 +209,14 @@ namespace LittleNightmare.Summoner
             if (ImGui.CollapsingHeader("更新日志##LittleNightmare"))
             {
                 ImGui.Text("2025-01-12" +
-                           "\n添加功能`自动停手`，现在依赖JiaXX的ACR，必须下载，不然我不保证这玩意不炸" +
-                           "\n添加`减伤阈值`");
+                           "\n添加自动停手的提示" +
+                           "\n引用检测变的更醒目");
                 ImGui.Indent();
                 if (ImGui.CollapsingHeader("历史更新日志##LittleNightmareHistory"))
                 {
+                    ImGui.Text("2025-01-12" +
+                               "\n添加功能`自动停手`，现在依赖JiaXX的ACR，必须下载，不然我不保证这玩意不炸" +
+                               "\n添加`减伤阈值`");
                     ImGui.Text("2025-01-11" +
                                "\n修改部分描述：`起手选择`,`常见ACR行为`" +
                                "\n添加了一个`使用Tips`" +

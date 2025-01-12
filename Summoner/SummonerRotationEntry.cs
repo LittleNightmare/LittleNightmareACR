@@ -205,7 +205,7 @@ namespace LittleNightmare.Summoner
             }
 
             SMNHintManager.AddHint("Welcome", new Hint("", toast2TimeInMs: 5000, useTTS: true));
-            SMNHintManager.AddHint("引用检测", new Hint("", toast2TimeInMs: 5000));
+            SMNHintManager.AddHint("引用检测", new Hint("", toast2TimeInMs: 5000, useTTS: true, toast2Style: 2));
 
             // ttK提示
             SMNHintManager.AddHint("TTK", new Hint("目标濒死，关闭爆发"));
@@ -218,6 +218,7 @@ namespace LittleNightmare.Summoner
             SMNHintManager.AddHint("减伤", new Hint(""));
             SMNHintManager.AddHint("即刻", new Hint("", showInChat: false));
             SMNHintManager.AddHint("复活", new Hint("", showToast2: false, toast2TimeInMs: 5000));
+            SMNHintManager.AddHint("停手", new Hint("特殊状态，已自动停手"));
 
 
         }

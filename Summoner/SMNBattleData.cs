@@ -185,6 +185,7 @@ namespace LittleNightmare.Summoner
             PlayerOptions.Instance.Stop = true;
             Core.Resolve<MemApiSpell>().CancelCast();
             AutoStopTriggered = true;
+            SummonerRotationEntry.SMNHintManager.TriggerHint("停手");
         }
 
         public void StartAttack()
