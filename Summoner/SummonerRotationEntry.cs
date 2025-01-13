@@ -207,6 +207,8 @@ namespace LittleNightmare.Summoner
             SMNHintManager.AddHint("Welcome", new Hint("", toast2TimeInMs: 5000, useTTS: true));
             SMNHintManager.AddHint("引用检测", new Hint("", toast2TimeInMs: 5000, useTTS: true, toast2Style: 2));
 
+            SMNHintManager.AddHint("AOE自动关闭提示", new Hint("检测到当前位置未解锁AOE，已将AOE自动关闭。如果您坚信是误报，请暂时每次战斗中手动在QT选项中开启，并随后向我反馈", useTTS: true));
+
             // ttK提示
             SMNHintManager.AddHint("TTK", new Hint("目标濒死，关闭爆发"));
             SMNHintManager.AddHint("TTKFinal", new Hint("目标濒死，开启最终爆发"));

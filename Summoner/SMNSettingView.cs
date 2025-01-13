@@ -117,7 +117,7 @@ namespace LittleNightmare.Summoner
                         ImGui.TableNextColumn();
                         ImGui.Text(key);
                         ImGui.TableNextColumn();
-                        if (key is "减伤" or "Welcome" or "即刻" or "复活" or "引用检测")
+                        if (key is "减伤" or "Welcome" or "即刻" or "复活" or "引用检测" or "AOE自动关闭提示")
                         {
                             ImGui.Text("ACR自动控制，暂不可调整");
                         }
@@ -208,15 +208,16 @@ namespace LittleNightmare.Summoner
             ImGui.Spacing();
             if (ImGui.CollapsingHeader("更新日志##LittleNightmare"))
             {
-                ImGui.Text("2025-01-12" +
-                           "\n添加自动停手的提示" +
-                           "\n引用检测变的更醒目");
+                ImGui.Text("2025-01-13" +
+                           "\n可以在进入地图后，根据当前等级自动关闭AOE，解决了在没有aoe时，什么都不打的问题");
                 ImGui.Indent();
                 if (ImGui.CollapsingHeader("历史更新日志##LittleNightmareHistory"))
                 {
                     ImGui.Text("2025-01-12" +
                                "\n添加功能`自动停手`，现在依赖JiaXX的ACR，必须下载，不然我不保证这玩意不炸" +
-                               "\n添加`减伤阈值`");
+                               "\n添加`减伤阈值`" +
+                               "\n添加自动停手的提示" +
+                               "\n引用检测变的更醒目");
                     ImGui.Text("2025-01-11" +
                                "\n修改部分描述：`起手选择`,`常见ACR行为`" +
                                "\n添加了一个`使用Tips`" +

@@ -3,7 +3,6 @@ using AEAssist.CombatRoutine;
 using AEAssist.CombatRoutine.Module;
 using AEAssist.Extension;
 using AEAssist.Helper;
-using AEAssist.JobApi;
 using System.Reflection;
 #if !EXCLUDE_SUM_REFERENCE
 using Sum.Sum.Reference;
@@ -19,7 +18,12 @@ public class SMNRotationEventHandler : IRotationEventHandler
         if (SMNSettings.Instance.AutoResetQt)
         {
             SummonerRotationEntry.QT.Reset();
-        }   
+        }
+
+        if (!SMNHelper.BaseSummonAoE().IsUnlock())
+        {
+            SummonerRotationEntry.QT.SetQt("AOE", false);
+        }
     }
 
     public Task OnPreCombat()
@@ -218,5 +222,9 @@ public class SMNRotationEventHandler : IRotationEventHandler
     public void OnTerritoryChanged()
     {
         OnResetBattle();
+        if (!SMNHelper.BaseSummonAoE().IsUnlock())
+        {
+            SummonerRotationEntry.SMNHintManager.TriggerHint("AOE自动关闭提示", customToast2: "已自动关闭AOE的QT选项");
+        }
     }
 }
