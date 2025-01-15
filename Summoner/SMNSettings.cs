@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using AEAssist.Helper;
 using AEAssist.IO;
 using AEAssist.CombatRoutine.View.JobView;
@@ -24,6 +25,15 @@ namespace LittleNightmare.Summoner
             try
             {
                 Instance = JsonHelper.FromJson<SMNSettings>(File.ReadAllText(path));
+                // Convert old setting from seconds to milliseconds if it exists
+#pragma warning disable CS0618
+                if (Instance.CastReduceTimeBeforeSeconds > 0)
+                {
+                    Instance.CastReduceTimeBeforeMilliseconds = Instance.CastReduceTimeBeforeSeconds * 1000;
+                    Instance.CastReduceTimeBeforeSeconds = 0;
+                    Instance.Save();
+                }
+#pragma warning restore CS0618
             }
             catch (Exception e)
             {
@@ -129,10 +139,14 @@ namespace LittleNightmare.Summoner
         /// 战斗结束后，自动重置qt
         /// </summary>
         public bool AutoResetQt = false;
+
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [Obsolete("CastReduceTimeBeforeSeconds 已过时，请使用 CastReduceTimeBeforeMilliseconds。")]
+        public int CastReduceTimeBeforeSeconds;
         /// <summary>
-        /// 提前多少秒减伤
+        /// 提前多少毫秒减伤
         /// </summary>
-        public int CastReduceTimeBeforeSeconds = 3;
+        public int CastReduceTimeBeforeMilliseconds = 3000;
         /// <summary>
         /// 特殊buff自动停手
         /// </summary>

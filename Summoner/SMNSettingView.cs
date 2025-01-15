@@ -78,9 +78,9 @@ namespace LittleNightmare.Summoner
                 ImGuiHelper.ToggleButton("自动减伤", ref SMNSettings.Instance.AutoReduceDamage);
                 ImGuiHelper.SetHoverTooltip("在非当前高难本中，自动开启减伤，目前只有昏乱");
                 ImGui.BeginDisabled(!SMNSettings.Instance.AutoReduceDamage);
-                ImGuiHelper.LeftInputInt("自动减伤阈值:", ref SMNSettings.Instance.CastReduceTimeBeforeSeconds);
+                ImGuiHelper.LeftInputInt("自动减伤阈值:", ref SMNSettings.Instance.CastReduceTimeBeforeMilliseconds, min: 0, max: 60000, step:100);
                 ImGui.EndDisabled();
-                ImGuiHelper.SetHoverTooltip("设置提前多少秒使用减伤");
+                ImGuiHelper.SetHoverTooltip("单位为毫秒(ms)\n当伤害的剩余读条时间小于设定的阈值时，释放减伤");
 
                 ImGuiHelper.ToggleButton("自动停手", ref SMNSettings.Instance.AutoStopForSpecialBuff);
                 ImGuiHelper.SetHoverTooltip("在特殊buff下，自动停止攻击" +
@@ -208,11 +208,14 @@ namespace LittleNightmare.Summoner
             ImGui.Spacing();
             if (ImGui.CollapsingHeader("更新日志##LittleNightmare"))
             {
-                ImGui.Text("2025-01-13" +
-                           "\n可以在进入地图后，根据当前等级自动关闭AOE，解决了在没有aoe时，什么都不打的问题");
+                ImGui.Text("2025-01-16" +
+                           "\n自动减伤阈值更改为毫秒，如果出现问题请及时联络我" +
+                           "\n更改反馈链接到Discord频道");
                 ImGui.Indent();
                 if (ImGui.CollapsingHeader("历史更新日志##LittleNightmareHistory"))
                 {
+                    ImGui.Text("2025-01-13" +
+                               "\n可以在进入地图后，根据当前等级自动关闭AOE，解决了在没有aoe时，什么都不打的问题");
                     ImGui.Text("2025-01-12" +
                                "\n添加功能`自动停手`，现在依赖JiaXX的ACR，必须下载，不然我不保证这玩意不炸" +
                                "\n添加`减伤阈值`" +

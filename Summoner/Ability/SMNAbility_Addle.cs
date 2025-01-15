@@ -32,7 +32,7 @@ public class SMNAbility_Addle : ISlotResolver
             return -7;
         }
         
-        if (TargetHelper.TargercastingIsbossaoe(target, SMNSettings.Instance.CastReduceTimeBeforeSeconds))
+        if (TargetHelper.targetCastingIsBossAOE(target, SMNSettings.Instance.CastReduceTimeBeforeMilliseconds))
         {
             return 1;
         }
