@@ -33,8 +33,8 @@ namespace LittleNightmare.Summoner.GCD
                 return targetAction;
             if (!SummonerRotationEntry.QT.GetQt("AOE")) return targetAction;
             if (!SMNSettings.Instance.SmartAoETarget) return targetAction;
-            var canTargetObjects = TargetHelper.GetMostCanTargetObjects(targetAction.Id, 2);
-            return canTargetObjects != null ? new Spell(targetAction.Id, canTargetObjects) : targetAction;
+            var canTargetObject = TargetHelper.GetMostCanTargetObjects(targetAction.Id, 2);
+            return canTargetObject != null ? new Spell(targetAction.Id, canTargetObject) : targetAction;
         }
 
         public SlotMode SlotMode { get; } = SlotMode.Gcd;
@@ -75,8 +75,9 @@ namespace LittleNightmare.Summoner.GCD
                         return -3;
                     return 1;
                 }
-                // 如果三神召唤后，会影响亚灵神的释放，那么就不召唤三神
-                if (SMNSettings.Instance.PreventSummonBeforeBahamut && SMNHelper.DemiCoolDownAlmostOver())
+                // 如果三神召唤后，会影响亚灵神的释放，那么就不召唤三神。但这必须处于亚灵神开启的状态下
+                if (SMNSettings.Instance.PreventSummonBeforeBahamut && SMNHelper.DemiCoolDownAlmostOver() && 
+                    SummonerRotationEntry.QT.GetQt("巴哈凤凰") && SummonerRotationEntry.QT.GetQt("爆发"))
                 {
                     return -4;
                 }

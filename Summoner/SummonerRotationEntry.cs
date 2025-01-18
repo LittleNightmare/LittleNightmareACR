@@ -152,6 +152,10 @@ namespace LittleNightmare.Summoner
                 switch (slotMode)
                 {
                     case SlotMode.Gcd:
+                        if (!GCDHelper.CanUseGCD())
+                        {
+                            return -7;
+                        }
                         // TODO: 火神冲2段,好像不用搞了，等国际服的更新同步以后就不用了
                         if (spell.CastTime.TotalSeconds > 0)
                         {
@@ -169,6 +173,10 @@ namespace LittleNightmare.Summoner
 
                         break;
                     case SlotMode.OffGcd:
+                        if (!GCDHelper.CanUseOffGcd())
+                        {
+                            return -8;
+                        }
                         if (spell.Charges < 1)
                         {
                             return -5;

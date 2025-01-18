@@ -171,6 +171,7 @@ namespace LittleNightmare.Summoner
 
             ImGui.Checkbox("阻止亚灵神前召唤三神", ref SMNSettings.Instance.PreventSummonBeforeBahamut);
             ImGuiHelper.SetHoverTooltip("开启后召唤三神会影响亚灵神的释放时，不会召唤三神。主要用于防止循环因为召唤三神错位。" +
+                                        "\n但关闭爆发QT或者关闭巴哈凤凰QT时，ACR会正常召唤三神" +
                                         "\n日随中开启应该没问题" +
                                         "\n高难时建议时间轴作者自行决定");
 

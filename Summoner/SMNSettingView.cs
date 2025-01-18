@@ -157,12 +157,11 @@ namespace LittleNightmare.Summoner
 
             ImGui.Spacing();
 
-            if (ImGui.CollapsingHeader("常见ACR行为：是Feature不是BUG"))
+            if (ImGui.CollapsingHeader("FAQ 常见ACR行为：是Feature不是BUG"))
             {
                 ImGui.Text("1. 豆子不打：目前设定是：即使卡能量吸收也会等到开启灼热之光再打，除非打开`最终爆发`。会考虑增加一个选项控制这个行为");
                 ImGui.Text("2. 在目标圈里不放火神冲：在目标圈内移动中释放，需要开启面板的`目标圈内移动时使用火神冲`");
                 ImGui.Text("3. 在目标圈外不放火神冲：需求启动`自动火神冲`，并且没有在移动");
-                ImGui.Text("4. 不打三神：待修复，在确认开启了`爆发`和`三神召唤`后，这个原因是开启了`阻止亚灵神前召唤三神`，目前还没找到比较好的解决方案。建议先手动打一下，或者关闭这个功能");
             }
 
 
@@ -208,12 +207,14 @@ namespace LittleNightmare.Summoner
             ImGui.Spacing();
             if (ImGui.CollapsingHeader("更新日志##LittleNightmare"))
             {
-                ImGui.Text("2025-01-16" +
-                           "\n自动减伤阈值更改为毫秒，如果出现问题请及时联络我" +
-                           "\n更改反馈链接到Discord频道");
+                ImGui.Text("2025-01-18" +
+                           "\n修复了开启`阻止亚灵神前召唤三神`后，ACR在关闭爆发QT或巴哈凤凰QT时，也不打三神的问题。现在会正常召唤三神");
                 ImGui.Indent();
                 if (ImGui.CollapsingHeader("历史更新日志##LittleNightmareHistory"))
                 {
+                    ImGui.Text("2025-01-16" +
+                               "\n自动减伤阈值更改为毫秒，如果出现问题请及时联络我" +
+                               "\n更改反馈链接到Discord频道");
                     ImGui.Text("2025-01-13" +
                                "\n可以在进入地图后，根据当前等级自动关闭AOE，解决了在没有aoe时，什么都不打的问题");
                     ImGui.Text("2025-01-12" +

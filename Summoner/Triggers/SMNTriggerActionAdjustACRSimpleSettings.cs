@@ -1,6 +1,5 @@
 ﻿using AEAssist.CombatRoutine.Trigger;
 using ImGuiNET;
-using System.Numerics;
 
 namespace LittleNightmare.Summoner.Triggers
 {
@@ -10,11 +9,11 @@ namespace LittleNightmare.Summoner.Triggers
 
         public string Remark { get; set; }
 
-        public int SelectedIndex = 0; // 当前选中的设置项索引
-        public bool CurrentValue = false; // 当前选中的设置项的值
+        public int SelectedIndex; // 当前选中的设置项索引
+        public bool CurrentValue; // 当前选中的设置项的值
 
-        private string[] _settingNames = new string[]
-        {
+        private readonly string[] _settingNames = 
+       [
             "目标圈内移动时使用火神冲",
             "优先毁三填充最后的GCD窗口",
             "濒死检查",
@@ -26,7 +25,7 @@ namespace LittleNightmare.Summoner.Triggers
             "阻止亚灵神前召唤三神",
             "战斗结束后自动重置QT",
             "自动停手",
-        };
+        ];
 
 
         public bool Draw()

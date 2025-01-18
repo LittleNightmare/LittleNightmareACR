@@ -57,8 +57,7 @@ public class SMNAbility_Aether : ISlotResolver
 
         if (SMNSettings.Instance.PreventDoubleFester)
         {
-            if ((Core.Resolve<MemApiSpellCastSuccess>().IsRecentlyUsed(SMNHelper.Aether().Id) 
-                 || Core.Resolve<MemApiSpellCastSuccess>().IsRecentlyUsed(SMNHelper.AetherAOE().Id))
+            if ((SMNHelper.Aether().Id.RecentlyUsed() || SMNHelper.AetherAOE().Id.RecentlyUsed())
                 && !SMNData.Spells.EnergyDrain.CoolDownInGCDs(1))
             {
                 return -2;

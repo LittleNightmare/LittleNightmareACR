@@ -52,15 +52,15 @@ namespace LittleNightmare.Summoner
             return -1;
         }
 
-        public List<Action<Slot>> Sequence { get; } = new List<Action<Slot>>()
-        {
+        public List<Action<Slot>> Sequence { get; } =
+        [
             Step0,
             Step1,
             Step2,
             Step3,
             Step4,
             Step5,
-        };
+        ];
 
         public Action CompeltedAction { get; set; }
 
