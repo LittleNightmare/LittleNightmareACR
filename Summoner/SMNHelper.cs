@@ -81,5 +81,7 @@ namespace LittleNightmare.Summoner
         {
             return SMNHelper.BahamutPhoneix().Id.CoolDownInGCDs(numberOfCoolDownInGCDs);
         }
+
+        public static bool WithinActionAttackRange(uint spell) => Core.Resolve<MemApiSpell>().GetActionInRangeOrLoS(spell) != 566;
     }
 }

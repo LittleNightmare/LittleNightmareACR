@@ -207,11 +207,13 @@ namespace LittleNightmare.Summoner
             ImGui.Spacing();
             if (ImGui.CollapsingHeader("更新日志##LittleNightmare"))
             {
-                ImGui.Text("2025-02-19" +
-                           "\n修复7.1报错问题，火神冲尚未同步7.1的更改，可能出现逻辑问题");
+                ImGui.Text("2025-03-05" +
+                           "\n火神冲二段应用7.1更改，但尚未开发分开的逻辑，只是存在了你分开释放的逻辑，保证其可以正常运行");
                 ImGui.Indent();
                 if (ImGui.CollapsingHeader("历史更新日志##LittleNightmareHistory"))
                 {
+                    ImGui.Text("2025-02-19" +
+                               "\n修复7.1报错问题，火神冲尚未同步7.1的更改，可能出现逻辑问题");
                     ImGui.Text("2025-01-18" +
                                "\n修复了开启`阻止亚灵神前召唤三神`后，ACR在关闭爆发QT或巴哈凤凰QT时，也不打三神的问题。现在会正常召唤三神");
                     ImGui.Text("2025-01-16" +

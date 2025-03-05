@@ -50,20 +50,22 @@ namespace LittleNightmare.Summoner.GCD
             if (SMNBattleData.Instance.IfritGemshineTimes > 0 &&
                 (onTargetRing || SummonerRotationEntry.QT.GetQt("自动火神冲")))
             {
-                // 先冲锋再读条
+                // 先冲锋冲锋再读条
+                // 冲锋-冲锋-读条-读条
                 if (SMNSettings.Instance.IfritMode == 0 
                     || (SummonerRotationEntry.QT.GetQt("最终爆发") && SMNSettings.Instance.ModifyIfritMode && SMNSettings.Instance.FastPassSummon))
                 {
                     return 0;
                 }
 
-                // 先读条再冲锋，此时还有宝石技能,此时不会移动，不考虑自动火神冲; 这里好像会导致读条后不冲锋，但实际没有
+                // 先读条再冲锋冲锋，此时还有宝石技能,此时不会移动，不考虑自动火神冲; 这里好像会导致读条后不冲锋，但实际没有
+                // 读条-读条-冲锋-冲锋
                 if (SMNSettings.Instance.IfritMode == 1)
                 {
                     return -3;
                 }
 
-                // "读条-冲锋-读条"
+                // "读条-冲锋-冲锋-读条"
                 if (SMNSettings.Instance.IfritMode == 2 && SMNBattleData.Instance.IfritGemshineTimes < 2)
                 {
                     return 0;

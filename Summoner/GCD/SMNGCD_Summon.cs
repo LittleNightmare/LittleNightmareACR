@@ -81,7 +81,8 @@ namespace LittleNightmare.Summoner.GCD
                 {
                     return -4;
                 }
-                if (Core.Me.HasAura(SMNData.Buffs.IfritsFavor))
+                // 存在火神冲1/2，不要释放下一个三神
+                if (Core.Me.HasAura(SMNData.Buffs.IfritsFavor) || Core.Me.HasAura(SMNData.Buffs.IfritsFavorII))
                 {
                     return -2;
                 }

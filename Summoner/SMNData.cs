@@ -115,6 +115,7 @@ public class SMNData
             GarudasFavor = 2725,
             TitansFavor = 2853,
             IfritsFavor = 2724,
+            IfritsFavorII = 4403, // CrimsonStrikeReady
             EverlastingFlight = 16517,
             SearingLight = 2703,
             RubysGlimmer = 3873,

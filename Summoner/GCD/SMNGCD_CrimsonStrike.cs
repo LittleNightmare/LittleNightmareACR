@@ -20,13 +20,22 @@ namespace LittleNightmare.Summoner.GCD
         {
             if (!GetSpell().IsReadyWithCanCast())
             {
+                return -11;
+            }
+
+            if (!Core.Me.HasAura(SMNData.Buffs.IfritsFavorII))
+            {
                 return -10;
             }
 
-            if (Core.Resolve<MemApiSpell>().GetLastComboSpellId() == SMNData.Spells.CrimsonCyclone)
+            if (!SMNHelper.WithinActionAttackRange(SMNData.Spells.CrimsonStrike))
             {
-                return 0;
+                return -4;
             }
+
+            if (!MoveHelper.IsMoving()) return 0;
+
+            if (SMNSettings.Instance.SlideUseCrimonCyclone) return 1;
 
             return -1;
         }
