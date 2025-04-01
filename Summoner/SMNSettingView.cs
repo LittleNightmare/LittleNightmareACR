@@ -101,12 +101,12 @@ namespace LittleNightmare.Summoner
                                             "\n提示音暂时没有，可以忽视" +
                                             "\n如果误操作，请不要点保存，直接切换ACR");
                 if (ImGui.BeginTable("hints", _tableColum.Length,
-                        ImGuiTableFlags.RowBg | ImGuiTableFlags.ScrollY | ImGuiTableFlags.Resizable | ImGuiTableFlags.SizingFixedFit))
+                        ImGuiTableFlags.RowBg | ImGuiTableFlags.Resizable | ImGuiTableFlags.SizingFixedFit))
                 {
                     // 画一个Table，用来展示SummonerRotationEntry.SMNHintManager.Hints内容
                     foreach (var t in _tableColum)
                     {
-                        ImGui.TableSetupColumn(t, ImGuiTableColumnFlags.None, t.Length);
+                        ImGui.TableSetupColumn(t, ImGuiTableColumnFlags.None);
                     }
                     ImGui.TableHeadersRow();
                     var index = 0;
@@ -207,11 +207,15 @@ namespace LittleNightmare.Summoner
             ImGui.Spacing();
             if (ImGui.CollapsingHeader("更新日志##LittleNightmare"))
             {
-                ImGui.Text("2025-03-05" +
-                           "\n火神冲二段应用7.1更改，但尚未开发分开的逻辑，只是存在了你分开释放的逻辑，保证其可以正常运行");
+                ImGui.Text("2025-04-01" +
+                           "\n在调试窗口添加高优先GCD/oGCD查看" +
+                           "\n从Ken那里抄了清理高优先级技能的Hotkey" +
+                           "\n修复ACR自动提示控制不显示的问题");
                 ImGui.Indent();
                 if (ImGui.CollapsingHeader("历史更新日志##LittleNightmareHistory"))
                 {
+                    ImGui.Text("2025-03-05" +
+                               "\n火神冲二段应用7.1更改，但尚未开发分开的逻辑，只是存在了你分开释放的逻辑，保证其可以正常运行");
                     ImGui.Text("2025-02-19" +
                                "\n修复7.1报错问题，火神冲尚未同步7.1的更改，可能出现逻辑问题");
                     ImGui.Text("2025-01-18" +

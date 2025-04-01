@@ -8,6 +8,7 @@ using AEAssist.JobApi;
 using ImGuiNET;
 using System.Numerics;
 using Dalamud.Utility;
+using AEAssist.CombatRoutine.Module;
 
 #if DEBUG
 using AEAssist.MemoryApi;
@@ -72,6 +73,7 @@ namespace LittleNightmare.Summoner
 
             AddHotkey("守护之光", new HotKeyResolver_NormalSpell(SMNData.Spells.RadiantAegis, SpellTargetType.Self));
             AddHotkey("日光普照", new HotKeyResolver_NormalSpell(SMNData.Spells.LuxSolaris, SpellTargetType.Self));
+            AddHotkey("清理高优先级队列", new HotKey_HighPrioritySlotsClear());
         }
 
         public new void Reset()
@@ -286,6 +288,29 @@ namespace LittleNightmare.Summoner
             }
             ImGui.Text($"InBossBattle: {Core.Resolve<MemApiDuty>().InBossBattle}");
 #endif
+            ImGui.Text("高优先级队列GCD:");
+            var gcdHigh = AI.Instance.BattleData.HighPrioritySlots_GCD;
+            var ogcdHigh = AI.Instance.BattleData.HighPrioritySlots_OffGCD;
+            if (gcdHigh.Count != 0)
+            {
+                ImGui.Indent();
+                foreach (var action in gcdHigh.SelectMany(gcds => gcds.Actions))
+                {
+                    ImGui.Text($"{action.Spell.Name}");
+                }
+                ImGui.Unindent();
+            }
+            ImGui.Text("高优先级队列oGCD:");
+            if (ogcdHigh.Count != 0)
+            {
+                ImGui.Indent();
+                foreach (var action in ogcdHigh.SelectMany(ogcds => ogcds.Actions))
+                {
+                    ImGui.Text($"{action.Spell.Name}");
+                }
+                ImGui.Unindent();
+            }
+                
             ImGui.Text($"TTK相关");
             ImGui.Text($"最终BOSS：{SMNBattleData.Instance.FinalBoss}");
             ImGui.Text($"TTKTriggered：{SMNBattleData.Instance.TTKTriggered}");
