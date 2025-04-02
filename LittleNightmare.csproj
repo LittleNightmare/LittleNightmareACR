@@ -1,9 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Version>2.5.1.0</Version>
-  </PropertyGroup>
-  <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
+    <AssemblyVersion>2.5.1.0</AssemblyVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -22,6 +20,7 @@
 
   <PropertyGroup>
 	<DalamudLibPath>$(DALAMUD_HOME)</DalamudLibPath>
+	<RepositoryUrl>https://github.com/LittleNightmare/LittleNightmareACR</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
