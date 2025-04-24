@@ -16,8 +16,9 @@ public class SMNAbility_Addle : ISlotResolver
         {
             return -12;
         }
-        if (Data.IsInHighEndDuty)
-            return -11;
+        // 暂时去掉高难度副本的判断，除非真的有必要
+        //if (Data.IsInHighEndDuty)
+        //    return -11;
         if (!SpellsDefine.Addle.GetSpell().IsReadyWithCanCast())
         {
             return -10;
