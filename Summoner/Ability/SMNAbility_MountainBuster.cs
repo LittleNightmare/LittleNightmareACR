@@ -27,6 +27,11 @@ public class SMNAbility_MountainBuster : ISlotResolver
             return -10;
         }
 
+        if (GCDHelper.GetGCDCooldown() < 200)
+        {
+            return -6;
+        }
+
         if (Core.Me.HasAura(SMNData.Buffs.TitansFavor))
         {
             return 0;

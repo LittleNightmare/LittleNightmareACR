@@ -156,7 +156,6 @@ namespace LittleNightmare.Summoner
                         {
                             return -7;
                         }
-                        // TODO: 火神冲2段,好像不用搞了，等国际服的更新同步以后就不用了
                         if (spell.CastTime.TotalSeconds > 0)
                         {
                             if (MoveHelper.IsMoving() && !Core.Me.HasAura(SMNData.Buffs.Swiftcast))
@@ -176,6 +175,10 @@ namespace LittleNightmare.Summoner
                         if (!GCDHelper.CanUseOffGcd())
                         {
                             return -8;
+                        }
+                        if (GCDHelper.GetGCDCooldown() < 200)
+                        {
+                            return -6;
                         }
                         if (spell.Charges < 1)
                         {

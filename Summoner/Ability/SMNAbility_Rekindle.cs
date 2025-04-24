@@ -25,6 +25,11 @@ public class SMNAbility_Rekindle : ISlotResolver
             return -10;
         }
 
+        if (GCDHelper.GetGCDCooldown() < 200)
+        {
+            return -6;
+        }
+
         if (!SMNHelper.InPhoenix)
         {
             return -9;

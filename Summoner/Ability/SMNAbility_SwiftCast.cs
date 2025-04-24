@@ -17,6 +17,10 @@ public class SMNAbility_SwiftCast : ISlotResolver
         {
             return -10;
         }
+        if (GCDHelper.GetGCDCooldown() < 200)
+        {
+            return -6;
+        }
 
         var skillTarget = PartyHelper.DeadAllies.FirstOrDefault(r => !r.HasAura(SMNData.Buffs.Raise));
 

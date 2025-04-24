@@ -31,6 +31,10 @@ public class SMNAbility_Addle : ISlotResolver
         {
             return -7;
         }
+        if (GCDHelper.GetGCDCooldown() < 200)
+        {
+            return -6;
+        }
         
         if (TargetHelper.targetCastingIsBossAOE(target, SMNSettings.Instance.CastReduceTimeBeforeMilliseconds))
         {

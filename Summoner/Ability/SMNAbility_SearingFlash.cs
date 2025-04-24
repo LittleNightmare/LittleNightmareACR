@@ -38,6 +38,11 @@ namespace LittleNightmare.Summoner.Ability
                 return 0;
             }
 
+            if (GCDHelper.GetGCDCooldown() < 200)
+            {
+                return -6;
+            }
+
             if (Core.Me.HasAura(AurasDefine.SearingLight))
             {
                 if (SMNHelper.InAnyDemi)

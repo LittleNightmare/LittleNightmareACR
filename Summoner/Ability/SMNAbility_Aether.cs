@@ -69,6 +69,11 @@ public class SMNAbility_Aether : ISlotResolver
             return 2;
         }
 
+        if (GCDHelper.GetGCDCooldown() < 200)
+        {
+            return -6;
+        }
+
         if (!Core.Me.HasAura(AurasDefine.SearingLight)) return -1;
         // 应该不需要这个
         // if (!Core.Me.HasMyAuraWithTimeleft(AurasDefine.SearingLight, Core.Resolve<MemApiSpell>().GetGCDDuration(false) * 2))
@@ -86,10 +91,10 @@ public class SMNAbility_Aether : ISlotResolver
         // 等待使用巴哈或凤凰的能力技，有设计等待时间
         if (!SMNHelper.EnkindleDemi().RecentlyUsed() && SMNHelper.EnkindleDemi().IsReadyWithCanCast())
         {
-            return -2;
+            return -4;
         }
         // 正常应该不会到这里
-        return 0;
+        return -1;
 
     }
 

@@ -17,6 +17,11 @@ public class SMNAbility_LucidDreaming : ISlotResolver
             return -10;
         }
 
+        if (GCDHelper.GetGCDCooldown() < 200)
+        {
+            return -6;
+        }
+
         if (Core.Me.CurrentMp <= SMNSettings.Instance.MPThreshold)
         {
             return 0;

@@ -49,7 +49,7 @@ namespace LittleNightmare.Summoner
             // AddTab("Qt", DrawQtSettingView);
             // AddTab("风格", DrawChangeStyleView);
             AddTab("调试", DrawDebugView);
-
+            // init QT value
             foreach (var (key, (value, tips)) in QTDefaultValue)
             {
                 if (tips.IsNullOrEmpty())
