@@ -20,7 +20,7 @@ namespace LittleNightmare.Summoner
 {
     public class SummonerOverlay : JobViewWindow
     {
-        private static readonly string[] swiftcastModes = { "即刻复活", "风神读条", "火神读条", "全部" };
+        private static readonly string[] swiftcastModes = { "即刻复活", "风神读条", "火神读条", "全部", "停用" };
 
         private static readonly string[] IfritModes = { "先冲锋再读条", "先读条再冲锋", "读条-冲锋-读条" };
 

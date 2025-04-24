@@ -23,6 +23,7 @@ public class SMNTriggerActionSwiftCastMode : ITriggerAction
             1 => "风神读条",
             2 => "火神读条",
             3 => "全部",
+            4 => "停用",
             _ => Preview
         };
 
@@ -47,7 +48,10 @@ public class SMNTriggerActionSwiftCastMode : ITriggerAction
             {
                 即刻咏唱模式 = 3;
             }
-
+            if (ImGui.Selectable("停用"))
+            {
+                即刻咏唱模式 = 4;
+            }
             ImGui.EndCombo();
         }
 
