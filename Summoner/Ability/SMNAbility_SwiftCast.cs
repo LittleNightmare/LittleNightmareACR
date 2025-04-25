@@ -17,7 +17,7 @@ public class SMNAbility_SwiftCast : ISlotResolver
         {
             return -10;
         }
-        if (GCDHelper.GetGCDCooldown() < 200)
+        if (GCDHelper.GetGCDCooldown() < 600)
         {
             return -6;
         }

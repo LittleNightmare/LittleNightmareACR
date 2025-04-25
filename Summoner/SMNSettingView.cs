@@ -207,13 +207,19 @@ namespace LittleNightmare.Summoner
             ImGui.Spacing();
             if (ImGui.CollapsingHeader("更新日志##LittleNightmare"))
             {
-                ImGui.Text("2025-04-01" +
-                           "\n在调试窗口添加高优先GCD/oGCD查看" +
-                           "\n从Ken那里抄了清理高优先级技能的Hotkey" +
-                           "\n修复ACR自动提示控制不显示的问题");
+                ImGui.Text("2025-04-25" +
+                           "\n防止卡GCD插入能力技，现在不需要开启全局不卡GCD了" +
+                           "\n去掉自动减伤的副本限制，不需要请在时间轴里关闭" +
+                           "\n即刻模式添加一个停用模式" +
+                           "\n增加一个即刻拉人热键，如果没有即刻会读条拉人" +
+                           "\n热键的插入，除了LB和疾跑外，都会等待合适的窗口释放而不是立即释放，防止卡GCD或以为三插");
                 ImGui.Indent();
                 if (ImGui.CollapsingHeader("历史更新日志##LittleNightmareHistory"))
                 {
+                    ImGui.Text("2025-04-01" +
+                               "\n在调试窗口添加高优先GCD/oGCD查看" +
+                               "\n从Ken那里抄了清理高优先级技能的Hotkey" +
+                               "\n修复ACR自动提示控制不显示的问题");
                     ImGui.Text("2025-03-05" +
                                "\n火神冲二段应用7.1更改，但尚未开发分开的逻辑，只是存在了你分开释放的逻辑，保证其可以正常运行");
                     ImGui.Text("2025-02-19" +

@@ -37,7 +37,7 @@ public class SMNAbility_SearingLight : ISlotResolver
         {
             return -6;
         }
-        if (GCDHelper.GetGCDCooldown() < 200)
+        if (GCDHelper.GetGCDCooldown() < 600)
         {
             return -5;
         }

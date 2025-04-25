@@ -69,7 +69,7 @@ public class SMNAbility_Aether : ISlotResolver
             return 2;
         }
 
-        if (GCDHelper.GetGCDCooldown() < 200)
+        if (GCDHelper.GetGCDCooldown() < 600)
         {
             return -6;
         }

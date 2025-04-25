@@ -32,7 +32,7 @@ public class SMNAbility_Addle : ISlotResolver
         {
             return -7;
         }
-        if (GCDHelper.GetGCDCooldown() < 200)
+        if (GCDHelper.GetGCDCooldown() < 600)
         {
             return -6;
         }

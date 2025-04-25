@@ -176,7 +176,7 @@ namespace LittleNightmare.Summoner
                         {
                             return -8;
                         }
-                        if (GCDHelper.GetGCDCooldown() < 200)
+                        if (GCDHelper.GetGCDCooldown() < 600)
                         {
                             return -6;
                         }
