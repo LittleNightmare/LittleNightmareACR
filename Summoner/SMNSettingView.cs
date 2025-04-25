@@ -76,7 +76,7 @@ namespace LittleNightmare.Summoner
                 ImGuiHelper.SetHoverTooltip("濒死检测会在你的目标濒死时，自动关闭爆发qt，以免浪费相关技能\n推荐日随使用，高难本请自行判断是否启用");
 
                 ImGuiHelper.ToggleButton("自动减伤", ref SMNSettings.Instance.AutoReduceDamage);
-                ImGuiHelper.SetHoverTooltip("在非当前高难本中，自动开启减伤，目前只有昏乱");
+                ImGuiHelper.SetHoverTooltip("自动开启减伤，目前只有昏乱");
                 ImGui.BeginDisabled(!SMNSettings.Instance.AutoReduceDamage);
                 ImGuiHelper.LeftInputInt("自动减伤阈值:", ref SMNSettings.Instance.CastReduceTimeBeforeMilliseconds, min: 0, max: 60000, step:100);
                 ImGui.EndDisabled();

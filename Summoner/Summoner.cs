@@ -169,7 +169,7 @@ namespace LittleNightmare.Summoner
             ImGuiHelper.SetHoverTooltip("濒死检查会在你的目标濒死时，自动关闭爆发qt，以免浪费相关技能\n推荐日随使用，高难本请自行判断是否启用");
 
             ImGui.Checkbox("自动减伤", ref SMNSettings.Instance.AutoReduceDamage);
-            ImGuiHelper.SetHoverTooltip("在非当前高难本中，自动开启减伤，目前只有昏乱");
+            ImGuiHelper.SetHoverTooltip("自动开启减伤，目前只有昏乱");
 
             ImGui.Checkbox("目标圈内移动时使用火神冲", ref SMNSettings.Instance.SlideUseCrimonCyclone);
             ImGuiHelper.SetHoverTooltip("移动时，如果在目标圈上，使用火神冲\n不然尝试其他的技能，比如毁4");
