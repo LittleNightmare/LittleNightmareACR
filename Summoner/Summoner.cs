@@ -9,6 +9,10 @@ using ImGuiNET;
 using System.Numerics;
 using Dalamud.Utility;
 using AEAssist.CombatRoutine.Module;
+using LittleNightmare.Summoner.HotkeySlot;
+using AEAssist.Helper;
+
+
 
 #if DEBUG
 using AEAssist.MemoryApi;
@@ -74,6 +78,7 @@ namespace LittleNightmare.Summoner
             AddHotkey("守护之光", new HotKeyResolver_NormalSpell(SMNData.Spells.RadiantAegis, SpellTargetType.Self));
             AddHotkey("日光普照", new HotKeyResolver_NormalSpell(SMNData.Spells.LuxSolaris, SpellTargetType.Self));
             AddHotkey("清理高优先级队列", new HotKey_HighPrioritySlotsClear());
+            AddHotkey("即刻拉人，优先当前目标，没有即刻会读条", new SMNHotkey_Resurrection());
         }
 
         public new void Reset()
@@ -265,6 +270,16 @@ namespace LittleNightmare.Summoner
                 SMNBattleData.Instance.CustomSummon.Clear();
             }
 #if DEBUG
+            var deadTarget = PartyHelper.DeadAllies.FirstOrDefault(r => !r.HasAura(SMNData.Buffs.Raise));
+            var helperTarget = SMNHelper.GetDeadChara();
+            if (deadTarget != null|| helperTarget != null) {
+                ImGui.Text($"复活目标: {deadTarget.Name}");
+                ImGui.Text($"复活目标IsTargetable: {deadTarget.IsTargetable}");
+                ImGui.Text($"复活目标有复苏: {deadTarget.HasAura(SMNData.Buffs.Raise)}");
+                ImGui.Text($"复活目标IsValid: {deadTarget.IsValid()}");
+                ImGui.Text($"Helper给的目标: {helperTarget?.Name}");
+
+            }
             ImGui.Text($"Duty相关");
             ImGui.Text($"IsLastDutyTaskAE：{LNMHelper.IsLastDutyTaskAE()}");
             ImGui.Text($"IsLastDutyTask：{LNMHelper.IsLastDutyTask()}");

@@ -1,8 +1,11 @@
 using AEAssist;
 using AEAssist.CombatRoutine;
+using AEAssist.Extension;
 using AEAssist.Helper;
 using AEAssist.JobApi;
 using AEAssist.MemoryApi;
+using Dalamud.Game.ClientState.Objects.Enums;
+using Dalamud.Game.ClientState.Objects.Types;
 
 namespace LittleNightmare.Summoner
 {
@@ -83,5 +86,16 @@ namespace LittleNightmare.Summoner
         }
 
         public static bool WithinActionAttackRange(uint spell) => Core.Resolve<MemApiSpell>().GetActionInRangeOrLoS(spell) != 566;
+
+        public static IBattleChara? GetDeadChara()
+        {
+            var target = PartyHelper.DeadAllies.FirstOrDefault(r => !r.HasAura(SMNData.Buffs.Raise) && r.IsTargetable && r.IsValid());
+            var currentTarget = Core.Me.GetCurrTarget();
+            if (currentTarget is { ObjectKind: ObjectKind.Player, IsDead: true, IsTargetable: true }
+                && currentTarget.IsValid()
+                && !currentTarget.HasAura(SMNData.Buffs.Raise))
+                target = currentTarget;
+            return target;
+        }
     }
 }
