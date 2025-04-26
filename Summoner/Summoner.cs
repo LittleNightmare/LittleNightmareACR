@@ -271,12 +271,13 @@ namespace LittleNightmare.Summoner
             }
 #if DEBUG
             var deadTarget = PartyHelper.DeadAllies.FirstOrDefault(r => !r.HasAura(SMNData.Buffs.Raise));
-            var helperTarget = SMNHelper.GetDeadChara();
+            var helperTarget = SMNHelper.GetDeadChara(true);
             if (deadTarget != null|| helperTarget != null) {
-                ImGui.Text($"复活目标: {deadTarget.Name}");
-                ImGui.Text($"复活目标IsTargetable: {deadTarget.IsTargetable}");
+                ImGui.Text($"复活目标: {deadTarget?.Name}");
+                ImGui.Text($"复活目标IsTargetable: {deadTarget?.IsTargetable}");
                 ImGui.Text($"复活目标有复苏: {deadTarget.HasAura(SMNData.Buffs.Raise)}");
-                ImGui.Text($"复活目标IsValid: {deadTarget.IsValid()}");
+                ImGui.Text($"复活目标IsValid: {deadTarget?.IsValid()}");
+                ImGui.Text($"复活目标DataId: {deadTarget?.DataId}");
                 ImGui.Text($"Helper给的目标: {helperTarget?.Name}");
 
             }

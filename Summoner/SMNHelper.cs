@@ -87,13 +87,16 @@ namespace LittleNightmare.Summoner
 
         public static bool WithinActionAttackRange(uint spell) => Core.Resolve<MemApiSpell>().GetActionInRangeOrLoS(spell) != 566;
 
-        public static IBattleChara? GetDeadChara()
+        public static IBattleChara? GetDeadChara(bool useRangeTargets = false)
         {
-            var target = PartyHelper.DeadAllies.FirstOrDefault(r => !r.HasAura(SMNData.Buffs.Raise) && r.IsTargetable && r.IsValid());
+            var targets = useRangeTargets ? ECHelper.Objects.OfType<IBattleChara>().Where(r => r is { IsDead: true, ObjectKind: ObjectKind.Player }).ToList() : PartyHelper.DeadAllies;
+            var target = targets.FirstOrDefault(r => !r.HasAura(SMNData.Buffs.Raise) && r.IsTargetable && r.IsValid() && r.Name.TextValue != Core.Me.Name.TextValue && Core.Me.Distance(r) < 30);
             var currentTarget = Core.Me.GetCurrTarget();
             if (currentTarget is { ObjectKind: ObjectKind.Player, IsDead: true, IsTargetable: true }
                 && currentTarget.IsValid()
-                && !currentTarget.HasAura(SMNData.Buffs.Raise))
+                && !currentTarget.HasAura(SMNData.Buffs.Raise)
+                && currentTarget.Name.TextValue != Core.Me.Name.TextValue
+                && Core.Me.Distance(currentTarget) < 30)
                 target = currentTarget;
             return target;
         }
