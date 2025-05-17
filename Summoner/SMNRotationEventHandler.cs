@@ -36,6 +36,10 @@ public class SMNRotationEventHandler : IRotationEventHandler
         return Task.CompletedTask;
     }
 
+    public void BeforeSpell(Slot slot, Spell spell)
+    {
+    }
+
     public void AfterSpell(Slot slot, Spell spell)
     {
         // if (SMNBattleData.Instance.CustomSummon.Count > 0 && !SMNBattleData.Instance.In90Opener)
