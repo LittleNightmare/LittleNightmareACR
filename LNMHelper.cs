@@ -56,20 +56,4 @@ public class LNMHelper
         if (totalNeeded == 0) return true;
         return totalNeeded - 1 == currentCount;
     }
-#if DEBUG
-    public static unsafe StdVector<EventHandlerObjective> GetTask()
-    {
-        var taskList = new StdVector<EventHandlerObjective>();
-        try
-        {
-            taskList = EventFramework.Instance()->GetContentDirector()->Objectives;
-        }
-        catch (Exception e)
-        {
-            return taskList;
-        }
-
-        return taskList;
-    }
-#endif
 }

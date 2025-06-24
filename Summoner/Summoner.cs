@@ -290,18 +290,6 @@ namespace LittleNightmare.Summoner
                 ImGui.Text($"AECountPoint: {Core.Resolve<MemApiDuty>().GetSchedule()?.CountPoint}");
             }
 
-            var dutys = LNMHelper.GetTask();
-            if (!dutys.Equals(new StdVector<EventHandlerObjective>()))
-            {
-                foreach (var duty in dutys)
-                {
-                    var name = duty.Label.ToString();
-                    if (name.IsNullOrEmpty()) continue;
-                    ImGui.Text($"Name:{name}");
-                    ImGui.Text($"CountCurrent:{duty.CountCurrent}");
-                    ImGui.Text($"CountNeeded:{duty.CountNeeded}");
-                }
-            }
             ImGui.Text($"InBossBattle: {Core.Resolve<MemApiDuty>().InBossBattle}");
 #endif
             ImGui.Text("高优先级队列GCD:");
