@@ -9,7 +9,7 @@ public class SMNTriggerActionNewQt : ITriggerAction
     public string DisplayName { get; } = "SMN/[LittleNightmare]新QT设置";
     public string? Remark { get; set; }
 
-    public readonly Dictionary<string, bool> qtValues = new();
+    public Dictionary<string, bool> qtValues = new();
 
     private readonly string[]? qtArray = SummonerRotationEntry.QT?.GetQtArray();
 
