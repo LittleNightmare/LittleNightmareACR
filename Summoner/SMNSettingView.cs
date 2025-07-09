@@ -207,12 +207,14 @@ namespace LittleNightmare.Summoner
             ImGui.Spacing();
             if (ImGui.CollapsingHeader("更新日志##LittleNightmare"))
             {
-                ImGui.Text("2025-06-24" +
-                           "\n更新国服7.2(7.21)，只经过木桩测试" +
-                           "\n请去Github或Discord反馈，下次更新最早会在6.26");
+                ImGui.Text("2025-07-09" +
+                           "\n为时间轴编写，添加（偷）了新的QT界面，可以更方便的控制QT");
                 ImGui.Indent();
                 if (ImGui.CollapsingHeader("历史更新日志##LittleNightmareHistory"))
                 {
+                    ImGui.Text("2025-06-24" +
+                           "\n更新国服7.2(7.21)，只经过木桩测试" +
+                           "\n请去Github或Discord反馈，下次更新最早会在6.26");
                     ImGui.Text("2025-05-17" +
                                "\n修复编译版本导致的报错");
                     ImGui.Text("2025-04-25" +

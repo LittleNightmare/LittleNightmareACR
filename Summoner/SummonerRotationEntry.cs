@@ -102,6 +102,7 @@ namespace LittleNightmare.Summoner
                 //.AddSettingUIs(new SMNSettingView())
                 //.AddSlotSequences()
                 .AddTriggerAction(
+                    new SMNTriggerActionNewQt(),
                     new SMNTriggerActionQt(),
                     new SMNTriggerActionAutoCrimsonCyclone(),
                     new SMNTriggerActionBahamutPhoenix(),
