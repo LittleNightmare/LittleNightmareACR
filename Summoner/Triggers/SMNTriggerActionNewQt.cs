@@ -45,7 +45,7 @@ public class SMNTriggerActionNewQt : ITriggerAction
                 {
                     if (!qtValues.TryGetValue(qt, out var value))
                         qtValues[qt] = false; // 🆕 → ❌
-                    else if (qtValues[qt] == !value)
+                    else if (!value)
                         qtValues[qt] = true; // ❌ → ✅
                     else
                         qtValues.Remove(qt); // ✅ → 🆕
