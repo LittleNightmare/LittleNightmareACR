@@ -151,5 +151,9 @@ namespace LittleNightmare.Summoner
         /// 特殊buff自动停手
         /// </summary>
         public bool AutoStopForSpecialBuff = false;
+        /// <summary>
+        /// 自动召唤宝石兽
+        /// </summary>
+        public bool AutoSummonCarbuncle = true;
     }
 }

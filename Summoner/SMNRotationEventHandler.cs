@@ -4,6 +4,8 @@ using AEAssist.CombatRoutine.Module;
 using AEAssist.Extension;
 using AEAssist.Helper;
 using System.Reflection;
+using AEAssist.JobApi;
+using AEAssist.MemoryApi;
 #if !EXCLUDE_SUM_REFERENCE
 using Sum.Sum.Reference;
 #endif
@@ -26,14 +28,22 @@ public class SMNRotationEventHandler : IRotationEventHandler
         }
     }
 
-    public Task OnPreCombat()
+    public async Task OnPreCombat()
     {
-        return Task.CompletedTask;
+        //TODO: 不知道为啥，进本时右下角还在转圈，就会读一个，然后被打断
+        if (SMNSettings.Instance.AutoSummonCarbuncle && Core.Resolve<MemApiCondition>().IsBoundByDuty())
+        {
+            if (!Core.Resolve<JobApi_Summoner>().HasPet && !SMNData.Spells.SummonCarbuncle.RecentlyUsed(2500) && SMNData.Spells.SummonCarbuncle.GetSpell().IsReadyWithCanCast())
+            {
+                await SMNData.Spells.SummonCarbuncle.GetSpell().Cast();
+            }
+        }
+        await Task.CompletedTask;
     }
 
-    public Task OnNoTarget()
+    public async Task OnNoTarget()
     {
-        return Task.CompletedTask;
+        await Task.CompletedTask;
     }
 
     public void BeforeSpell(Slot slot, Spell spell)

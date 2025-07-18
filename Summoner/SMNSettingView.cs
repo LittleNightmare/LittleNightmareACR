@@ -69,6 +69,9 @@ namespace LittleNightmare.Summoner
             {
                 ImGuiHelper.SetHoverTooltip("智能设置会造成性能损耗，如果发现严重影响请关闭");
 
+                ImGuiHelper.ToggleButton("自动召唤宝石兽", ref SMNSettings.Instance.AutoSummonCarbuncle);
+                ImGuiHelper.SetHoverTooltip("在副本内，如果处于非战斗状态且没有宝石兽，会自动召唤宝石兽");
+
                 ImGuiHelper.ToggleButton("智能AOE目标", ref SMNSettings.Instance.SmartAoETarget);
                 ImGuiHelper.SetHoverTooltip("将智能选择最适合释放AoE的目标，而不是根据当前目标决定是否使用AoE\n火神冲的暂无支持计划");
 
