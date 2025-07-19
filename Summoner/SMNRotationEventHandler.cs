@@ -4,6 +4,7 @@ using AEAssist.CombatRoutine.Module;
 using AEAssist.Extension;
 using AEAssist.Helper;
 using System.Reflection;
+using AEAssist.CombatRoutine.Module.AILoop;
 using AEAssist.JobApi;
 using AEAssist.MemoryApi;
 #if !EXCLUDE_SUM_REFERENCE
@@ -30,12 +31,14 @@ public class SMNRotationEventHandler : IRotationEventHandler
 
     public async Task OnPreCombat()
     {
-        //TODO: 不知道为啥，进本时右下角还在转圈，就会读一个，然后被打断
+        //TODO: 不知道为啥，进本时右下角还在转圈，就会读一个，然后被打断。从直接cast换成slot没有解决这个问题。有时候不会发生
         if (SMNSettings.Instance.AutoSummonCarbuncle && Core.Resolve<MemApiCondition>().IsBoundByDuty())
         {
             if (!Core.Resolve<JobApi_Summoner>().HasPet && !SMNData.Spells.SummonCarbuncle.RecentlyUsed(2500) && SMNData.Spells.SummonCarbuncle.GetSpell().IsReadyWithCanCast())
             {
-                await SMNData.Spells.SummonCarbuncle.GetSpell().Cast();
+                var slot = new Slot();
+                slot.Add(SMNData.Spells.SummonCarbuncle.GetSpell());
+                await slot.Run(AI.Instance.BattleData, false);
             }
         }
         await Task.CompletedTask;
@@ -240,5 +243,6 @@ public class SMNRotationEventHandler : IRotationEventHandler
         {
             SummonerRotationEntry.SMNHintManager.TriggerHint("AOE自动关闭提示", customToast2: "已自动关闭AOE的QT选项");
         }
+        //TODO：在这里加一个副本内自动切换起手
     }
 }
