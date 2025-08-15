@@ -210,11 +210,13 @@ namespace LittleNightmare.Summoner
             ImGui.Spacing();
             if (ImGui.CollapsingHeader("更新日志##LittleNightmare"))
             {
-                ImGui.Text("2025-07-19" +
-                           "\n添加 自动召唤宝石兽 功能，已知：可能导致在刚进本，还不能用技能的时间段，尝试召唤。暂无解决方案");
+                ImGui.Text("2025-08-15" +
+                           "\n修复编译版本导致的报错");
                 ImGui.Indent();
                 if (ImGui.CollapsingHeader("历史更新日志##LittleNightmareHistory"))
                 {
+                    ImGui.Text("2025-07-19" +
+                               "\n添加 自动召唤宝石兽 功能，已知：可能导致在刚进本，还不能用技能的时间段，尝试召唤。暂无解决方案");
                     ImGui.Text("2025-07-09" +
                                "\n为时间轴编写，添加（偷）了新的QT界面，可以更方便的控制QT");
                     ImGui.Text("2025-06-24" +
